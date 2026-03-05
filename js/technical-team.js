@@ -53,6 +53,15 @@ const technicalTeam = [
         experience: "8 years",
         description: "Team Captain - Player Coach"
     }
+    {
+        id: 7,
+        name: "Paida Tsuro",
+        role: "Head of Recruitment",
+        title: "Chief Scout",
+        image: "images/paida.jpg",
+        experience: "8 years",
+        description: "Recruitment Analyst"
+    }
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -103,3 +112,4 @@ function createTechnicalCard(member) {
     return card;
 
 }
+
