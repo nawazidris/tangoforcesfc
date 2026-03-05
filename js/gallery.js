@@ -1,6 +1,6 @@
 const galleryPhotos = [
     // Matchday Pictures
-    { id: 1, type: 'image', src: '../images/matchday/tango1.jpg', title: 'Match Victory', category: 'pictures', subcategory: 'matchday' },
+    { id: 1, type: 'image', src: 'images/tango1.jpg', title: 'Match Victory', category: 'pictures', subcategory: 'matchday' },
     { id: 2, type: 'image', src: '../images/matchday/tango2.jpg', title: 'Cup Final', category: 'pictures', subcategory: 'matchday' },
     { id: 3, type: 'image', src: '../images/matchday/tango3.jpg', title: 'League Match', category: 'pictures', subcategory: 'matchday' },
     { id: 4, type: 'image', src: '../images/matchday/tango4.jpg', title: 'Match Victory', category: 'pictures', subcategory: 'matchday' },
@@ -366,3 +366,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initNavDropdown();
 });
+
