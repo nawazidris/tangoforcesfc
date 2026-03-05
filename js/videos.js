@@ -4,7 +4,7 @@
 const galleryVideos = [
   // Champions Celebrations Videos
   { id: 1, type: 'video', src: 'images/tango01.mp4', title: 'Tango', category: 'videos', subcategory: 'champions' },
-  { id: 10, type: 'video', src: 'images/tango02.mp4', title: 'Tanggo', category: 'videos', subcategory: 'champions' }
+  { id: 10, type: 'video', src: 'images/tango02.mp4', title: 'Tanggo', category: 'videos', subcategory: 'champions' },
   
   // Matchday Videos
   
@@ -63,6 +63,7 @@ function loadVideos() {
 // Run after DOM is loaded
 
 document.addEventListener("DOMContentLoaded", loadVideos);
+
 
 
 
