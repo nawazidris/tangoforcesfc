@@ -52,7 +52,7 @@ const technicalTeam = [
         image: "images/idris.jpg",
         experience: "8 years",
         description: "Team Captain - Player Coach"
-    }
+    },
     {
         id: 7,
         name: "Paida Tsuro",
@@ -112,4 +112,5 @@ function createTechnicalCard(member) {
     return card;
 
 }
+
 
