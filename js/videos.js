@@ -2,15 +2,18 @@
 
 // Dataset of Tango FC videos
 const galleryVideos = [
-  // Matchday Videos
-  { id: 2, type: 'video', src: 'images/tango1.mp4', title: 'Trophy Celebration', category: 'videos', subcategory: 'matchday' },
-  { id: 3, type: 'video', src: 'images/tango2.mp4', title: 'Trophy Celebration', category: 'videos', subcategory: 'matchday' },
-  { id: 2, type: 'video', src: 'images/tango3.mp4', title: 'Trophy Celebration', category: 'videos', subcategory: 'matchday' },
-  { id: 2, type: 'video', src: 'images/tango4.mp4', title: 'Trophy Celebration', category: 'videos', subcategory: 'matchday' },
-
   // Champions Celebrations Videos
-  { id: 6, type: 'video', src: 'images/tango2.mov', title: 'Team Celebration 1', category: 'videos', subcategory: 'champions' },
-  { id: 10, type: 'video', src: 'images/tango1.mov', title: 'Team Celebration 2', category: 'videos', subcategory: 'champions' }
+  { id: 1, type: 'video', src: 'images/tango01.mp4', title: 'Tango', category: 'videos', subcategory: 'champions' },
+  { id: 10, type: 'video', src: 'images/tango02.mp4', title: 'Tanggo', category: 'videos', subcategory: 'champions' }
+  
+  // Matchday Videos
+  
+  { id: 2, type: 'video', src: 'images/tango1.mp4', title: 'The Forces', category: 'videos', subcategory: 'matchday' },
+  { id: 3, type: 'video', src: 'images/tango2.mp4', title: 'The Forces', category: 'videos', subcategory: 'matchday' },
+  { id: 4, type: 'video', src: 'images/tango3.mp4', title: 'The Forces', category: 'videos', subcategory: 'matchday' },
+  { id: 5, type: 'video', src: 'images/tango4.mp4', title: 'The Forces', category: 'videos', subcategory: 'matchday' },
+
+
 ];
 
 // Function to populate the video grid
@@ -60,5 +63,6 @@ function loadVideos() {
 // Run after DOM is loaded
 
 document.addEventListener("DOMContentLoaded", loadVideos);
+
 
 
