@@ -3,10 +3,10 @@
 // Dataset of Tango FC videos
 const galleryVideos = [
   // Matchday Videos
-  { id: 2, type: 'video', src: 'images/tango1.mov', title: 'Trophy Celebration', category: 'videos', subcategory: 'matchday' },
-  { id: 3, type: 'video', src: 'images/tango2.mov', title: 'Trophy Celebration', category: 'videos', subcategory: 'matchday' },
-  { id: 2, type: 'video', src: 'images/tango3.mov', title: 'Trophy Celebration', category: 'videos', subcategory: 'matchday' },
-  { id: 2, type: 'video', src: 'images/tango4.mov', title: 'Trophy Celebration', category: 'videos', subcategory: 'matchday' },
+  { id: 2, type: 'video', src: 'images/tango1.mp4', title: 'Trophy Celebration', category: 'videos', subcategory: 'matchday' },
+  { id: 3, type: 'video', src: 'images/tango2.mp4', title: 'Trophy Celebration', category: 'videos', subcategory: 'matchday' },
+  { id: 2, type: 'video', src: 'images/tango3.mp4', title: 'Trophy Celebration', category: 'videos', subcategory: 'matchday' },
+  { id: 2, type: 'video', src: 'images/tango4.mp4', title: 'Trophy Celebration', category: 'videos', subcategory: 'matchday' },
 
   // Champions Celebrations Videos
   { id: 6, type: 'video', src: 'images/tango2.mov', title: 'Team Celebration 1', category: 'videos', subcategory: 'champions' },
@@ -60,4 +60,5 @@ function loadVideos() {
 // Run after DOM is loaded
 
 document.addEventListener("DOMContentLoaded", loadVideos);
+
 
