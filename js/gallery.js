@@ -26,23 +26,9 @@ const galleryPhotos = [
     { id: 104, type: 'image', src: 'images/IMG_3509.jpg', title: 'MOSSL Celebration - IMG_3509', category: 'pictures', subcategory: 'champions' },
     { id: 105, type: 'image', src: 'images/IMG_3510.jpg', title: 'MOSSL Celebration - IMG_3510', category: 'pictures', subcategory: 'champions' },
     { id: 106, type: 'image', src: 'images/IMG_3511.jpg', title: 'MOSSL Celebration - IMG_3511', category: 'pictures', subcategory: 'champions' },
-    { id: 107, type: 'image', src: 'images/IMG_3512.jpg', title: 'MOSSL Celebration - IMG_3512', category: 'pictures', subcategory: 'champions' },
     { id: 108, type: 'image', src: 'images/IMG_3513.jpg', title: 'MOSSL Celebration - IMG_3513', category: 'pictures', subcategory: 'champions' },
-    { id: 109, type: 'image', src: 'images/IMG_3517.jpg', title: 'MOSSL Celebration - IMG_3517', category: 'pictures', subcategory: 'champions' },
     { id: 110, type: 'image', src: 'images/IMG_3518.jpg', title: 'MOSSL Celebration - IMG_3518', category: 'pictures', subcategory: 'champions' },
-    { id: 111, type: 'image', src: 'images/IMG_3519.jpg', title: 'MOSSL Celebration - IMG_3519', category: 'pictures', subcategory: 'champions' },
     { id: 112, type: 'image', src: 'images/IMG_3520.jpg', title: 'MOSSL Celebration - IMG_3520', category: 'pictures', subcategory: 'champions' },
-    { id: 113, type: 'image', src: 'images/IMG_3521.jpg', title: 'MOSSL Celebration - IMG_3521', category: 'pictures', subcategory: 'champions' },
-    { id: 114, type: 'image', src: 'images/IMG_3522.jpg', title: 'MOSSL Celebration - IMG_3522', category: 'pictures', subcategory: 'champions' },
-    { id: 115, type: 'image', src: 'images/IMG_3523.jpg', title: 'MOSSL Celebration - IMG_3523', category: 'pictures', subcategory: 'champions' },
-    { id: 211, type: 'image', src: 'images/IMG_3648.jpg', title: 'MOSSL Celebration - IMG_3648', category: 'pictures', subcategory: 'champions' },
-    { id: 212, type: 'image', src: 'images/IMG_3649.jpg', title: 'MOSSL Celebration - IMG_3649', category: 'pictures', subcategory: 'champions' },
-    { id: 213, type: 'image', src: 'images/IMG_3650.jpg', title: 'MOSSL Celebration - IMG_3650', category: 'pictures', subcategory: 'champions' },
-    { id: 214, type: 'image', src: 'images/IMG_3651.jpg', title: 'MOSSL Celebration - IMG_3651', category: 'pictures', subcategory: 'champions' },
-    { id: 215, type: 'image', src: 'images/IMG_3652.jpg', title: 'MOSSL Celebration - IMG_3652', category: 'pictures', subcategory: 'champions' },
-    { id: 216, type: 'image', src: 'images/IMG_3653.jpg', title: 'MOSSL Celebration - IMG_3653', category: 'pictures', subcategory: 'champions' },
-    { id: 223, type: 'image', src: 'images/IMG_3660.jpg', title: 'MOSSL Celebration - IMG_3660', category: 'pictures', subcategory: 'champions' },
-    { id: 224, type: 'image', src: 'images/IMG_3661.jpg', title: 'MOSSL Celebration - IMG_3661', category: 'pictures', subcategory: 'champions' },
     { id: 225, type: 'image', src: 'images/IMG_3662.jpg', title: 'MOSSL Celebration - IMG_3662', category: 'pictures', subcategory: 'champions' },
     
     
@@ -366,5 +352,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initNavDropdown();
 });
+
 
 
