@@ -1,0 +1,74 @@
+[
+    {
+        "id": 1,
+        "homeTeam": "Tango FC",
+        "awayTeam": "ZRP FC",
+        "homeScore": null,
+        "awayScore": null,
+        "date": "2026-02-22",
+        "time": "19:00",
+        "venue": "Tango Stadium",
+        "status": "upcoming",
+        "competition": "League"
+    },
+    {
+        "id": 2,
+        "homeTeam": "CDA FC",
+        "awayTeam": "Tango FC",
+        "homeScore": 2,
+        "awayScore": 1,
+        "date": "2026-02-15",
+        "time": "18:30",
+        "venue": "CDA Sports Complex",
+        "status": "completed",
+        "competition": "League"
+    },
+    {
+        "id": 3,
+        "homeTeam": "Tango FC",
+        "awayTeam": "Flesk UTD",
+        "homeScore": null,
+        "awayScore": null,
+        "date": "2026-02-27",
+        "time": "20:00",
+        "venue": "Tango Stadium",
+        "status": "upcoming",
+        "competition": "Cup"
+    },
+    {
+        "id": 4,
+        "homeTeam": "Steers FC",
+        "awayTeam": "Tango FC",
+        "homeScore": 0,
+        "awayScore": 3,
+        "date": "2026-02-08",
+        "time": "19:30",
+        "venue": "Steers Arena",
+        "status": "completed",
+        "competition": "League"
+    },
+    {
+        "id": 5,
+        "homeTeam": "Tango FC",
+        "awayTeam": "Safeguard",
+        "homeScore": 4,
+        "awayScore": 2,
+        "date": "2026-02-01",
+        "time": "18:00",
+        "venue": "Tango Stadium",
+        "status": "completed",
+        "competition": "League"
+    },
+    {
+        "id": 6,
+        "homeTeam": "Morefire FC",
+        "awayTeam": "Tango FC",
+        "homeScore": null,
+        "awayScore": null,
+        "date": "2026-03-05",
+        "time": "19:00",
+        "venue": "Morefire Stadium",
+        "status": "upcoming",
+        "competition": "League"
+    }
+]
