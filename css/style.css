@@ -3457,3 +3457,39 @@ section {
         font-size: 1.3rem;
     }
 }
+@media (max-width: 768px) {
+
+/* Navigation */
+nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Hero section */
+.hero h1 {
+    font-size: 2rem;
+}
+
+/* Hero buttons */
+.hero-actions {
+    flex-direction: column;
+}
+
+/* About section layout */
+.about-content {
+    flex-direction: column;
+    text-align: center;
+}
+
+/* News layout */
+.news-grid {
+    grid-template-columns: 1fr;
+}
+
+/* Reduce padding on sections */
+.section-container {
+    padding: 20px;
+}
+
+}
