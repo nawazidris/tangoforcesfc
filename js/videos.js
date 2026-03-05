@@ -3,11 +3,11 @@
 // Dataset of Tango FC videos
 const galleryVideos = [
   // Matchday Videos
-  { id: 2, type: 'video', src: '../images/players/tango2.mov', title: 'Trophy Celebration', category: 'videos', subcategory: 'matchday' },
+  { id: 2, type: 'video', src: 'images/tango2.mov', title: 'Trophy Celebration', category: 'videos', subcategory: 'matchday' },
 
   // Champions Celebrations Videos
-  { id: 6, type: 'video', src: '../images/players/tango2.mov', title: 'Team Celebration 1', category: 'videos', subcategory: 'champions' },
-  { id: 10, type: 'video', src: '../images/players/tango1.mov', title: 'Team Celebration 2', category: 'videos', subcategory: 'champions' }
+  { id: 6, type: 'video', src: 'images/tango2.mov', title: 'Team Celebration 1', category: 'videos', subcategory: 'champions' },
+  { id: 10, type: 'video', src: 'images/tango1.mov', title: 'Team Celebration 2', category: 'videos', subcategory: 'champions' }
 ];
 
 // Function to populate the video grid
@@ -55,4 +55,5 @@ function loadVideos() {
 }
 
 // Run after DOM is loaded
+
 document.addEventListener("DOMContentLoaded", loadVideos);
