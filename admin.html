@@ -7,10 +7,20 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- 🔒 Admin Access Check -->
+    <script>
+        const token = sessionStorage.getItem('adminToken');
+        const validToken = btoa('admin:StrongPass123'); // must match login credentials
+        if(token !== validToken){
+            window.location.href = 'login.html';
+        }
+    </script>
+
     <header>
         <div class="header-top">
             <h1>Tango Football Club - Admin Portal</h1>
             <button id="themeToggle" class="theme-btn">🌙 Dark Mode</button>
+            <button onclick="logout()" class="theme-btn" style="margin-left:20px;">🚪 Logout</button>
         </div>
         <nav>
             <ul>
@@ -24,6 +34,7 @@
             </ul>
         </nav>
     </header>
+
     <main>
         <section class="admin-header">
             <h2>Admin Dashboard</h2>
@@ -32,15 +43,9 @@
 
         <div class="admin-container">
             <div class="admin-sidebar">
-                <button class="admin-tab-btn active" data-tab="players">
-                    👥 Manage Players
-                </button>
-                <button class="admin-tab-btn" data-tab="matches">
-                    📅 Manage Matches
-                </button>
-                <button class="admin-tab-btn" data-tab="stats">
-                    📊 Upload Stats
-                </button>
+                <button class="admin-tab-btn active" data-tab="players">👥 Manage Players</button>
+                <button class="admin-tab-btn" data-tab="matches">📅 Manage Matches</button>
+                <button class="admin-tab-btn" data-tab="stats">📊 Upload Stats</button>
             </div>
 
             <div class="admin-content">
@@ -49,7 +54,6 @@
                     <h3>👥 Add/Edit Players</h3>
                     <form id="playerForm" class="admin-form">
                         <input type="hidden" id="playerId">
-                        
                         <div class="form-section">
                             <h4>Basic Information</h4>
                             <div class="form-row">
@@ -63,7 +67,6 @@
                                 </div>
                             </div>
                         </div>
-                        
                         <div class="form-section">
                             <h4>Team Details</h4>
                             <div class="form-row">
@@ -83,7 +86,6 @@
                                 </div>
                             </div>
                         </div>
-                        
                         <div class="form-section">
                             <h4>Statistics</h4>
                             <div class="form-row">
@@ -96,7 +98,6 @@
                                     <input type="number" id="playerAssists" min="0" required>
                                 </div>
                             </div>
-                            <!-- Goalkeeper specific stats -->
                             <div id="goalkeeperStats" class="position-specific-stats" style="display: none;">
                                 <div class="form-row">
                                     <div class="form-group">
@@ -109,7 +110,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Defender specific stats -->
                             <div id="defenderStats" class="position-specific-stats" style="display: none;">
                                 <div class="form-row">
                                     <div class="form-group">
@@ -119,7 +119,6 @@
                                 </div>
                             </div>
                         </div>
-                        
                         <div class="form-section">
                             <h4>Media</h4>
                             <div class="form-group">
@@ -127,7 +126,6 @@
                                 <input type="text" id="playerImage" placeholder="../images/players/xxx.jpg">
                             </div>
                         </div>
-                        
                         <button type="submit" class="btn-save">💾 Save Player</button>
                     </form>
 
@@ -140,7 +138,6 @@
                     <h3>📅 Add/Edit Matches</h3>
                     <form id="matchForm" class="admin-form">
                         <input type="hidden" id="matchId">
-                        
                         <div class="form-section">
                             <h4>Match Details</h4>
                             <div class="form-row">
@@ -154,7 +151,6 @@
                                 </div>
                             </div>
                         </div>
-                        
                         <div class="form-section">
                             <h4>Schedule & Venue</h4>
                             <div class="form-row">
@@ -180,7 +176,6 @@
                                 </select>
                             </div>
                         </div>
-                        
                         <div class="form-section">
                             <h4>Match Results (Optional)</h4>
                             <div class="form-row">
@@ -202,7 +197,6 @@
                                 </select>
                             </div>
                         </div>
-                        
                         <button type="submit" class="btn-save">💾 Save Match</button>
                     </form>
 
@@ -213,8 +207,6 @@
                 <!-- Stats Tab -->
                 <div id="stats-tab" class="admin-tab">
                     <h3>📊 Player Statistics</h3>
-                    
-                    <!-- Statistics Overview -->
                     <div class="stats-overview">
                         <div class="stat-card">
                             <h4>👥 Total Players</h4>
@@ -233,7 +225,6 @@
                             <span id="upcomingMatches">0</span>
                         </div>
                     </div>
-                    
                     <div class="form-section">
                         <h4>Update Player Statistics</h4>
                         <p>Use this section to upload or update player performance stats</p>
@@ -247,13 +238,20 @@
             </div>
         </div>
     </main>
+
     <footer>
         <p>&copy; 2026 Tango Football Club</p>
     </footer>
+
     <script src="js/theme.js"></script>
     <script src="js/admin.js"></script>
+
+    <!-- 🔑 Logout Function -->
+    <script>
+        function logout() {
+            sessionStorage.removeItem('adminToken');
+            window.location.href = 'login.html';
+        }
+    </script>
 </body>
 </html>
-
-
-
