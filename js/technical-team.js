@@ -4,7 +4,7 @@ const technicalTeam = [
         name: "Taruvinga Mutangiranwa",
         role: "CEO",
         title: "Chief Executive Officer",
-        image: "../images/players/tango.jpg",
+        image: "images/tango.jpg",
         experience: "10 years",
         description: "Leading the club with vision"
     },
@@ -13,7 +13,7 @@ const technicalTeam = [
         name: "Alious Jamela",
         role: "Director",
         title: "Football Director",
-        image: "../images/players/jamela.jpg",
+        image: "images/jamela.jpg",
         experience: "10 years",
         description: "Overseeing football operations"
     },
@@ -22,7 +22,7 @@ const technicalTeam = [
         name: "Pride Thembie Chikunguru",
         role: "Head Coach",
         title: "Head Coach",
-        image: "../images/players/thembie.jpg",
+        image: "images/thembie.jpg",
         experience: "7 years",
         description: "Leading team strategy"
     },
@@ -31,7 +31,7 @@ const technicalTeam = [
         name: "Newsber Kwangwa",
         role: "Coach",
         title: "Assistant Coach - Offensive",
-        image: "../images/players/newz.jpg",
+        image: "images/newz.jpg",
         experience: "8 years",
         description: "Offensive strategy specialist"
     },
@@ -40,7 +40,7 @@ const technicalTeam = [
         name: "Robert Marongwe",
         role: "Assistant Coach",
         title: "Goalkeeper Coach - Defensive",
-        image: "../images/players/robho.jpg",
+        image: "images/robho.jpg",
         experience: "7 years",
         description: "Defensive tactics expert"
     },
@@ -49,7 +49,7 @@ const technicalTeam = [
         name: "Edrice Mujeyi",
         role: "Captain",
         title: "Team Captain",
-        image: "../images/players/idris.jpg",
+        image: "images/idris.jpg",
         experience: "8 years",
         description: "Team Captain - Player Coach"
     }
@@ -101,4 +101,5 @@ function createTechnicalCard(member) {
         </div>
     `;
     return card;
+
 }
