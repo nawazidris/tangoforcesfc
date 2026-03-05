@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Tango Football Club</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <h1>Tango Football Club</h1>
+            <button id="themeToggle" class="theme-btn">🌙 Dark Mode</button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="roster.html">Player Roster</a></li>
+                <li><a href="matches.html">Matches</a></li>
+                <li><a href="history.html">Club History</a></li>
+                <li><a href="videos.html">Videos</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+    <!-- Page Header -->
+    <section class="gallery-header">
+        <h2 id="galleryTitle">Club Gallery</h2>
+        <p id="galleryDescription">Photos from matches and team events</p>
+    </section>
+
+    <!-- Pictures Only -->
+    <div class="gallery-container">
+        <section class="gallery-section">
+            <!-- Matchday Pictures -->
+            <div class="subsection">
+                <h3 class="subsection-title" onclick="toggleSubsection(event)">▶ Matchday Pictures</h3>
+                <div class="gallery-grid subsection-content" id="matchdayPicturesGrid" style="display: none;"></div>
+            </div>
+
+            <!-- MOSSL Champions Celebrations -->
+            <div class="subsection">
+                <h3 class="subsection-title" onclick="toggleSubsection(event)">▶ 2025/26 MOSSL Champions Celebrations</h3>
+                <div class="gallery-grid subsection-content" id="celebrationsPicturesGrid" style="display: none;"></div>
+            </div>
+        </section>
+    </div>
+
+         </main>
+    <footer>
+        <p>&copy; 2026 Tango Football Club</p>
+    </footer>
+    <script src="../js/theme.js"></script>
+    <script src="../js/gallery.js"></script>
+</body>
+</html>

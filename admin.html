@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Tango Football Club</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <h1>Tango Football Club - Admin Portal</h1>
+            <button id="themeToggle" class="theme-btn">🌙 Dark Mode</button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="roster.html">Player Roster</a></li>
+                <li><a href="matches.html">Matches</a></li>
+                <li><a href="history.html">Club History</a></li>
+                <li><a href="videos.html">Videos</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="admin-header">
+            <h2>Admin Dashboard</h2>
+            <p>Manage players, matches, and content</p>
+        </section>
+
+        <div class="admin-container">
+            <div class="admin-sidebar">
+                <button class="admin-tab-btn active" data-tab="players">
+                    👥 Manage Players
+                </button>
+                <button class="admin-tab-btn" data-tab="matches">
+                    📅 Manage Matches
+                </button>
+                <button class="admin-tab-btn" data-tab="stats">
+                    📊 Upload Stats
+                </button>
+            </div>
+
+            <div class="admin-content">
+                <!-- Players Tab -->
+                <div id="players-tab" class="admin-tab active">
+                    <h3>👥 Add/Edit Players</h3>
+                    <form id="playerForm" class="admin-form">
+                        <input type="hidden" id="playerId">
+                        
+                        <div class="form-section">
+                            <h4>Basic Information</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Player Name:</label>
+                                    <input type="text" id="playerName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nickname:</label>
+                                    <input type="text" id="playerNickname" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h4>Team Details</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Position:</label>
+                                    <select id="playerPosition" required>
+                                        <option value="">Select Position</option>
+                                        <option>Forward</option>
+                                        <option>Midfielder</option>
+                                        <option>Defender</option>
+                                        <option>Goalkeeper</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Jersey Number:</label>
+                                    <input type="number" id="playerNumber" min="1" max="99" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h4>Statistics</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Goals:</label>
+                                    <input type="number" id="playerGoals" min="0" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Assists:</label>
+                                    <input type="number" id="playerAssists" min="0" required>
+                                </div>
+                            </div>
+                            <!-- Goalkeeper specific stats -->
+                            <div id="goalkeeperStats" class="position-specific-stats" style="display: none;">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Save Percentage (%):</label>
+                                        <input type="number" id="playerSavePercentage" min="0" max="100" step="0.1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Clean Sheets:</label>
+                                        <input type="number" id="playerCleanSheets" min="0">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Defender specific stats -->
+                            <div id="defenderStats" class="position-specific-stats" style="display: none;">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Clean Sheets:</label>
+                                        <input type="number" id="playerCleanSheetsDef" min="0">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h4>Media</h4>
+                            <div class="form-group">
+                                <label>Photo URL:</label>
+                                <input type="text" id="playerImage" placeholder="../images/players/xxx.jpg">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn-save">💾 Save Player</button>
+                    </form>
+
+                    <h3 style="margin-top: 30px;">Player List</h3>
+                    <div id="playersList" class="admin-list"></div>
+                </div>
+
+                <!-- Matches Tab -->
+                <div id="matches-tab" class="admin-tab">
+                    <h3>📅 Add/Edit Matches</h3>
+                    <form id="matchForm" class="admin-form">
+                        <input type="hidden" id="matchId">
+                        
+                        <div class="form-section">
+                            <h4>Match Details</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Home Team:</label>
+                                    <input type="text" id="homeTeam" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Away Team:</label>
+                                    <input type="text" id="awayTeam" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h4>Schedule & Venue</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Date:</label>
+                                    <input type="date" id="matchDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Time:</label>
+                                    <input type="time" id="matchTime" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Venue:</label>
+                                <input type="text" id="matchVenue" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Status:</label>
+                                <select id="matchStatus">
+                                    <option value="upcoming">Upcoming</option>
+                                    <option value="postponed">Postponed</option>
+                                    <option value="played">Played</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h4>Match Results (Optional)</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Home Score:</label>
+                                    <input type="number" id="homeScore" min="0" placeholder="Leave empty if not played">
+                                </div>
+                                <div class="form-group">
+                                    <label>Away Score:</label>
+                                    <input type="number" id="awayScore" min="0" placeholder="Leave empty if not played">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Competition:</label>
+                                <select id="matchCompetition">
+                                    <option value="League">League</option>
+                                    <option value="Cup">Cup</option>
+                                    <option value="Friendly">Friendly</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn-save">💾 Save Match</button>
+                    </form>
+
+                    <h3 style="margin-top: 30px;">Matches List</h3>
+                    <div id="matchesList" class="admin-list"></div>
+                </div>
+
+                <!-- Stats Tab -->
+                <div id="stats-tab" class="admin-tab">
+                    <h3>📊 Player Statistics</h3>
+                    
+                    <!-- Statistics Overview -->
+                    <div class="stats-overview">
+                        <div class="stat-card">
+                            <h4>👥 Total Players</h4>
+                            <span id="totalPlayers">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <h4>⚽ Total Goals</h4>
+                            <span id="totalGoals">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <h4>🎯 Total Assists</h4>
+                            <span id="totalAssists">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <h4>📅 Upcoming Matches</h4>
+                            <span id="upcomingMatches">0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h4>Update Player Statistics</h4>
+                        <p>Use this section to upload or update player performance stats</p>
+                        <div class="form-group">
+                            <label>Select Player:</label>
+                            <select id="statPlayerSelect"></select>
+                        </div>
+                        <button class="btn-save" onclick="updatePlayerStats()">📤 Update Stats</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2026 Tango Football Club</p>
+    </footer>
+    <script src="../js/theme.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>
