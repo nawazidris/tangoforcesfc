@@ -68,62 +68,59 @@ const fetchMatches = async () => {
 };
 
 
-const renderEvents = (match) => {
+const renderEvents = (match, teamType) => {
 
-    if (!match.events || match.events.length === 0) return '';
+    if (!match.events) return '';
 
-    let html = `<div class="match-events">`;
+    const teamEvents = match.events.filter(event => event.team === teamType);
 
-    match.events.forEach(event => {
+    if (teamEvents.length === 0) return '';
 
-        let icon = '';
-        let text = '';
+    return `
+        <div class="team-events">
+            ${teamEvents.map(event => {
 
-        switch(event.type){
+                let icon = '';
+                let text = '';
 
-            case "goal":
-                icon = "⚽";
-                text = `${event.player} ${event.assist ? `(Assist: ${event.assist})` : ''}`;
-                break;
+                switch(event.type){
 
-            case "penalty_goal":
-                icon = "⚽";
-                text = `${event.player} (P)`;
-                break;
+                    case "goal":
+                        icon = "⚽";
+                        text = `${event.player} ${event.minute}'`;
+                        break;
 
-            case "own_goal":
-                icon = "⚽";
-                text = `${event.player} (OG)`;
-                break;
+                    case "penalty_goal":
+                        icon = "⚽";
+                        text = `${event.player} ${event.minute}' (P)`;
+                        break;
 
-            case "yellow_card":
-                icon = "🟨";
-                text = event.player;
-                break;
+                    case "own_goal":
+                        icon = "⚽";
+                        text = `${event.player} ${event.minute}' (OG)`;
+                        break;
 
-            case "red_card":
-                icon = "🟥";
-                text = event.player;
-                break;
+                    case "yellow_card":
+                        icon = "🟨";
+                        text = `${event.player} ${event.minute}'`;
+                        break;
 
-            case "substitution":
-                icon = "🔁";
-                text = `${event.player_in} ↔ ${event.player_out}`;
-                break;
-        }
+                    case "red_card":
+                        icon = "🟥";
+                        text = `${event.player} ${event.minute}'`;
+                        break;
 
-        html += `
-            <div class="event">
-                <span class="minute">${event.minute}'</span>
-                <span class="icon">${icon}</span>
-                <span class="text">${text}</span>
-            </div>
-        `;
-    });
+                    case "substitution":
+                        icon = "🔁";
+                        text = `${event.player_in} ↔ ${event.player_out}`;
+                        break;
+                }
 
-    html += `</div>`;
+                return `<div class="team-event">${icon} ${text}</div>`;
 
-    return html;
+            }).join('')}
+        </div>
+    `;
 };
 
 
@@ -231,3 +228,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+
