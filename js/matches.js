@@ -1,7 +1,9 @@
 let allMatches = [];
 
 const fetchMatches = async () => {
+
     const container = document.getElementById('matchesContainer');
+
     container.innerHTML = `
         <div class="loading-matches">
             <div class="loading-spinner"></div>
@@ -10,30 +12,29 @@ const fetchMatches = async () => {
     `;
 
     try {
-        // Load matches from JSON file
-        const response = await fetch('data/matches.json');
-        let jsonMatches = await response.json();
 
-        // Load admin matches from localStorage
+        const response = await fetch('data/matches.json');
+        const jsonMatches = await response.json();
+
         let adminMatches = [];
         const adminMatchesData = localStorage.getItem('adminMatches');
 
         if (adminMatchesData) {
-            adminMatches = JSON.parse(adminMatchesData);
 
-            adminMatches = adminMatches.map(match => ({
+            adminMatches = JSON.parse(adminMatchesData).map(match => ({
                 ...match,
                 homeScore: match.homeScore ?? null,
                 awayScore: match.awayScore ?? null,
                 competition: match.competition || 'League'
             }));
+
         }
 
-        // Merge matches
         allMatches = [...jsonMatches, ...adminMatches];
 
-        // Sort matches by date
-        allMatches.sort((a, b) => new Date(a.date) - new Date(b.date));
+        allMatches.sort((a, b) => {
+            return new Date(`${a.date} ${a.time}`) - new Date(`${b.date} ${b.time}`);
+        });
 
         displayMatches(allMatches, 'all');
 
@@ -45,12 +46,7 @@ const fetchMatches = async () => {
 
         if (adminMatchesData) {
 
-            allMatches = JSON.parse(adminMatchesData).map(match => ({
-                ...match,
-                homeScore: match.homeScore ?? null,
-                awayScore: match.awayScore ?? null,
-                competition: match.competition || 'League'
-            }));
+            allMatches = JSON.parse(adminMatchesData);
 
             displayMatches(allMatches, 'all');
 
@@ -70,7 +66,7 @@ const fetchMatches = async () => {
 
 const renderEvents = (match, teamType) => {
 
-    if (!match.events) return '';
+    if (!match.events || !Array.isArray(match.events)) return '';
 
     const teamEvents = match.events.filter(event => event.team === teamType);
 
@@ -78,6 +74,7 @@ const renderEvents = (match, teamType) => {
 
     return `
         <div class="team-events">
+
             ${teamEvents.map(event => {
 
                 let icon = '';
@@ -88,37 +85,44 @@ const renderEvents = (match, teamType) => {
                     case "goal":
                         icon = "⚽";
                         text = `${event.player} ${event.minute}'`;
-                        break;
+                        if(event.assist){
+                            text += ` (Assist: ${event.assist})`;
+                        }
+                    break;
 
                     case "penalty_goal":
                         icon = "⚽";
                         text = `${event.player} ${event.minute}' (P)`;
-                        break;
+                    break;
 
                     case "own_goal":
                         icon = "⚽";
                         text = `${event.player} ${event.minute}' (OG)`;
-                        break;
+                    break;
 
                     case "yellow_card":
                         icon = "🟨";
                         text = `${event.player} ${event.minute}'`;
-                        break;
+                    break;
 
                     case "red_card":
                         icon = "🟥";
                         text = `${event.player} ${event.minute}'`;
-                        break;
+                    break;
 
                     case "substitution":
                         icon = "🔁";
-                        text = `${event.player_in} ↔ ${event.player_out}`;
-                        break;
+                        text = `${event.player_in} ↔ ${event.player_out} ${event.minute}'`;
+                    break;
+
+                    default:
+                        text = '';
                 }
 
                 return `<div class="team-event">${icon} ${text}</div>`;
 
             }).join('')}
+
         </div>
     `;
 };
@@ -127,28 +131,32 @@ const renderEvents = (match, teamType) => {
 const displayMatches = (matches, filter) => {
 
     const container = document.getElementById('matchesContainer');
+
     container.innerHTML = '';
 
-    let filtered = matches;
+    let filteredMatches = matches;
 
     if (filter !== 'all') {
-        filtered = matches.filter(match => match.status === filter);
+        filteredMatches = matches.filter(match => match.status === filter);
     }
 
-    if (filtered.length === 0) {
+    if (filteredMatches.length === 0) {
 
         container.innerHTML = `
             <div class="no-matches">
                 <div class="no-matches-icon">📅</div>
                 <h3>No matches found</h3>
-                <p>${filter === 'all' ? 'No matches available at the moment.' : `No ${filter} matches found.`}</p>
+                <p>${filter === 'all'
+                    ? 'No matches available at the moment.'
+                    : `No ${filter} matches found.`}
+                </p>
             </div>
         `;
 
         return;
     }
 
-    filtered.forEach((match, index) => {
+    filteredMatches.forEach((match, index) => {
 
         const isCompleted = match.status === 'completed';
 
@@ -162,44 +170,63 @@ const displayMatches = (matches, filter) => {
         const matchElement = document.createElement('div');
 
         matchElement.className = `match-card ${isCompleted ? 'completed' : 'upcoming'}`;
+
         matchElement.style.animationDelay = `${index * 0.1}s`;
 
         matchElement.innerHTML = `
+
             <div class="match-date">
                 <span class="day">${matchDate}</span>
                 <span class="time">${match.time}</span>
-                <span class="competition ${match.competition.toLowerCase()}">${match.competition}</span>
+                <span class="competition ${match.competition.toLowerCase()}">
+                    ${match.competition}
+                </span>
             </div>
 
             <div class="match-content">
+
                 <div class="team home-team">
                     <span class="team-name">${match.homeTeam}</span>
-                    ${isCompleted ? `<span class="score">${match.homeScore}</span>` : '<span class="score">-</span>'}
+                    ${isCompleted
+                        ? `<span class="score">${match.homeScore}</span>`
+                        : `<span class="score">-</span>`
+                    }
                 </div>
 
                 <div class="match-vs">
-                    ${isCompleted ? `
-                        <span class="vs-score">${match.homeScore} - ${match.awayScore}</span>
-                    ` : `
-                        <span class="vs-text">vs</span>
-                    `}
+                    ${isCompleted
+                        ? `<span class="vs-score">${match.homeScore} - ${match.awayScore}</span>`
+                        : `<span class="vs-text">vs</span>`
+                    }
                 </div>
 
                 <div class="team away-team">
-                    ${isCompleted ? `<span class="score">${match.awayScore}</span>` : '<span class="score">-</span>'}
+                    ${isCompleted
+                        ? `<span class="score">${match.awayScore}</span>`
+                        : `<span class="score">-</span>`
+                    }
                     <span class="team-name">${match.awayTeam}</span>
                 </div>
+
             </div>
 
             <div class="match-venue">
                 <span>📍 ${match.venue}</span>
             </div>
 
-            ${isCompleted ? renderEvents(match) : ''}
+            ${isCompleted ? `
+                <div class="match-events">
+                    ${renderEvents(match,'home')}
+                    ${renderEvents(match,'away')}
+                </div>
+            ` : ''}
+
         `;
 
         container.appendChild(matchElement);
+
     });
+
 };
 
 
@@ -220,12 +247,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const filter = btn.getAttribute('data-filter');
 
             displayMatches(allMatches, filter);
+
         });
+
     });
 
-    document.getElementById('refreshMatches').addEventListener('click', () => {
-        fetchMatches();
-    });
+    const refreshBtn = document.getElementById('refreshMatches');
+
+    if(refreshBtn){
+        refreshBtn.addEventListener('click', fetchMatches);
+    }
 
 });
-
