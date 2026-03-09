@@ -996,6 +996,40 @@ section {
         transform: translateY(0);
     }
 }
+/* ================= MATCH EVENTS (GOALS, CARDS, SUBS) ================= */
+
+.team-events{
+    margin-top:8px;
+    font-size:13px;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+.team-event{
+    color:#555;
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+/* Align events under each team properly */
+
+.home-team .team-events{
+    align-items:flex-start;
+    text-align:left;
+}
+
+.away-team .team-events{
+    align-items:flex-end;
+    text-align:right;
+}
+
+/* Optional: nicer icons */
+
+.team-event span{
+    font-size:14px;
+}
 
 /* ========== ROSTER HERO SECTION ========== */
 .roster-hero {
