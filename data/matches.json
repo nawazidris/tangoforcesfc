@@ -1,182 +1,113 @@
 [
-    {
-        "id": 1,
-        "homeTeam": "Tango FC",
-        "awayTeam": "Mugodhi FC",
-        "homeScore": 3,
-        "awayScore": 0,
-        "date": "2025-11-08",
-        "time": "15:00",
-        "venue": "Rujeko Stadium",
-        "status": "completed",
-        "competition": "League"
-         "events": [
-        {
-            "type": "goal",
-            "team": "home",
-            "player": "Maluwa",
-            "assist": "Jamz",
-            "minute": 15
-        },
-        {
-            "type": "goal",
-            "team": "Home",
-            "player": "Vincho",
-            "minute": 41
-    },
-             {
-            "type": "goal",
-            "team": "Home",
-            "player": "Bleeja",
-            "minute": 80
-    },
-    {
-        "id": 2,
-        "homeTeam": "Tango FC",
-        "awayTeam": "Morefire",
-        "homeScore": 0,
-        "awayScore": 3,
-        "date": "2025-11-22",
-        "time": "15:00",
-        "venue": "Rujeko Stadium",
-        "status": "completed",
-        "competition": "League"
-    },
-    {
-        "id": 3,
-        "homeTeam": "Tango FC",
-        "awayTeam": "Hunters FC",
-        "homeScore": 2,
-        "awayScore": 1,
-        "date": "2025-11-29",
-        "time": "15:00",
-        "venue": "Tango Stadium",
-        "status": "completed",
-        "competition": "League"
-        "events": [
-        {
-            "type": "goal",
-            "team": "home",
-            "player": "Jamela",
-            "assist": "Edrice",
-            "minute": 44
-        },
-        {
-            "type": "goal",
-            "team": "Home",
-            "player": "Jimo",
-            "minute": 59
-    },
-    {
-        "id": 4,
-        "homeTeam": "GZu FC",
-        "awayTeam": "Tango FC",
-        "homeScore": 2,
-        "awayScore": 4,
-        "date": "2025-12-06",
-        "time": "15:00",
-        "venue": "Mucheke B Arena",
-        "status": "completed",
-        "competition": "League"
-         "events": [
-        {
-            "type": "goal",
-            "team": "home",
-            "player": "Jamela",
-            "assist": "Edrice",
-            "minute": 32
-        },
-        {
-            "type": "goal",
-            "team": "Home",
-            "player": "Jamela",
-            "minute": 59
-    },
-          {
-            "type": "goal",
-            "team": "Home",
-            "player": "Dos",
-            "minute": 63
-    },
-             {
-            "type": "goal",
-            "team": "Home",
-            "player": "Musa",
-            "minute": 80
-    },
-    {
-        "id": 5,
-        "homeTeam": "Tango FC",
-        "awayTeam": "Flesk FC",
-        "homeScore": 1,
-        "awayScore": 0,
-        "date": "2025-12-13",
-        "time": "15:00",
-        "venue": "Rujeko Stadium",
-        "status": "completed",
-        "competition": "League"
-        "events": [
-        {
-            "type": "goal",
-            "team": "home",
-            "player": "Edrice",
-            "assist": "Bleeja",
-            "minute": 44
-    },
-             {
-        "id": 6,
-        "homeTeam": "CDA",
-        "awayTeam": "Tango FC",
-        "homeScore": 0,
-        "awayScore": 2,
-        "date": "2025-01-03",
-        "time": "15:00",
-        "venue": "Rujeko Stadium",
-        "status": "completed",
-        "competition": "League"
-        "events": [
-        {
-            "type": "goal",
-            "team": "home",
-            "player": "Bleeja",
-            "minute": 44
-    },
-            {
-            "type": "goal",
-            "team": "home",
-            "player": "CB",
-            "minute": 70
-    },
-    {
-        "id": 7,
-        "homeTeam": "Duchima FC",
-        "awayTeam": "Tango FC",
-        "homeScore": 1,
-        "awayScore": 3,
-        "date": "2026-01-17",
-        "time": "15:00", 
-        "venue": "Border Stadium",
-        "status": "completed",
-        "competition": "League"
-        "events": [
-        {
-            "type": "goal",
-             "team": "Home",
-            "player": "Edrice",
-            "minute": 34
-    },
-            {
-            "type": "goal",
-             "team": "Home",
-            "player": "Vincho",
-            "minute": 66
-    },
-            {
-            "type": "goal",
-             "team": "Home",
-            "player": "Jamela",
-            "minute": 80
-    },
-    }
+  {
+    "id": 1,
+    "homeTeam": "Tango FC",
+    "awayTeam": "Mugodhi FC",
+    "homeScore": 3,
+    "awayScore": 0,
+    "date": "2025-11-08",
+    "time": "15:00",
+    "venue": "Rujeko Stadium",
+    "status": "completed",
+    "competition": "League",
+    "events": [
+      { "type": "goal", "team": "home", "player": "Maluwa", "assist": "Jamz", "minute": 15 },
+      { "type": "goal", "team": "home", "player": "Vincho", "minute": 41 },
+      { "type": "goal", "team": "home", "player": "Bleeja", "minute": 80 }
+    ]
+  },
+  {
+    "id": 2,
+    "homeTeam": "Tango FC",
+    "awayTeam": "Morefire",
+    "homeScore": 0,
+    "awayScore": 3,
+    "date": "2025-11-22",
+    "time": "15:00",
+    "venue": "Rujeko Stadium",
+    "status": "completed",
+    "competition": "League"
+  },
+  {
+    "id": 3,
+    "homeTeam": "Tango FC",
+    "awayTeam": "Hunters FC",
+    "homeScore": 2,
+    "awayScore": 1,
+    "date": "2025-11-29",
+    "time": "15:00",
+    "venue": "Tango Stadium",
+    "status": "completed",
+    "competition": "League",
+    "events": [
+      { "type": "goal", "team": "home", "player": "Jamela", "assist": "Edrice", "minute": 44 },
+      { "type": "goal", "team": "home", "player": "Jimo", "minute": 59 }
+    ]
+  },
+  {
+    "id": 4,
+    "homeTeam": "GZu FC",
+    "awayTeam": "Tango FC",
+    "homeScore": 2,
+    "awayScore": 4,
+    "date": "2025-12-06",
+    "time": "15:00",
+    "venue": "Mucheke B Arena",
+    "status": "completed",
+    "competition": "League",
+    "events": [
+      { "type": "goal", "team": "away", "player": "Jamela", "assist": "Edrice", "minute": 32 },
+      { "type": "goal", "team": "away", "player": "Jamela", "minute": 59 },
+      { "type": "goal", "team": "away", "player": "Dos", "minute": 63 },
+      { "type": "goal", "team": "away", "player": "Musa", "minute": 80 }
+    ]
+  },
+  {
+    "id": 5,
+    "homeTeam": "Tango FC",
+    "awayTeam": "Flesk FC",
+    "homeScore": 1,
+    "awayScore": 0,
+    "date": "2025-12-13",
+    "time": "15:00",
+    "venue": "Rujeko Stadium",
+    "status": "completed",
+    "competition": "League",
+    "events": [
+      { "type": "goal", "team": "home", "player": "Edrice", "assist": "Bleeja", "minute": 44 }
+    ]
+  },
+  {
+    "id": 6,
+    "homeTeam": "CDA",
+    "awayTeam": "Tango FC",
+    "homeScore": 0,
+    "awayScore": 2,
+    "date": "2026-01-03",
+    "time": "15:00",
+    "venue": "Rujeko Stadium",
+    "status": "completed",
+    "competition": "League",
+    "events": [
+      { "type": "goal", "team": "away", "player": "Bleeja", "minute": 44 },
+      { "type": "goal", "team": "away", "player": "CB", "minute": 70 }
+    ]
+  },
+  {
+    "id": 7,
+    "homeTeam": "Duchima FC",
+    "awayTeam": "Tango FC",
+    "homeScore": 1,
+    "awayScore": 3,
+    "date": "2026-01-17",
+    "time": "15:00",
+    "venue": "Border Stadium",
+    "status": "completed",
+    "competition": "League",
+    "events": [
+      { "type": "goal", "team": "away", "player": "Edrice", "minute": 34 },
+      { "type": "goal", "team": "away", "player": "Vincho", "minute": 66 },
+      { "type": "goal", "team": "away", "player": "Jamela", "minute": 80 }
+    ]
+  }
 ]
-
