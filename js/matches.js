@@ -32,7 +32,7 @@ const fetchMatches = async () => {
         allMatches = [...jsonMatches, ...adminMatches];
 
         // Sort matches by date
-        allMatches.sort((a,b) => new Date(a.date) - new Date(b.date));
+        allMatches.sort((a, b) => new Date(a.date) - new Date(b.date));
 
         displayMatches(allMatches, 'all');
 
@@ -40,7 +40,6 @@ const fetchMatches = async () => {
         console.error('Error fetching matches:', error);
 
         const adminMatchesData = localStorage.getItem('adminMatches');
-
         if (adminMatchesData) {
             allMatches = JSON.parse(adminMatchesData).map(match => ({
                 ...match,
@@ -48,7 +47,6 @@ const fetchMatches = async () => {
                 awayScore: match.awayScore ?? null,
                 competition: match.competition || 'League'
             }));
-
             displayMatches(allMatches, 'all');
         } else {
             container.innerHTML = `
@@ -64,7 +62,7 @@ const fetchMatches = async () => {
 
 // ================= RENDER EVENTS =================
 const renderEvents = (match, teamType) => {
-    if (!match.events) return '';
+    if (!match.events || match.events.length === 0) return '';
 
     const teamEvents = match.events.filter(event => event.team?.toLowerCase() === teamType.toLowerCase());
 
@@ -132,7 +130,6 @@ const displayMatches = (matches, filter = 'all') => {
 
     filtered.forEach((match, index) => {
         const isCompleted = match.status === 'completed';
-
         const matchDate = new Date(match.date).toLocaleDateString('en-US', { 
             weekday: 'short',
             year: 'numeric',
@@ -158,7 +155,9 @@ const displayMatches = (matches, filter = 'all') => {
                 </div>
 
                 <div class="match-vs">
-                    ${isCompleted ? `<span class="vs-score">${match.homeScore} - ${match.awayScore}</span>` : `<span class="vs-text">VS</span>`}
+                    ${isCompleted 
+                        ? `<span class="vs-score">${match.homeScore} - ${match.awayScore}</span>` 
+                        : `<span class="vs-text">VS</span>`}
                 </div>
 
                 <div class="team away-team">
