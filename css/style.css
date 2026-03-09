@@ -844,22 +844,18 @@ section {
 /* ========== MATCHES PAGE ========== */
 .matches-header {
     text-align: center;
-    margin-bottom: 50px;
+    margin: 30px 20px 50px 20px;
     padding: 40px 20px;
     background: linear-gradient(135deg, rgba(0,123,255,0.05) 0%, rgba(0,123,255,0.02) 100%);
     border-radius: 20px;
-    margin: 30px 20px 50px 20px;
 }
 
 .matches-header h2 {
     font-size: 36px;
     font-weight: 700;
-    color: var(--text-color);
-    margin-bottom: 10px;
     background: linear-gradient(135deg, #007aff, #003d82);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
 .matches-header p {
@@ -901,11 +897,11 @@ section {
     background: var(--card-bg);
     border-radius: 25px;
     cursor: pointer;
-    transition: all 0.3s ease;
     font-weight: 600;
     font-size: 15px;
     position: relative;
     overflow: hidden;
+    transition: all 0.3s ease;
 }
 
 .match-filter-btn::before {
@@ -919,10 +915,7 @@ section {
     transition: left 0.5s ease;
 }
 
-.match-filter-btn:hover::before {
-    left: 100%;
-}
-
+.match-filter-btn:hover::before { left: 100%; }
 .match-filter-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0,123,255,0.15);
@@ -936,24 +929,20 @@ section {
     box-shadow: 0 4px 20px rgba(0,123,255,0.3);
 }
 
-.match-filter-btn.active::before {
-    display: none;
-}
-
 .match-refresh-btn {
     padding: 12px 15px;
     font-size: 14px;
-    background: rgba(0, 123, 255, 0.1);
-    border: 1px solid rgba(0, 123, 255, 0.3);
+    background: rgba(0,123,255,0.1);
+    border: 1px solid rgba(0,123,255,0.3);
     color: #007aff;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
     margin-left: 15px;
+    transition: all 0.3s ease;
 }
 
 .match-refresh-btn:hover {
-    background: rgba(0, 123, 255, 0.2);
+    background: rgba(0,123,255,0.2);
     transform: scale(1.05);
     box-shadow: 0 4px 15px rgba(0,123,255,0.2);
 }
@@ -967,7 +956,7 @@ section {
     margin: 0 auto;
 }
 
-/* Add fade-in animation for match cards */
+/* ========== MATCH CARDS ========== */
 .match-card {
     display: flex;
     gap: 25px;
@@ -975,68 +964,30 @@ section {
     background: var(--card-bg);
     border: 1px solid rgba(0,123,255,0.1);
     border-radius: 16px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    animation: fadeInUp 0.6s ease-out forwards;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
     opacity: 0;
     transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
 }
 
 .match-card:nth-child(1) { animation-delay: 0.1s; }
 .match-card:nth-child(2) { animation-delay: 0.2s; }
 .match-card:nth-child(3) { animation-delay: 0.3s; }
 .match-card:nth-child(4) { animation-delay: 0.4s; }
-.match-card:nth-child(5) { animation-delay: 0.5s; }
 
 @keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-/* ================= MATCH EVENTS (GOALS, CARDS, SUBS) ================= */
-
-.team-events{
-    margin-top:8px;
-    font-size:13px;
-    display:flex;
-    flex-direction:column;
-    gap:4px;
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.team-event{
-    color:#555;
-    display:flex;
-    align-items:center;
-    gap:5px;
-}
-
-/* Align events under each team properly */
-
-.home-team .team-events{
-    align-items:flex-start;
-    text-align:left;
-}
-
-.away-team .team-events{
-    align-items:flex-end;
-    text-align:right;
-}
-
-/* Optional: nicer icons */
-
-.team-event span{
-    font-size:14px;
-}
-/* ================= MATCH CONTENT LAYOUT ================= */
-
+/* ========== MATCH CONTENT LAYOUT ========== */
 .match-content{
-    display:grid;
+    display: grid;
     grid-template-columns:1fr 120px 1fr;
-    align-items:flex-start;
     gap:10px;
+    align-items:flex-start;
     width:100%;
 }
 
@@ -1044,16 +995,6 @@ section {
     display:flex;
     flex-direction:column;
 }
-
-.home-team{
-    text-align:left;
-}
-
-.away-team{
-    text-align:right;
-}
-
-/* Team name + score row */
 
 .team-row{
     display:flex;
@@ -1063,19 +1004,8 @@ section {
     font-size:16px;
 }
 
-.away-team .team-row{
-    flex-direction:row-reverse;
-}
-
-/* Score styling */
-
-.score{
-    font-size:26px;
-    font-weight:700;
-    color:#007aff;
-}
-
-/* VS section */
+.home-team .team-row{ flex-direction: row; }
+.away-team .team-row{ flex-direction: row-reverse; }
 
 .match-vs{
     text-align:center;
@@ -1087,8 +1017,13 @@ section {
     align-items:center;
 }
 
-/* ================= MATCH EVENTS ================= */
+.score{
+    font-size:26px;
+    font-weight:700;
+    color:#007aff;
+}
 
+/* ========== MATCH EVENTS ========== */
 .team-events{
     margin-top:8px;
     font-size:13px;
@@ -1098,69 +1033,42 @@ section {
 }
 
 .team-event{
-    color:#555;
     display:flex;
     align-items:center;
     gap:6px;
     line-height:1.4;
+    color:#555;
 }
-
-/* Home team events */
 
 .home-team .team-events{
     align-items:flex-start;
     text-align:left;
 }
 
-/* Away team events */
-
 .away-team .team-events{
     align-items:flex-end;
     text-align:right;
 }
-
-/* Assist styling */
 
 .team-event .assist{
     color:#888;
     font-size:12px;
 }
 
-/* ================= MATCH VENUE ================= */
-
+/* ========== MATCH VENUE ========== */
 .match-venue{
     margin-top:15px;
     font-size:13px;
     color:#777;
 }
 
-/* ================= RESPONSIVE ================= */
-
+/* ========== RESPONSIVE ========== */
 @media(max-width:768px){
-
-.match-content{
-    grid-template-columns:1fr;
-    gap:15px;
-}
-
-.match-vs{
-    order:-1;
-    font-size:20px;
-}
-
-.away-team{
-    text-align:left;
-}
-
-.away-team .team-events{
-    align-items:flex-start;
-    text-align:left;
-}
-
-.away-team .team-row{
-    flex-direction:row;
-}
-
+    .match-content{ grid-template-columns:1fr; gap:15px; }
+    .match-vs{ order:-1; font-size:20px; }
+    .away-team{ text-align:left; }
+    .away-team .team-events{ align-items:flex-start; text-align:left; }
+    .away-team .team-row{ flex-direction: row; }
 }
 /* ========== ROSTER HERO SECTION ========== */
 .roster-hero {
