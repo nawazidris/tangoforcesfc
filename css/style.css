@@ -1030,7 +1030,138 @@ section {
 .team-event span{
     font-size:14px;
 }
+/* ================= MATCH CONTENT LAYOUT ================= */
 
+.match-content{
+    display:grid;
+    grid-template-columns:1fr 120px 1fr;
+    align-items:flex-start;
+    gap:10px;
+    width:100%;
+}
+
+.team{
+    display:flex;
+    flex-direction:column;
+}
+
+.home-team{
+    text-align:left;
+}
+
+.away-team{
+    text-align:right;
+}
+
+/* Team name + score row */
+
+.team-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-weight:600;
+    font-size:16px;
+}
+
+.away-team .team-row{
+    flex-direction:row-reverse;
+}
+
+/* Score styling */
+
+.score{
+    font-size:26px;
+    font-weight:700;
+    color:#007aff;
+}
+
+/* VS section */
+
+.match-vs{
+    text-align:center;
+    font-weight:700;
+    font-size:18px;
+    color:#444;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* ================= MATCH EVENTS ================= */
+
+.team-events{
+    margin-top:8px;
+    font-size:13px;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+.team-event{
+    color:#555;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    line-height:1.4;
+}
+
+/* Home team events */
+
+.home-team .team-events{
+    align-items:flex-start;
+    text-align:left;
+}
+
+/* Away team events */
+
+.away-team .team-events{
+    align-items:flex-end;
+    text-align:right;
+}
+
+/* Assist styling */
+
+.team-event .assist{
+    color:#888;
+    font-size:12px;
+}
+
+/* ================= MATCH VENUE ================= */
+
+.match-venue{
+    margin-top:15px;
+    font-size:13px;
+    color:#777;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:768px){
+
+.match-content{
+    grid-template-columns:1fr;
+    gap:15px;
+}
+
+.match-vs{
+    order:-1;
+    font-size:20px;
+}
+
+.away-team{
+    text-align:left;
+}
+
+.away-team .team-events{
+    align-items:flex-start;
+    text-align:left;
+}
+
+.away-team .team-row{
+    flex-direction:row;
+}
+
+}
 /* ========== ROSTER HERO SECTION ========== */
 .roster-hero {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
