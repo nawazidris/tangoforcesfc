@@ -26,7 +26,8 @@
     "time": "15:00",
     "venue": "Rujeko Stadium",
     "status": "completed",
-    "competition": "League"
+    "competition": "League",
+    "events": []
   },
   {
     "id": 3,
@@ -111,17 +112,16 @@
     ]
   },
   {
-  "id": 3,
-  "homeTeam": "Tango FC",
-  "awayTeam": "Hunters FC",
-  "homeScore": null,
-  "awayScore": null,
-  "date": "2026-02-20",
-  "time": "15:00",
-  "venue": "Tango Stadium",
-  "status": "upcoming",
-  "competition": "League",
-  "events": []
-};
+    "id": 8,
+    "homeTeam": "Tango FC",
+    "awayTeam": "ZRP FC",
+    "homeScore": null,
+    "awayScore": null,
+    "date": "2026-03-14",
+    "time": "15:00",
+    "venue": "Zimuto Stadium",
+    "status": "upcoming",
+    "competition": "League",
+    "events": []
+  }
 ]
-
