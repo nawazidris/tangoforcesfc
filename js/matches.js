@@ -11,7 +11,7 @@ const fetchMatches = async () => {
 
     try {
         // Load matches from JSON file
-        const response = await fetch('../data/matches.json');
+        const response = await fetch('data/matches.json');
         let jsonMatches = await response.json();
 
         // Load admin matches from localStorage
@@ -140,3 +140,4 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchMatches();
     });
 });
+
