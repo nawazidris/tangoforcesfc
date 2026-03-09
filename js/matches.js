@@ -112,16 +112,10 @@ function displayMatches(matches){
 
         </div>
 
-        <div class="teams">
-
-            <div class="team home">
-
-                <div class="team-row">
-
-                    <span class="team-name">${match.homeTeam}</span>
-                    <span class="score">${isCompleted ? match.homeScore : "-"}</span>
-
-                </div>
+        <div class="team home-team">
+<span class="team-name">${match.homeTeam}</span>
+${renderEvents(match,'home')}
+</div>
 
                 ${isCompleted ? renderEvents(match,"home") : ""}
 
@@ -133,14 +127,10 @@ function displayMatches(matches){
 
             </div>
 
-            <div class="team away">
-
-                <div class="team-row">
-
-                    <span class="score">${isCompleted ? match.awayScore : "-"}</span>
-                    <span class="team-name">${match.awayTeam}</span>
-
-                </div>
+            <div class="team away-team">
+<span class="team-name">${match.awayTeam}</span>
+${renderEvents(match,'away')}
+</div>
 
                 ${isCompleted ? renderEvents(match,"away") : ""}
 
@@ -159,3 +149,4 @@ function displayMatches(matches){
 }
 
 document.addEventListener("DOMContentLoaded",fetchMatches);
+
