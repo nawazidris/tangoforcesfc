@@ -1,152 +1,195 @@
 let allMatches = [];
 
-async function fetchMatches(){
-
-    const container = document.getElementById("matchesContainer");
-
-    container.innerHTML = `<div class="loading">Loading matches...</div>`;
-
-    try{
-
-        const response = await fetch("data/matches.json");
-        const matches = await response.json();
-
-        allMatches = matches;
-
-        displayMatches(allMatches);
-
-    }catch(err){
-
-        console.error(err);
-
-        container.innerHTML = `
-        <div class="error">
-        ⚠️ Failed to load matches
+// ================= FETCH MATCHES =================
+const fetchMatches = async () => {
+    const container = document.getElementById('matchesContainer');
+    container.innerHTML = `
+        <div class="loading-matches">
+            <div class="loading-spinner"></div>
+            <p>Loading matches...</p>
         </div>
-        `;
+    `;
 
-    }
-}
+    try {
+        // Load matches from JSON file
+        const response = await fetch('data/matches.json');
+        let jsonMatches = await response.json();
 
-function renderEvents(match,team){
+        // Load admin matches from localStorage
+        let adminMatches = [];
+        const adminMatchesData = localStorage.getItem('adminMatches');
 
-    if(!match.events) return "";
-
-    const events = match.events.filter(e=>e.team===team);
-
-    if(events.length===0) return "";
-
-    return `
-    <div class="team-events">
-
-    ${events.map(event=>{
-
-        let icon="";
-        let text="";
-
-        switch(event.type){
-
-            case "goal":
-                icon="⚽";
-                text=`${event.player} ${event.minute}'`;
-                if(event.assist){
-                    text+=` <span class="assist">(A: ${event.assist})</span>`;
-                }
-            break;
-
-            case "penalty_goal":
-                icon="⚽";
-                text=`${event.player} ${event.minute}' (P)`;
-            break;
-
-            case "own_goal":
-                icon="⚽";
-                text=`${event.player} ${event.minute}' (OG)`;
-            break;
-
-            case "yellow_card":
-                icon="🟨";
-                text=`${event.player} ${event.minute}'`;
-            break;
-
-            case "red_card":
-                icon="🟥";
-                text=`${event.player} ${event.minute}'`;
-            break;
-
-            case "substitution":
-                icon="🔁";
-                text=`${event.player_in} ↔ ${event.player_out}`;
-            break;
+        if (adminMatchesData) {
+            adminMatches = JSON.parse(adminMatchesData).map(match => ({
+                ...match,
+                homeScore: match.homeScore ?? null,
+                awayScore: match.awayScore ?? null,
+                competition: match.competition || 'League'
+            }));
         }
 
-        return `<div class="event">${icon} ${text}</div>`;
+        // Merge matches
+        allMatches = [...jsonMatches, ...adminMatches];
 
-    }).join("")}
+        // Sort matches by date
+        allMatches.sort((a,b) => new Date(a.date) - new Date(b.date));
 
-    </div>
+        displayMatches(allMatches, 'all');
+
+    } catch (error) {
+        console.error('Error fetching matches:', error);
+
+        const adminMatchesData = localStorage.getItem('adminMatches');
+
+        if (adminMatchesData) {
+            allMatches = JSON.parse(adminMatchesData).map(match => ({
+                ...match,
+                homeScore: match.homeScore ?? null,
+                awayScore: match.awayScore ?? null,
+                competition: match.competition || 'League'
+            }));
+
+            displayMatches(allMatches, 'all');
+        } else {
+            container.innerHTML = `
+                <div class="no-matches">
+                    <div class="no-matches-icon">⚠️</div>
+                    <h3>Unable to load matches</h3>
+                    <p>Please check your connection and try again.</p>
+                </div>
+            `;
+        }
+    }
+};
+
+// ================= RENDER EVENTS =================
+const renderEvents = (match, teamType) => {
+    if (!match.events) return '';
+
+    const teamEvents = match.events.filter(event => event.team?.toLowerCase() === teamType.toLowerCase());
+
+    if (teamEvents.length === 0) return '';
+
+    return `
+        <div class="team-events">
+            ${teamEvents.map(event => {
+                let icon = '';
+                let text = '';
+
+                switch(event.type) {
+                    case "goal":
+                        icon = "⚽";
+                        text = `${event.player} ${event.minute}'${event.assist ? ` (A: ${event.assist})` : ''}`;
+                        break;
+                    case "penalty_goal":
+                        icon = "⚽";
+                        text = `${event.player} ${event.minute}' (P)`;
+                        break;
+                    case "own_goal":
+                        icon = "⚽";
+                        text = `${event.player} ${event.minute}' (OG)`;
+                        break;
+                    case "yellow_card":
+                        icon = "🟨";
+                        text = `${event.player} ${event.minute}'`;
+                        break;
+                    case "red_card":
+                        icon = "🟥";
+                        text = `${event.player} ${event.minute}'`;
+                        break;
+                    case "substitution":
+                        icon = "🔁";
+                        text = `${event.player_in} ↔ ${event.player_out}`;
+                        break;
+                }
+
+                return `<div class="team-event">${icon} ${text}</div>`;
+            }).join('')}
+        </div>
     `;
-}
+};
 
-function displayMatches(matches){
+// ================= DISPLAY MATCHES =================
+const displayMatches = (matches, filter = 'all') => {
+    const container = document.getElementById('matchesContainer');
+    container.innerHTML = '';
 
-    const container=document.getElementById("matchesContainer");
+    let filtered = matches;
+    if (filter !== 'all') {
+        filtered = matches.filter(match => match.status === filter);
+    }
 
-    container.innerHTML="";
+    if (filtered.length === 0) {
+        container.innerHTML = `
+            <div class="no-matches">
+                <div class="no-matches-icon">📅</div>
+                <h3>No matches found</h3>
+                <p>${filter === 'all' ? 'No matches available.' : `No ${filter} matches found.`}</p>
+            </div>
+        `;
+        return;
+    }
 
-    matches.forEach(match=>{
+    filtered.forEach((match, index) => {
+        const isCompleted = match.status === 'completed';
 
-        const isCompleted = match.status==="completed";
+        const matchDate = new Date(match.date).toLocaleDateString('en-US', { 
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
 
-        const card=document.createElement("div");
+        const matchElement = document.createElement('div');
+        matchElement.className = `match-card ${isCompleted ? 'completed' : 'upcoming'}`;
+        matchElement.style.animationDelay = `${index * 0.1}s`;
 
-        card.className="match-card";
-
-        card.innerHTML=`
-
-        <div class="match-header">
-
-            <span>${new Date(match.date).toDateString()}</span>
-            <span>${match.time}</span>
-            <span class="competition">${match.competition}</span>
-
-        </div>
-
-        <div class="team home-team">
-<span class="team-name">${match.homeTeam}</span>
-${renderEvents(match,'home')}
-</div>
-
-                ${isCompleted ? renderEvents(match,"home") : ""}
-
+        matchElement.innerHTML = `
+            <div class="match-date">
+                <span class="day">${matchDate}</span>
+                <span class="time">${match.time}</span>
+                <span class="competition ${match.competition.toLowerCase()}">${match.competition}</span>
             </div>
 
-            <div class="vs">
+            <div class="match-content">
+                <div class="team home-team">
+                    <span class="team-name">${match.homeTeam}</span>
+                    ${isCompleted ? renderEvents(match,'home') : ''}
+                </div>
 
-                ${isCompleted ? `${match.homeScore} - ${match.awayScore}` : "VS"}
+                <div class="match-vs">
+                    ${isCompleted ? `<span class="vs-score">${match.homeScore} - ${match.awayScore}</span>` : `<span class="vs-text">VS</span>`}
+                </div>
 
+                <div class="team away-team">
+                    ${isCompleted ? renderEvents(match,'away') : ''}
+                    <span class="team-name">${match.awayTeam}</span>
+                </div>
             </div>
 
-            <div class="team away-team">
-<span class="team-name">${match.awayTeam}</span>
-${renderEvents(match,'away')}
-</div>
-
-                ${isCompleted ? renderEvents(match,"away") : ""}
-
-            </div>
-
-        </div>
-
-        <div class="venue">📍 ${match.venue}</div>
-
+            <div class="match-venue">📍 ${match.venue}</div>
         `;
 
-        container.appendChild(card);
+        container.appendChild(matchElement);
+    });
+};
 
+// ================= INIT =================
+document.addEventListener('DOMContentLoaded', () => {
+    fetchMatches();
+
+    const filterButtons = document.querySelectorAll('.match-filter-btn');
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.getAttribute('data-filter'); // all, completed, upcoming
+            displayMatches(allMatches, filter);
+        });
     });
 
-}
-
-document.addEventListener("DOMContentLoaded",fetchMatches);
-
+    const refreshBtn = document.getElementById('refreshMatches');
+    if(refreshBtn){
+        refreshBtn.addEventListener('click', fetchMatches);
+    }
+});
