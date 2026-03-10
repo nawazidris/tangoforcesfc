@@ -1,142 +1,361 @@
-// Homepage JavaScript for dynamic content loading
-document.addEventListener('DOMContentLoaded', function() {
-    loadFeaturedPlayers();
-    loadUpcomingMatches();
-});
+let adminPlayers = []
+let adminMatches = []
 
-function loadFeaturedPlayers() {
-    const featuredPlayersContainer = document.getElementById('featuredPlayers');
+let matchEvents = []
 
-    // Load players from localStorage and JSON
-    let players = [];
+document.addEventListener("DOMContentLoaded", ()=>{
 
-    // Try to load from localStorage first (admin-added players)
-    const storedPlayers = localStorage.getItem('players');
-    if (storedPlayers) {
-        players = JSON.parse(storedPlayers);
-    }
+loadData()
 
-    // Load from JSON file if no localStorage data
-    if (players.length === 0) {
-        fetch('../data/players.json')
-            .then(response => response.json())
-            .then(data => {
-                players = data.players || [];
-                displayFeaturedPlayers(players);
-            })
-            .catch(error => {
-                console.error('Error loading players:', error);
-                displayFeaturedPlayers([]);
-            });
-    } else {
-        displayFeaturedPlayers(players);
-    }
+})
+
+function loadData(){
+
+adminPlayers = JSON.parse(localStorage.getItem("adminPlayers")) || []
+
+adminMatches = JSON.parse(localStorage.getItem("adminMatches")) || []
+
+displayPlayers()
+
+displayMatches()
+
+updateStats()
+
 }
 
-function displayFeaturedPlayers(players) {
-    const container = document.getElementById('featuredPlayers');
+function saveData(){
 
-    // Filter for star players (top performers)
-    const starPlayers = players.filter(player =>
-        player.position === 'Forward' || player.position === 'Midfielder' ||
-        player.goals > 5 || player.assists > 3
-    ).slice(0, 6); // Show max 6 players
+localStorage.setItem("adminPlayers", JSON.stringify(adminPlayers))
 
-    if (starPlayers.length === 0) {
-        container.innerHTML = '<p class="no-data">Star players will be featured here</p>';
-        return;
-    }
+localStorage.setItem("adminMatches", JSON.stringify(adminMatches))
 
-    container.innerHTML = starPlayers.map(player => `
-        <div class="player-card">
-            <div class="player-avatar">
-                <span class="position-badge">${getPositionAbbrev(player.position)}</span>
-                ${player.image ? `<img src="${player.image}" alt="${player.name}" onerror="this.style.display='none'">` : ''}
-                <div class="player-overlay"></div>
-            </div>
-            <div class="player-info">
-                <h4>${player.name}</h4>
-                <p class="player-position">${player.position}</p>
-                <div class="player-stats">
-                    <span>⚽ ${player.goals || 0}</span>
-                    <span>🎯 ${player.assists || 0}</span>
-                </div>
-            </div>
-        </div>
-    `).join('');
 }
 
-function getPositionAbbrev(position) {
-    const abbrevs = {
-        'Goalkeeper': 'GK',
-        'Defender': 'DF',
-        'Midfielder': 'MF',
-        'Forward': 'FW'
-    };
-    return abbrevs[position] || position;
+
+
+
+
+
+
+
+
+/* PLAYERS */
+
+document.getElementById("playerForm").addEventListener("submit", e=>{
+
+e.preventDefault()
+
+const id = document.getElementById("playerId").value
+
+const player = {
+
+id: id ? parseInt(id) : Date.now(),
+
+name: playerName.value,
+
+nickname: playerNickname.value,
+
+position: playerPosition.value,
+
+number: parseInt(playerNumber.value),
+
+goals: parseInt(playerGoals.value) || 0,
+
+assists: parseInt(playerAssists.value) || 0
+
 }
 
-function loadUpcomingMatches() {
-    const upcomingMatchesContainer = document.getElementById('upcomingMatches');
+if(id){
 
-    // Load matches from localStorage and JSON
-    let matches = [];
+const index = adminPlayers.findIndex(p=>p.id==id)
 
-    // Try to load from localStorage first (admin-added matches)
-    const storedMatches = localStorage.getItem('matches');
-    if (storedMatches) {
-        matches = JSON.parse(storedMatches);
-    }
+adminPlayers[index]=player
 
-    // Load from JSON file if no localStorage data
-    if (matches.length === 0) {
-        fetch('../data/matches.json')
-            .then(response => response.json())
-            .then(data => {
-                matches = data.matches || [];
-                displayUpcomingMatches(matches);
-            })
-            .catch(error => {
-                console.error('Error loading matches:', error);
-                displayUpcomingMatches([]);
-            });
-    } else {
-        displayUpcomingMatches(matches);
-    }
+}else{
+
+adminPlayers.push(player)
+
 }
 
-function displayUpcomingMatches(matches) {
-    const container = document.getElementById('upcomingMatches');
+saveData()
 
-    // Filter for upcoming matches (future dates)
-    const now = new Date();
-    const upcomingMatches = matches
-        .filter(match => new Date(match.date) > now)
-        .sort((a, b) => new Date(a.date) - new Date(b.date))
-        .slice(0, 3); // Show next 3 matches
+displayPlayers()
 
-    if (upcomingMatches.length === 0) {
-        container.innerHTML = '<p class="no-data">No upcoming matches scheduled</p>';
-        return;
-    }
+updateStats()
 
-    container.innerHTML = upcomingMatches.map(match => `
-        <div class="match-preview">
-            <div class="match-date">
-                <span class="day">${new Date(match.date).getDate()}</span>
-                <span class="month">${new Date(match.date).toLocaleDateString('en-US', { month: 'short' })}</span>
-            </div>
-            <div class="match-details">
-                <div class="match-teams">
-                    <span class="home-team">${match.homeTeam}</span>
-                    <span class="vs">vs</span>
-                    <span class="away-team">${match.awayTeam}</span>
-                </div>
-                <div class="match-info">
-                    <span class="time">${match.time || 'TBD'}</span>
-                    <span class="venue">${match.venue || 'TBD'}</span>
-                </div>
-            </div>
-        </div>
-    `).join('');
+playerForm.reset()
+
+})
+
+
+
+function displayPlayers(){
+
+const container = document.getElementById("playersList")
+
+container.innerHTML=""
+
+adminPlayers.forEach(player=>{
+
+container.innerHTML+=`
+
+<div>
+
+${player.name} #${player.number}
+
+<button onclick="deletePlayer(${player.id})">Delete</button>
+
+</div>
+
+`
+
+})
+
+}
+
+
+
+function deletePlayer(id){
+
+adminPlayers = adminPlayers.filter(p=>p.id!=id)
+
+saveData()
+
+displayPlayers()
+
+updateStats()
+
+}
+
+
+
+
+
+
+
+
+/* MATCHES */
+
+document.getElementById("matchForm").addEventListener("submit", e=>{
+
+e.preventDefault()
+
+const id = matchId.value
+
+const match = {
+
+id: id ? parseInt(id) : Date.now(),
+
+homeTeam: homeTeam.value,
+
+awayTeam: awayTeam.value,
+
+date: matchDate.value,
+
+time: matchTime.value,
+
+venue: matchVenue.value,
+
+status: matchStatus.value,
+
+homeScore: homeScore.value ? parseInt(homeScore.value) : null,
+
+awayScore: awayScore.value ? parseInt(awayScore.value) : null,
+
+events: matchEvents
+
+}
+
+if(id){
+
+const index = adminMatches.findIndex(m=>m.id==id)
+
+adminMatches[index]=match
+
+}else{
+
+adminMatches.push(match)
+
+}
+
+matchEvents=[]
+
+displayEvents()
+
+saveData()
+
+displayMatches()
+
+updateStats()
+
+matchForm.reset()
+
+})
+
+
+
+function displayMatches(){
+
+const container = document.getElementById("matchesList")
+
+container.innerHTML=""
+
+adminMatches.forEach(match=>{
+
+container.innerHTML+=`
+
+<div>
+
+<strong>${match.homeTeam} vs ${match.awayTeam}</strong>
+
+<div>${match.homeScore ?? "-"} - ${match.awayScore ?? "-"}</div>
+
+<div>Status: ${match.status}</div>
+
+<button onclick="goal(${match.id},'home')">Home Goal</button>
+
+<button onclick="goal(${match.id},'away')">Away Goal</button>
+
+<button onclick="completeMatch(${match.id})">Completed</button>
+
+<button onclick="deleteMatch(${match.id})">Delete</button>
+
+</div>
+
+`
+
+})
+
+}
+
+
+
+function goal(id,team){
+
+const match = adminMatches.find(m=>m.id==id)
+
+if(team==="home"){
+
+match.homeScore = (match.homeScore||0)+1
+
+}else{
+
+match.awayScore = (match.awayScore||0)+1
+
+}
+
+match.status="completed"
+
+saveData()
+
+displayMatches()
+
+}
+
+
+
+function completeMatch(id){
+
+const match = adminMatches.find(m=>m.id==id)
+
+match.status="completed"
+
+saveData()
+
+displayMatches()
+
+}
+
+
+
+function deleteMatch(id){
+
+adminMatches = adminMatches.filter(m=>m.id!=id)
+
+saveData()
+
+displayMatches()
+
+updateStats()
+
+}
+
+
+
+
+
+
+
+
+/* MATCH EVENTS */
+
+function addMatchEvent(){
+
+const event = {
+
+team:eventTeam.value,
+
+type:eventType.value,
+
+player:eventPlayer.value,
+
+minute:eventMinute.value
+
+}
+
+matchEvents.push(event)
+
+displayEvents()
+
+}
+
+
+
+function displayEvents(){
+
+const container = document.getElementById("eventsList")
+
+container.innerHTML=""
+
+matchEvents.forEach((event,index)=>{
+
+container.innerHTML+=`
+
+<div>
+
+${event.team} | ${event.type} | ${event.player} ${event.minute}'
+
+<button onclick="removeEvent(${index})">X</button>
+
+</div>
+
+`
+
+})
+
+}
+
+
+
+function removeEvent(index){
+
+matchEvents.splice(index,1)
+
+displayEvents()
+
+}
+
+
+/* STATS */
+
+function updateStats(){
+
+document.getElementById("totalPlayers").textContent = adminPlayers.length
+
+document.getElementById("totalGoals").textContent = adminPlayers.reduce((a,b)=>a+b.goals,0)
+
+document.getElementById("totalAssists").textContent = adminPlayers.reduce((a,b)=>a+b.assists,0)
+
+document.getElementById("upcomingMatches").textContent = adminMatches.filter(m=>m.status==="upcoming").length
+
 }
