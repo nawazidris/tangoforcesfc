@@ -2563,6 +2563,39 @@ text-align:center;
         font-size: 0.95rem;
         padding: 8px 12px;
     }
+    /* Play overlay container */
+.gallery-item {
+    position: relative;
+    cursor: pointer;
+}
+
+.gallery-item::after {
+    content: '►';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.8);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none; /* allows clicking video */
+    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.gallery-item:hover::after {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Optional: slightly darken video on hover for contrast */
+.gallery-item video {
+    transition: filter 0.3s ease;
+}
+
+.gallery-item:hover video {
+    filter: brightness(0.8);
+}
 }
 /* ==============================
 ADMIN HEADER
