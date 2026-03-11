@@ -989,37 +989,40 @@ padding:10px;
 }
 
 .match-card{
-background:var(--card-bg);
-color:var(--text-color);
-border-radius:10px;
-padding:18px;
-box-shadow:0 3px 12px rgba(0,0,0,0.1);
+background-color: #ffffff; /* Soft white background */
+    color: #333; /* Dark classic text */
+    border-radius: 15px;
+    border: 1px solid #ddd; /* subtle border for classic feel */
+    padding: 20px 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12); /* soft shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Georgia', 'Times New Roman', serif; /* classic serif font */
 }
 
 .match-card:hover{
-transform:translateY(-2px);
+ transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
 }
 
 /* DATE + COMPETITION */
 
-.match-date{
-display:flex;
-justify-content:space-between;
-align-items:center;
-font-size:14px;
-margin-bottom:15px;
-flex-wrap:wrap;
-gap:6px;
+.match-date {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #2c3e50;
+    justify-content: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
 }
 
-.match-date .competition{
-background:#111;
-color:white;
-padding:4px 10px;
-border-radius:6px;
-font-size:12px;
-}
 
+.match-date .competition {
+    background-color: #2c3e50;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+}
 /* MATCH CONTENT */
 
 .match-content{
@@ -1038,30 +1041,22 @@ flex-direction:column;
 gap:5px;
 }
 
-.team-name{
-font-size:17px;
-font-weight:600;
+.team-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2c3e50;
 }
 
-.home-team{
-text-align:left;
-}
-
-.away-team{
-text-align:right;
+.home-team, .away-team {
+    font-family: 'Georgia', serif;
 }
 
 /* SCORE */
 
-.match-vs{
-width:20%;
-text-align:center;
-}
-
-.vs-score{
-font-size:26px;
-font-weight:bold;
-color:#000;
+.match-vs .vs-score {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #2c3e50;
 }
 
 .vs-text{
