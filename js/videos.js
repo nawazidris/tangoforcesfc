@@ -31,38 +31,39 @@ function loadVideos() {
   }
 
   galleryVideos.forEach(video => {
-    // Create video item container
     const item = document.createElement("div");
     item.className = "gallery-item";
 
-    // Build video element
     const videoElement = document.createElement("video");
     videoElement.controls = true;
     videoElement.width = "100%";
+    videoElement.preload = "metadata"; // load only metadata for faster load
 
     const source = document.createElement("source");
     source.src = video.src;
     source.type = "video/mp4";
-
     videoElement.appendChild(source);
 
-    // Title
     const title = document.createElement("p");
     title.className = "video-title";
     title.textContent = video.title;
 
-    // Append to item
     item.appendChild(videoElement);
     item.appendChild(title);
-
-    // Add to grid
     grid.appendChild(item);
+
+    // Pause all other videos when one plays
+    videoElement.addEventListener("play", () => {
+      const allVideos = document.querySelectorAll(".gallery-item video");
+      allVideos.forEach(v => {
+        if (v !== videoElement) v.pause();
+      });
+    });
   });
 }
 
-// Run after DOM is loaded
-
 document.addEventListener("DOMContentLoaded", loadVideos);
+
 
 
 
