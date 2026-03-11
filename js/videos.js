@@ -16,10 +16,14 @@ const galleryVideos = [
 
 ];
 
-// Function to populate the video grid
+// Lightbox references
+const lightbox = document.getElementById("videoLightbox");
+const lightboxVideo = document.getElementById("lightboxVideo");
+const closeBtn = document.querySelector(".video-lightbox .close-btn");
+
+// Function to load gallery videos
 function loadVideos() {
   const grid = document.getElementById("videoGrid");
-
   if (!grid) return;
 
   galleryVideos.forEach(video => {
@@ -52,18 +56,42 @@ function loadVideos() {
       });
     });
 
-    // Click on card plays/pauses video
+    // Click anywhere on card opens fullscreen
     item.addEventListener("click", () => {
-      if (videoElement.paused) {
-        videoElement.play();
-      } else {
-        videoElement.pause();
-      }
+      lightbox.style.display = "flex";
+      lightboxVideo.src = video.src;
+      lightboxVideo.play();
     });
+  });
+
+  // Close button click
+  closeBtn.addEventListener("click", () => {
+    lightboxVideo.pause();
+    lightboxVideo.currentTime = 0;
+    lightbox.style.display = "none";
+  });
+
+  // Click outside video to close
+  lightbox.addEventListener("click", e => {
+    if (e.target === lightbox) {
+      lightboxVideo.pause();
+      lightboxVideo.currentTime = 0;
+      lightbox.style.display = "none";
+    }
+  });
+
+  // Esc key closes lightbox
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && lightbox.style.display === "flex") {
+      lightboxVideo.pause();
+      lightboxVideo.currentTime = 0;
+      lightbox.style.display = "none";
+    }
   });
 }
 
 document.addEventListener("DOMContentLoaded", loadVideos);
+
 
 
 
