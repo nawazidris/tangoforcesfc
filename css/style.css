@@ -964,42 +964,52 @@ margin:auto;
 display:flex;
 flex-direction:column;
 gap:20px;
+padding:10px;
 }
 
 .match-card{
-background:#111;
-color:white;
+background:white;
+color:#111;
 border-radius:10px;
-padding:20px;
-box-shadow:0 4px 15px rgba(0,0,0,0.4);
+padding:18px;
+box-shadow:0 3px 12px rgba(0,0,0,0.1);
 transition:0.3s;
 }
 
 .match-card:hover{
-transform:translateY(-3px);
+transform:translateY(-2px);
 }
+
+/* DATE + COMPETITION */
 
 .match-date{
 display:flex;
 justify-content:space-between;
 align-items:center;
 font-size:14px;
-opacity:0.8;
 margin-bottom:15px;
+flex-wrap:wrap;
+gap:6px;
 }
 
 .match-date .competition{
-background:#333;
+background:#111;
+color:white;
 padding:4px 10px;
 border-radius:6px;
 font-size:12px;
 }
 
+/* MATCH CONTENT */
+
 .match-content{
 display:flex;
 justify-content:space-between;
 align-items:center;
+gap:10px;
 }
+
+/* TEAMS */
 
 .team{
 width:40%;
@@ -1009,8 +1019,8 @@ gap:5px;
 }
 
 .team-name{
-font-size:18px;
-font-weight:bold;
+font-size:17px;
+font-weight:600;
 }
 
 .home-team{
@@ -1021,52 +1031,121 @@ text-align:left;
 text-align:right;
 }
 
+/* SCORE */
+
 .match-vs{
 width:20%;
 text-align:center;
 }
 
 .vs-score{
-font-size:28px;
+font-size:26px;
 font-weight:bold;
+color:#000;
 }
 
 .vs-text{
-font-size:16px;
-opacity:0.7;
+font-size:14px;
+color:#666;
 }
+
+/* VENUE */
 
 .match-venue{
 margin-top:15px;
 font-size:14px;
-opacity:0.7;
+color:#555;
 text-align:center;
 }
 
 /* EVENTS */
 
 .team-events{
-margin-top:8px;
+margin-top:6px;
 font-size:14px;
-opacity:0.9;
 }
 
 .team-event{
-margin:2px 0;
+margin:3px 0;
+padding:2px 6px;
+border-radius:4px;
+display:inline-block;
 }
 
-/* COMPLETED MATCH STYLE */
+/* GOAL */
+
+.team-event:has(:contains("⚽")){
+color:#0a7d33;
+font-weight:600;
+}
+
+/* YELLOW CARD */
+
+.team-event:has(:contains("🟨")){
+color:#b38b00;
+}
+
+/* RED CARD */
+
+.team-event:has(:contains("🟥")){
+color:#c62828;
+}
+
+/* MATCH STATUS COLORS */
 
 .match-card.completed{
 border-left:5px solid #2ecc71;
 }
 
-/* UPCOMING MATCH STYLE */
-
 .match-card.upcoming{
 border-left:5px solid #3498db;
 }
 
+/* ================= MOBILE RESPONSIVE ================= */
+
+@media (max-width:768px){
+
+.match-content{
+flex-direction:column;
+text-align:center;
+}
+
+.team{
+width:100%;
+align-items:center;
+}
+
+.home-team{
+text-align:center;
+}
+
+.away-team{
+text-align:center;
+}
+
+.match-vs{
+width:100%;
+margin:8px 0;
+}
+
+.vs-score{
+font-size:24px;
+}
+
+.team-events{
+text-align:center;
+}
+
+.match-date{
+justify-content:center;
+text-align:center;
+}
+
+.match-venue{
+font-size:13px;
+}
+
+}
 /* ========== RESPONSIVE ========== */
 @media(max-width:768px){
     .match-content{ grid-template-columns:1fr; gap:15px; }
