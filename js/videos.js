@@ -20,15 +20,7 @@ const galleryVideos = [
 function loadVideos() {
   const grid = document.getElementById("videoGrid");
 
-  if (!grid) {
-    console.error("Video grid container not found!");
-    return;
-  }
-
-  if (galleryVideos.length === 0) {
-    grid.innerHTML = "<p>No videos available at the moment.</p>";
-    return;
-  }
+  if (!grid) return;
 
   galleryVideos.forEach(video => {
     const item = document.createElement("div");
@@ -37,7 +29,7 @@ function loadVideos() {
     const videoElement = document.createElement("video");
     videoElement.controls = true;
     videoElement.width = "100%";
-    videoElement.preload = "metadata"; // load only metadata for faster load
+    videoElement.preload = "metadata";
 
     const source = document.createElement("source");
     source.src = video.src;
@@ -59,10 +51,20 @@ function loadVideos() {
         if (v !== videoElement) v.pause();
       });
     });
+
+    // Click on card plays/pauses video
+    item.addEventListener("click", () => {
+      if (videoElement.paused) {
+        videoElement.play();
+      } else {
+        videoElement.pause();
+      }
+    });
   });
 }
 
 document.addEventListener("DOMContentLoaded", loadVideos);
+
 
 
 
