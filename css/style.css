@@ -1,3 +1,24 @@
+:root{
+--bg-color: #ffffff;
+--text-color: #111;
+--card-bg: #ffffff;
+
+--goal-color: #0a7d33;
+--yellow-card: #b38b00;
+--red-card: #c62828;
+}
+
+/* DARK MODE */
+
+body.dark-mode{
+--bg-color:#0f172a;
+--text-color:#f1f5f9;
+--card-bg:#1e293b;
+
+--goal-color:#22c55e;
+--yellow-card:#facc15;
+--red-card:#ef4444;
+}
 :root[data-theme="light"] {
     --bg-color: #ffffff;
     --text-color: #0b1724;
