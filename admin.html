@@ -4,172 +4,131 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tango FC Admin</title>
-<link rel="stylesheet" href="css/style.css">
+
+<script>
+
+/* SECURITY CHECK */
+
+const token=sessionStorage.getItem("adminToken");
+const expiry=sessionStorage.getItem("adminExpiry");
+
+const validToken=btoa("admin:StrongPass123");
+
+if(token!==validToken){
+
+window.location.href="tango-admin-access.html";
+
+}
+
+if(Date.now()>expiry){
+
+alert("Session expired. Login again.");
+
+sessionStorage.clear();
+
+window.location.href="tango-admin-access.html";
+
+}
+
+</script>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f2f2f2;
+margin:0;
+}
+
+header{
+background:#111;
+color:white;
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+header h1{
+margin:0;
+font-size:20px;
+}
+
+nav button{
+margin-left:10px;
+padding:8px 12px;
+border:none;
+background:#444;
+color:white;
+cursor:pointer;
+border-radius:5px;
+}
+
+nav button:hover{
+background:#666;
+}
+
+.container{
+padding:20px;
+}
+
+.admin-list-item{
+background:white;
+padding:10px;
+margin:10px 0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-radius:6px;
+}
+
+.admin-actions button{
+margin-left:5px;
+}
+
+button{
+cursor:pointer;
+padding:6px 10px;
+border:none;
+border-radius:5px;
+}
+
+.btn-edit{background:#3498db;color:white;}
+.btn-delete{background:#e74c3c;color:white;}
+.btn-action{background:#2ecc71;color:white;}
+
+</style>
 </head>
 
 <body>
 
-<script>
-const token = sessionStorage.getItem('adminToken');
-const validToken = btoa('admin:StrongPass123');
-
-if(token !== validToken){
-window.location.href = 'login.html';
-}
-</script>
-
 <header>
+
 <h1>Tango FC Admin Panel</h1>
+
+<nav>
+
+<button onclick="goHome()">Home</button>
+
 <button onclick="logout()">Logout</button>
+
+</nav>
+
 </header>
 
-<main>
+<div class="container">
 
-<h2>Admin Dashboard</h2>
+<h2>Players</h2>
 
-<div class="admin-tabs">
+<div id="playersList"></div>
 
-<button onclick="openTab('players')">Players</button>
-<button onclick="openTab('matches')">Matches</button>
-<button onclick="openTab('stats')">Stats</button>
+<h2>Matches</h2>
+
+<div id="matchesList"></div>
 
 </div>
 
-<!-- PLAYERS TAB -->
-
-<section id="players" class="tab">
-
-<h3>Add Player</h3>
-
-<form id="playerForm">
-
-<input type="hidden" id="playerId">
-
-<input type="text" id="playerName" placeholder="Name" required>
-
-<input type="text" id="playerNickname" placeholder="Nickname">
-
-<select id="playerPosition">
-<option>Forward</option>
-<option>Midfielder</option>
-<option>Defender</option>
-<option>Goalkeeper</option>
-</select>
-
-<input type="number" id="playerNumber" placeholder="Jersey Number">
-
-<input type="number" id="playerGoals" placeholder="Goals">
-
-<input type="number" id="playerAssists" placeholder="Assists">
-
-<button type="submit">Save Player</button>
-
-</form>
-
-<h3>Players</h3>
-<div id="playersList"></div>
-
-</section>
-
-<!-- MATCHES TAB -->
-
-<section id="matches" class="tab" style="display:none">
-
-<h3>Add Match</h3>
-
-<form id="matchForm">
-
-<input type="hidden" id="matchId">
-
-<input type="text" id="homeTeam" placeholder="Home Team" required>
-
-<input type="text" id="awayTeam" placeholder="Away Team" required>
-
-<input type="date" id="matchDate">
-
-<input type="time" id="matchTime">
-
-<input type="text" id="matchVenue" placeholder="Venue">
-
-<select id="matchStatus">
-<option value="upcoming">Upcoming</option>
-<option value="completed">Completed</option>
-<option value="postponed">Postponed</option>
-</select>
-
-<input type="number" id="homeScore" placeholder="Home Score">
-
-<input type="number" id="awayScore" placeholder="Away Score">
-
-<button type="submit">Save Match</button>
-
-</form>
-
-<h3>Match Events</h3>
-
-<select id="eventTeam">
-<option value="home">Home</option>
-<option value="away">Away</option>
-</select>
-
-<select id="eventType">
-<option value="goal">Goal</option>
-<option value="assist">Assist</option>
-<option value="yellow">Yellow Card</option>
-<option value="red">Red Card</option>
-</select>
-
-<input type="text" id="eventPlayer" placeholder="Player">
-
-<input type="number" id="eventMinute" placeholder="Minute">
-
-<button onclick="addMatchEvent()">Add Event</button>
-
-<div id="eventsList"></div>
-
-<h3>Matches</h3>
-<div id="matchesList"></div>
-
-</section>
-
-<!-- STATS TAB -->
-
-<section id="stats" class="tab" style="display:none">
-
-<h3>Club Stats</h3>
-
-<div>Total Players: <span id="totalPlayers"></span></div>
-
-<div>Total Goals: <span id="totalGoals"></span></div>
-
-<div>Total Assists: <span id="totalAssists"></span></div>
-
-<div>Upcoming Matches: <span id="upcomingMatches"></span></div>
-
-</section>
-
-</main>
-
-<script src="js/admin.js"></script>
-
-<script>
-
-function logout(){
-sessionStorage.removeItem('adminToken');
-window.location.href='login.html';
-}
-
-function openTab(tab){
-
-document.querySelectorAll('.tab').forEach(t=>{
-t.style.display='none'
-})
-
-document.getElementById(tab).style.display='block'
-
-}
-
-</script>
+<script src="admin.js"></script>
 
 </body>
 </html>
