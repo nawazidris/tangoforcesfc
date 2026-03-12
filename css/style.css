@@ -2554,6 +2554,7 @@ text-align:center;
         font-size: 12px;
         padding: 10px 12px;
     }
+}
     /* Responsive for mobile */
 @media (max-width: 768px) {
     .gallery-item video {
@@ -2628,6 +2629,7 @@ text-align:center;
     cursor: pointer;
     z-index: 10000;
     font-family: 'Georgia', serif;
+}
 }
 /* ==============================
 ADMIN HEADER
