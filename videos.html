@@ -1,86 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Videos - Tango Football Club</title>
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Videos - Tango Football Club</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <header>
-        <div class="header-top">
-            <h1>Tango Football Club</h1>
-         
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="roster.html">Player Roster</a></li>
-                <li><a href="matches.html">Matches</a></li>
-                <li><a href="history.html">Club History</a></li>
-                <li><a href="videos.html">Videos</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                
-            </ul>
-        </nav>
-    </header>
-  <main>
-    <!-- Page Header -->
-    <section class="gallery-header">
-    <h2>Club Videos</h2>
-    <p>Highlights, goals and moments from Tango FC</p>
+
+<header>
+<div class="header-top">
+<h1>Tango Football Club</h1>
+</div>
+
+<nav>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="roster.html">Player Roster</a></li>
+<li><a href="matches.html">Matches</a></li>
+<li><a href="history.html">Club History</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="gallery.html">Gallery</a></li>
+</ul>
+</nav>
+</header>
+
+
+<main>
+
+<!-- PAGE HEADER -->
+<section class="gallery-header">
+<h2>Club Videos</h2>
+<p>Highlights, goals and moments from Tango FC</p>
 </section>
+
 
 <!-- FEATURED VIDEO -->
 <section class="featured-video">
-    <div class="featured-container">
-        <video controls poster="images/highlight-thumb.jpg">
-            <source src="videos/highlights.mp4" type="video/mp4">
-        </video>
-        <div class="featured-info">
-            <h3>Match Highlights: Tango FC vs City</h3>
-            <p>Relive the best moments from our latest match.</p>
-        </div>
-    </div>
+<div class="featured-container">
+
+<video controls poster="images/highlight-thumb.jpg">
+<source src="videos/highlights.mp4" type="video/mp4">
+</video>
+
+<div class="featured-info">
+<h3>Match Highlights: Tango FC vs City</h3>
+<p>Relive the best moments from our latest match.</p>
+</div>
+
+</div>
 </section>
+
+
+<!-- VIDEO TOP BAR (Counter + Sorting) -->
+<section class="video-topbar">
+
+<span id="videoCounter">0 Videos</span>
+
+<select id="videoSort">
+<option value="newest">Newest</option>
+<option value="az">A-Z</option>
+<option value="category">Category</option>
+</select>
+
+</section>
+
 
 <!-- VIDEO FILTERS -->
 <section class="video-filters">
-    <button data-filter="all">All</button>
-    <button data-filter="highlights">Highlights</button>
-    <button data-filter="goals">Goals</button>
-    <button data-filter="training">Training</button>
+
+<button data-filter="all" class="active">All</button>
+<button data-filter="champions">Champions</button>
+<button data-filter="matchday">Matchday</button>
+
 </section>
+
 
 <!-- VIDEO GRID -->
 <section class="gallery-container">
-    <div id="videoGrid" class="gallery-grid"></div>
+<div id="videoGrid" class="gallery-grid"></div>
 </section>
 
 </main>
 
-<!-- VIDEO MODAL -->
-<div id="videoModal" class="video-modal">
-    <video id="modalVideo" controls></video>
-</div>
-</main>
-  <!-- Load your script at the bottom -->
-   <footer>
-        <p>&copy; 2026 Tango Football Club</p>
-    </footer>
-    <script src="js/theme.js"></script>
-    <script src="js/videos.js"></script>
-    <!-- Fullscreen Video Lightbox 
+
+<!-- VIDEO LIGHTBOX (Fullscreen player) -->
 <div id="videoLightbox" class="video-lightbox">
-    <span class="close-btn">&times;</span>
-    <video id="lightboxVideo" controls></video>
-</div> -->
+
+<span class="close-btn">&times;</span>
+
+<video id="lightboxVideo" controls></video>
+
+</div>
+
+
+<footer>
+<p>&copy; 2026 Tango Football Club</p>
+</footer>
+
+<script src="js/theme.js"></script>
+<script src="js/videos.js"></script>
+
 </body>
-
 </html>
-
-
-
-
-
-
