@@ -3665,6 +3665,8 @@ font-size:24px;
     margin-bottom: 20px;
     line-height: 1.7;
     font-size: 1.1rem;
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 .about-values {
