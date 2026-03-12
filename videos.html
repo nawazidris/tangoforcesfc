@@ -27,16 +27,42 @@
   <main>
     <!-- Page Header -->
     <section class="gallery-header">
-        <h2 id="galleryTitle">Club Videos</h2>
-        <p id="galleryDescription">Videos from matches and team events</p>
-    </section>
+    <h2>Club Videos</h2>
+    <p>Highlights, goals and moments from Tango FC</p>
+</section>
 
-    <!-- One unified grid for all videos -->
-    <div class="gallery-container">
-        <section class="gallery-section">
-            <div id="videoGrid" class="gallery-grid"></div>
-        </section>
+<!-- FEATURED VIDEO -->
+<section class="featured-video">
+    <div class="featured-container">
+        <video controls poster="images/highlight-thumb.jpg">
+            <source src="videos/highlights.mp4" type="video/mp4">
+        </video>
+        <div class="featured-info">
+            <h3>Match Highlights: Tango FC vs City</h3>
+            <p>Relive the best moments from our latest match.</p>
+        </div>
     </div>
+</section>
+
+<!-- VIDEO FILTERS -->
+<section class="video-filters">
+    <button data-filter="all">All</button>
+    <button data-filter="highlights">Highlights</button>
+    <button data-filter="goals">Goals</button>
+    <button data-filter="training">Training</button>
+</section>
+
+<!-- VIDEO GRID -->
+<section class="gallery-container">
+    <div id="videoGrid" class="gallery-grid"></div>
+</section>
+
+</main>
+
+<!-- VIDEO MODAL -->
+<div id="videoModal" class="video-modal">
+    <video id="modalVideo" controls></video>
+</div>
 </main>
   <!-- Load your script at the bottom -->
    <footer>
@@ -52,6 +78,7 @@
 </body>
 
 </html>
+
 
 
 
