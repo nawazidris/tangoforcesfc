@@ -1,0 +1,139 @@
+/* ================= ADMIN ONLY STYLES ================= */
+
+.admin-page{
+background:#f4f6f9;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+/* HEADER */
+
+.admin-page header{
+background:#111;
+color:white;
+padding:15px 25px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.admin-page header button{
+background:#e74c3c;
+color:white;
+border:none;
+padding:8px 14px;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* LAYOUT */
+
+.admin-page .admin-container{
+display:flex;
+min-height:80vh;
+}
+
+/* SIDEBAR */
+
+.admin-page .admin-sidebar{
+width:220px;
+background:white;
+padding:20px;
+border-right:1px solid #ddd;
+}
+
+.admin-page .admin-tab-btn{
+display:block;
+width:100%;
+padding:10px;
+margin-bottom:10px;
+border:none;
+background:#eee;
+border-radius:6px;
+cursor:pointer;
+}
+
+.admin-page .admin-tab-btn.active{
+background:#111;
+color:white;
+}
+
+/* CONTENT */
+
+.admin-page .admin-content{
+flex:1;
+padding:25px;
+}
+
+.admin-page .admin-tab{
+display:none;
+}
+
+.admin-page .admin-tab.active{
+display:block;
+}
+
+/* FORMS */
+
+.admin-page .admin-form{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.admin-page .admin-form input,
+.admin-page .admin-form select{
+padding:8px;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+.admin-page .admin-form button{
+grid-column:span 2;
+padding:10px;
+background:#2ecc71;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* LISTS */
+
+.admin-page .admin-list div{
+background:white;
+padding:12px;
+margin-bottom:10px;
+border-radius:8px;
+display:flex;
+justify-content:space-between;
+box-shadow:0 1px 4px rgba(0,0,0,0.05);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+.admin-page .admin-container{
+flex-direction:column;
+}
+
+.admin-page .admin-sidebar{
+width:100%;
+display:flex;
+overflow-x:auto;
+}
+
+.admin-page .admin-tab-btn{
+flex:1;
+margin-right:10px;
+}
+
+.admin-page .admin-form{
+grid-template-columns:1fr;
+}
+
+}
