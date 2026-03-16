@@ -1,114 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tango FC Admin Dashboard</title>
+
+<title>Tango Forces FC Admin</title>
 
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/admin.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 
 <body class="admin-page">
 
-<header>
-<h1>Tango FC Admin Panel</h1>
-<button onclick="logout()">Logout</button>
-</header>
-
-<main>
-
-<section class="admin-header">
-<h2>Admin Dashboard</h2>
-<p>Manage players, matches and statistics</p>
-</section>
-
-<div class="admin-container">
+<div class="admin-wrapper">
 
 <!-- SIDEBAR -->
-<div class="admin-sidebar">
-<button class="admin-tab-btn active" data-tab="players">Manage Players</button>
-<button class="admin-tab-btn" data-tab="matches">Manage Matches</button>
-<button class="admin-tab-btn" data-tab="stats">Upload Stats</button>
+
+<aside class="admin-sidebar">
+
+<h2 class="club-name">Tango Forces</h2>
+
+<button class="admin-tab-btn active" data-tab="dashboard">
+<i class="fa fa-chart-line"></i> Dashboard
+</button>
+
+<button class="admin-tab-btn" data-tab="players">
+<i class="fa fa-users"></i> Players
+</button>
+
+<button class="admin-tab-btn" data-tab="matches">
+<i class="fa fa-futbol"></i> Matches
+</button>
+
+<button class="admin-tab-btn" data-tab="stats">
+<i class="fa fa-chart-bar"></i> Stats
+</button>
+
+<button onclick="logout()" class="logout-btn">
+<i class="fa fa-sign-out"></i> Logout
+</button>
+
+</aside>
+
+<!-- MAIN -->
+
+<div class="admin-main">
+
+<header class="admin-topbar">
+
+<h1>Admin Dashboard</h1>
+
+</header>
+
+<main class="admin-content">
+
+<!-- DASHBOARD -->
+
+<section id="dashboard-tab" class="admin-tab active">
+
+<div class="dashboard-cards">
+
+<div class="card">
+<h3>Total Players</h3>
+<p id="totalPlayers">0</p>
 </div>
 
-<!-- CONTENT -->
-<div class="admin-content">
+<div class="card">
+<h3>Total Matches</h3>
+<p id="totalMatches">0</p>
+</div>
+
+<div class="card">
+<h3>Upcoming Matches</h3>
+<p id="upcomingMatches">0</p>
+</div>
+
+</div>
+
+</section>
 
 <!-- PLAYERS -->
-<div id="players-tab" class="admin-tab active">
+
+<section id="players-tab" class="admin-tab">
+
+<h2>Manage Players</h2>
 
 <form id="playerForm" class="admin-form">
+
 <input type="hidden" id="playerId">
 
 <input type="text" id="playerName" placeholder="Player Name" required>
-<input type="text" id="playerNickname" placeholder="Nickname" required>
 
-<select id="playerPosition" required>
+<input type="text" id="playerNickname" placeholder="Nickname">
+
+<select id="playerPosition">
 <option>Forward</option>
 <option>Midfielder</option>
 <option>Defender</option>
 <option>Goalkeeper</option>
 </select>
 
-<input type="number" id="playerNumber" placeholder="Jersey Number" required>
-<input type="number" id="playerGoals" placeholder="Goals" required>
-<input type="number" id="playerAssists" placeholder="Assists" required>
-<input type="text" id="playerImage" placeholder="Photo URL">
+<input type="number" id="playerNumber" placeholder="Jersey Number">
 
-<button type="submit">Save Player</button>
+<input type="number" id="playerGoals" placeholder="Goals">
+
+<input type="number" id="playerAssists" placeholder="Assists">
+
+<input type="text" id="playerImage" placeholder="Image URL">
+
+<button type="submit" class="btn-save">
+<i class="fa fa-save"></i> Save Player
+</button>
+
 </form>
 
-<h3>Player List</h3>
 <div id="playersList" class="admin-list"></div>
 
-</div>
+</section>
 
 <!-- MATCHES -->
-<div id="matches-tab" class="admin-tab">
+
+<section id="matches-tab" class="admin-tab">
+
+<h2>Manage Matches</h2>
 
 <form id="matchForm" class="admin-form">
+
 <input type="hidden" id="matchId">
 
-<input type="text" id="homeTeam" placeholder="Home Team" required>
-<input type="text" id="awayTeam" placeholder="Away Team" required>
+<input type="text" id="homeTeam" placeholder="Home Team">
 
-<input type="date" id="matchDate" required>
-<input type="time" id="matchTime" required>
-<input type="text" id="matchVenue" placeholder="Venue" required>
+<input type="text" id="awayTeam" placeholder="Away Team">
 
-<select id="matchStatus" required>
+<input type="date" id="matchDate">
+
+<input type="time" id="matchTime">
+
+<input type="text" id="matchVenue" placeholder="Venue">
+
+<select id="matchStatus">
 <option value="upcoming">Upcoming</option>
 <option value="completed">Completed</option>
 </select>
 
-<!-- SCORE -->
 <input type="number" id="homeScore" placeholder="Home Score">
+
 <input type="number" id="awayScore" placeholder="Away Score">
 
-<button type="submit">Save Match</button>
+<button type="submit" class="btn-save">
+<i class="fa fa-save"></i> Save Match
+</button>
+
 </form>
 
-<h3>Matches List</h3>
 <div id="matchesList" class="admin-list"></div>
 
-</div>
+</section>
 
 <!-- STATS -->
-<div id="stats-tab" class="admin-tab">
 
-<h3>Update Player Statistics</h3>
+<section id="stats-tab" class="admin-tab">
+
+<h2>Update Player Stats</h2>
 
 <select id="statPlayerSelect"></select>
-<button onclick="updatePlayerStats()">Update Stats</button>
 
-</div>
+<button onclick="updatePlayerStats()" class="btn-save">
+Update Stats
+</button>
 
-</div>
-</div>
+</section>
 
 </main>
+
+</div>
+
+</div>
 
 <script src="js/admin.js"></script>
 
