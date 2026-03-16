@@ -3,41 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tango FC Admin</title>
-
-<script>
-
-/* SECURITY CHECK */
-
-const token=sessionStorage.getItem("adminToken");
-const expiry=sessionStorage.getItem("adminExpiry");
-
-const validToken=btoa("admin:StrongPass123");
-
-if(token!==validToken){
-
-window.location.href="tango-admin-access.html";
-
-}
-
-if(Date.now()>expiry){
-
-alert("Session expired. Login again.");
-
-sessionStorage.clear();
-
-window.location.href="tango-admin-access.html";
-
-}
-
-</script>
+<title>Tango FC Admin Panel</title>
 
 <style>
-
 body{
 font-family:Arial;
-background:#f2f2f2;
 margin:0;
+background:#f2f2f2;
 }
 
 header{
@@ -49,23 +21,11 @@ justify-content:space-between;
 align-items:center;
 }
 
-header h1{
-margin:0;
-font-size:20px;
-}
-
-nav button{
-margin-left:10px;
+button{
 padding:8px 12px;
 border:none;
-background:#444;
-color:white;
-cursor:pointer;
 border-radius:5px;
-}
-
-nav button:hover{
-background:#666;
+cursor:pointer;
 }
 
 .container{
@@ -78,52 +38,30 @@ padding:10px;
 margin:10px 0;
 display:flex;
 justify-content:space-between;
-align-items:center;
 border-radius:6px;
-}
-
-.admin-actions button{
-margin-left:5px;
-}
-
-button{
-cursor:pointer;
-padding:6px 10px;
-border:none;
-border-radius:5px;
 }
 
 .btn-edit{background:#3498db;color:white;}
 .btn-delete{background:#e74c3c;color:white;}
-.btn-action{background:#2ecc71;color:white;}
-
 </style>
 </head>
 
 <body>
 
 <header>
-
 <h1>Tango FC Admin Panel</h1>
-
-<nav>
-
+<div>
 <button onclick="goHome()">Home</button>
-
 <button onclick="logout()">Logout</button>
-
-</nav>
-
+</div>
 </header>
 
 <div class="container">
 
 <h2>Players</h2>
-
 <div id="playersList"></div>
 
 <h2>Matches</h2>
-
 <div id="matchesList"></div>
 
 </div>
