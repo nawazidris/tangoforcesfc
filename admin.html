@@ -3,14 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tango Football Club</title>
 
+<title>Tango FC Admin Dashboard</title>
+
+<!-- Main Website Styles -->
 <link rel="stylesheet" href="css/style.css">
+
+<!-- Admin Styles (Loaded After to Avoid Conflicts) -->
 <link rel="stylesheet" href="css/admin.css">
 
 </head>
-<body>
 
+<body class="admin-page">
+
+<!-- HEADER -->
 <header>
 <h1>Tango FC Admin Panel</h1>
 <button onclick="logout()">Logout</button>
@@ -18,6 +24,7 @@
 
 <main>
 
+<!-- DASHBOARD HEADER -->
 <section class="admin-header">
 <h2>Admin Dashboard</h2>
 <p>Manage players, matches, and content</p>
@@ -25,24 +32,27 @@
 
 <div class="admin-container">
 
+<!-- SIDEBAR -->
 <div class="admin-sidebar">
 <button class="admin-tab-btn active" data-tab="players">Manage Players</button>
 <button class="admin-tab-btn" data-tab="matches">Manage Matches</button>
 <button class="admin-tab-btn" data-tab="stats">Upload Stats</button>
 </div>
 
+<!-- CONTENT -->
 <div class="admin-content">
 
-<!-- PLAYERS TAB -->
+<!-- ================= PLAYERS TAB ================= -->
 <div id="players-tab" class="admin-tab active">
 
-<h3>Add/Edit Players</h3>
+<h3>Add / Edit Players</h3>
 
 <form id="playerForm" class="admin-form">
 
 <input type="hidden" id="playerId">
 
 <input type="text" id="playerName" placeholder="Player Name" required>
+
 <input type="text" id="playerNickname" placeholder="Nickname" required>
 
 <select id="playerPosition" required>
@@ -53,8 +63,11 @@
 </select>
 
 <input type="number" id="playerNumber" placeholder="Jersey Number" required>
+
 <input type="number" id="playerGoals" placeholder="Goals" required>
+
 <input type="number" id="playerAssists" placeholder="Assists" required>
+
 <input type="text" id="playerImage" placeholder="Photo URL">
 
 <button type="submit">Save Player</button>
@@ -62,23 +75,27 @@
 </form>
 
 <h3>Player List</h3>
-<div id="playersList"></div>
+<div id="playersList" class="admin-list"></div>
 
 </div>
 
-<!-- MATCHES TAB -->
+<!-- ================= MATCHES TAB ================= -->
 <div id="matches-tab" class="admin-tab">
 
-<h3>Add/Edit Matches</h3>
+<h3>Add / Edit Matches</h3>
 
 <form id="matchForm" class="admin-form">
 
 <input type="hidden" id="matchId">
 
 <input type="text" id="homeTeam" placeholder="Home Team" required>
+
 <input type="text" id="awayTeam" placeholder="Away Team" required>
+
 <input type="date" id="matchDate" required>
+
 <input type="time" id="matchTime" required>
+
 <input type="text" id="matchVenue" placeholder="Venue" required>
 
 <select id="matchStatus" required>
@@ -91,16 +108,19 @@
 </form>
 
 <h3>Matches List</h3>
-<div id="matchesList"></div>
+<div id="matchesList" class="admin-list"></div>
 
 </div>
 
-<!-- STATS TAB -->
+<!-- ================= STATS TAB ================= -->
 <div id="stats-tab" class="admin-tab">
 
 <h3>Update Player Statistics</h3>
 
+<div class="form-group">
+<label>Select Player:</label>
 <select id="statPlayerSelect"></select>
+</div>
 
 <button onclick="updatePlayerStats()">Update Stats</button>
 
@@ -111,7 +131,8 @@
 
 </main>
 
-<script src="admin.js"></script>
+<!-- ADMIN SCRIPT -->
+<script src="js/admin.js"></script>
 
 </body>
 </html>
