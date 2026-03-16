@@ -1,91 +1,58 @@
-/* Variables */
-:root {
-    --main-bg-color: #f0f0f0;
-    --header-bg-color: #333;
-    --font-family: 'Arial', sans-serif;
-    --font-size: 16px;
-    --text-color: #000;
-    /* Add other variables as necessary */
+.container {
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1200px;
 }
 
-/* Global Styles */
-body {
-    margin: 0;
-    font-family: var(--font-family);
-    font-size: var(--font-size);
-    color: var(--text-color);
-    background-color: var(--main-bg-color);
+.header {
+  background-color: #f8f9fa;
+  padding: 20px;
+  text-align: center;
 }
 
-/* Header */
-header {
-    background-color: var(--header-bg-color);
-    padding: 20px;
-    text-align: center;
+.header h1 {
+  margin: 0;
+  font-size: 2.5em;
 }
 
-/* Navigation */
-nav {
-    display: flex;
-    justify-content: space-around;
-    background-color: var(--header-bg-color);
-} 
-
-nav a {
-    color: #fff;
-    text-decoration: none;
+.nav {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  background-color: #343a40;
 }
 
-/* Hero */
-.hero {
-    background-image: url('path/to/image.jpg');
-    height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    /* Add other styles as necessary */
+.nav a {
+  color: white;
+  text-decoration: none;
+  padding: 14px 20px;
 }
 
-/* Sections */
-section {
-    padding: 20px;
+.nav a:hover {
+  background-color: #495057;
 }
 
-/* Player Cubes */
-.player-cubes {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+.footer {
+  background-color: #f8f9fa;
+  padding: 20px;
+  text-align: center;
 }
 
-/* Matches */
-.matches {
-    display: flex;
-    flex-direction: column;
+.section {
+  padding: 20px;
 }
 
-/* Gallery */
-.gallery {
-    display: flex;
-    flex-wrap: wrap;
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
 }
 
-/* Admin */
-.admin {
-    background-color: #eaeaea;
-    padding: 10px;
+.btn:hover {
+  background-color: #0056b3;
 }
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-    }
-    .player-cubes {
-        grid-template-columns: 1fr;
-    }
-    /* Add other responsive styles */
-}
-
-/* Merge redundant media queries here */
