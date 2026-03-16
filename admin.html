@@ -3,68 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tango FC Admin Panel</title>
+<title>Tango FC Admin Dashboard</title>
 
-<style>
-body{
-font-family:Arial;
-margin:0;
-background:#f2f2f2;
-}
+<link rel="stylesheet" href="admin.css">
 
-header{
-background:#111;
-color:white;
-padding:15px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-button{
-padding:8px 12px;
-border:none;
-border-radius:5px;
-cursor:pointer;
-}
-
-.container{
-padding:20px;
-}
-
-.admin-list-item{
-background:white;
-padding:10px;
-margin:10px 0;
-display:flex;
-justify-content:space-between;
-border-radius:6px;
-}
-
-.btn-edit{background:#3498db;color:white;}
-.btn-delete{background:#e74c3c;color:white;}
-</style>
 </head>
-
 <body>
 
 <header>
 <h1>Tango FC Admin Panel</h1>
-<div>
-<button onclick="goHome()">Home</button>
 <button onclick="logout()">Logout</button>
-</div>
 </header>
 
-<div class="container">
+<main>
 
-<h2>Players</h2>
+<section class="admin-header">
+<h2>Admin Dashboard</h2>
+<p>Manage players, matches, and content</p>
+</section>
+
+<div class="admin-container">
+
+<div class="admin-sidebar">
+<button class="admin-tab-btn active" data-tab="players">Manage Players</button>
+<button class="admin-tab-btn" data-tab="matches">Manage Matches</button>
+<button class="admin-tab-btn" data-tab="stats">Upload Stats</button>
+</div>
+
+<div class="admin-content">
+
+<!-- PLAYERS TAB -->
+<div id="players-tab" class="admin-tab active">
+
+<h3>Add/Edit Players</h3>
+
+<form id="playerForm" class="admin-form">
+
+<input type="hidden" id="playerId">
+
+<input type="text" id="playerName" placeholder="Player Name" required>
+<input type="text" id="playerNickname" placeholder="Nickname" required>
+
+<select id="playerPosition" required>
+<option>Forward</option>
+<option>Midfielder</option>
+<option>Defender</option>
+<option>Goalkeeper</option>
+</select>
+
+<input type="number" id="playerNumber" placeholder="Jersey Number" required>
+<input type="number" id="playerGoals" placeholder="Goals" required>
+<input type="number" id="playerAssists" placeholder="Assists" required>
+<input type="text" id="playerImage" placeholder="Photo URL">
+
+<button type="submit">Save Player</button>
+
+</form>
+
+<h3>Player List</h3>
 <div id="playersList"></div>
 
-<h2>Matches</h2>
+</div>
+
+<!-- MATCHES TAB -->
+<div id="matches-tab" class="admin-tab">
+
+<h3>Add/Edit Matches</h3>
+
+<form id="matchForm" class="admin-form">
+
+<input type="hidden" id="matchId">
+
+<input type="text" id="homeTeam" placeholder="Home Team" required>
+<input type="text" id="awayTeam" placeholder="Away Team" required>
+<input type="date" id="matchDate" required>
+<input type="time" id="matchTime" required>
+<input type="text" id="matchVenue" placeholder="Venue" required>
+
+<select id="matchStatus" required>
+<option value="upcoming">Upcoming</option>
+<option value="completed">Completed</option>
+</select>
+
+<button type="submit">Save Match</button>
+
+</form>
+
+<h3>Matches List</h3>
 <div id="matchesList"></div>
 
 </div>
+
+<!-- STATS TAB -->
+<div id="stats-tab" class="admin-tab">
+
+<h3>Update Player Statistics</h3>
+
+<select id="statPlayerSelect"></select>
+
+<button onclick="updatePlayerStats()">Update Stats</button>
+
+</div>
+
+</div>
+</div>
+
+</main>
 
 <script src="admin.js"></script>
 
