@@ -1,6 +1,9 @@
+/* ===== GENERAL ===== */
+
 .admin-page{
-font-family:Arial;
-background:#f4f6fa;
+font-family: "Segoe UI", Arial, sans-serif;
+background:#f4f7fb;
+color:#333;
 }
 
 .admin-wrapper{
@@ -8,52 +11,73 @@ display:flex;
 min-height:100vh;
 }
 
-/* SIDEBAR */
+/* ===== SIDEBAR ===== */
 
 .admin-sidebar{
-width:230px;
-background:#111;
+width:240px;
+background:#0a2f6b;
 color:white;
-padding:20px;
+padding:25px 20px;
 display:flex;
 flex-direction:column;
+box-shadow:2px 0 10px rgba(0,0,0,0.15);
 }
 
 .club-name{
 text-align:center;
-margin-bottom:30px;
+font-size:22px;
+margin-bottom:35px;
+font-weight:bold;
+letter-spacing:1px;
 }
+
+/* NAV BUTTONS */
 
 .admin-tab-btn{
 background:none;
 border:none;
 color:white;
-padding:12px;
+padding:12px 15px;
 margin-bottom:8px;
 text-align:left;
 cursor:pointer;
 border-radius:6px;
+font-size:15px;
+transition:all 0.25s ease;
+}
+
+.admin-tab-btn i{
+margin-right:10px;
 }
 
 .admin-tab-btn:hover{
-background:#333;
+background:#1d4ed8;
 }
 
 .admin-tab-btn.active{
-background:#ff6600;
+background:#2563eb;
+font-weight:bold;
 }
+
+/* LOGOUT */
 
 .logout-btn{
 margin-top:auto;
-background:#e74c3c;
+background:#e63946;
 border:none;
-padding:10px;
+padding:12px;
 color:white;
 cursor:pointer;
 border-radius:6px;
+font-size:15px;
+transition:0.3s;
 }
 
-/* MAIN */
+.logout-btn:hover{
+background:#c92f3a;
+}
+
+/* ===== MAIN CONTENT ===== */
 
 .admin-main{
 flex:1;
@@ -61,44 +85,71 @@ display:flex;
 flex-direction:column;
 }
 
+/* TOPBAR */
+
 .admin-topbar{
 background:white;
-padding:20px;
+padding:20px 30px;
 border-bottom:1px solid #ddd;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
 }
+
+.admin-topbar h1{
+font-size:22px;
+color:#0a2f6b;
+}
+
+/* CONTENT AREA */
 
 .admin-content{
 padding:30px;
 }
 
-/* DASHBOARD CARDS */
+/* ===== DASHBOARD CARDS ===== */
 
 .dashboard-cards{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:20px;
 margin-bottom:30px;
 }
 
 .card{
 background:white;
-padding:20px;
+padding:25px;
 border-radius:10px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
 text-align:center;
+transition:0.3s;
 }
 
-/* FORMS */
+.card:hover{
+transform:translateY(-4px);
+box-shadow:0 6px 16px rgba(0,0,0,0.12);
+}
+
+.card h3{
+margin-bottom:10px;
+color:#0a2f6b;
+}
+
+.card p{
+font-size:28px;
+font-weight:bold;
+color:#2563eb;
+}
+
+/* ===== FORMS ===== */
 
 .admin-form{
 background:white;
-padding:20px;
+padding:25px;
 border-radius:10px;
-box-shadow:0 2px 8px rgba(0,0,0,0.1);
+box-shadow:0 3px 10px rgba(0,0,0,0.08);
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:15px;
-margin-bottom:20px;
+margin-bottom:25px;
 }
 
 .admin-form input,
@@ -106,36 +157,74 @@ margin-bottom:20px;
 padding:10px;
 border-radius:6px;
 border:1px solid #ccc;
+font-size:14px;
 }
 
-.admin-form button{
+.admin-form input:focus,
+.admin-form select:focus{
+outline:none;
+border-color:#2563eb;
+}
+
+/* SAVE BUTTON */
+
+.btn-save{
+background:#2563eb;
+color:white;
+border:none;
+padding:12px;
+border-radius:6px;
+cursor:pointer;
+font-size:15px;
 grid-column:span 2;
+transition:0.3s;
 }
 
-/* LIST */
+.btn-save:hover{
+background:#1d4ed8;
+}
+
+/* ===== PLAYER / MATCH LIST ===== */
 
 .admin-list div{
 background:white;
-padding:12px;
-margin-bottom:10px;
+padding:15px;
+margin-bottom:12px;
 border-radius:8px;
 display:flex;
 justify-content:space-between;
 align-items:center;
+box-shadow:0 2px 6px rgba(0,0,0,0.06);
+transition:0.2s;
 }
 
-/* BUTTONS */
+.admin-list div:hover{
+transform:translateY(-2px);
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
 
-.btn-save{
-background:#28a745;
-color:white;
+/* ACTION BUTTONS */
+
+.admin-list button{
 border:none;
-padding:10px;
-border-radius:6px;
+padding:7px 12px;
+border-radius:5px;
 cursor:pointer;
+font-size:13px;
+margin-left:5px;
 }
 
-/* TABS */
+.admin-list button:first-child{
+background:#2563eb;
+color:white;
+}
+
+.admin-list button:last-child{
+background:#e63946;
+color:white;
+}
+
+/* ===== TABS ===== */
 
 .admin-tab{
 display:none;
@@ -145,7 +234,7 @@ display:none;
 display:block;
 }
 
-/* MOBILE */
+/* ===== MOBILE ===== */
 
 @media(max-width:768px){
 
@@ -161,6 +250,15 @@ overflow-x:auto;
 
 .admin-tab-btn{
 flex:1;
+text-align:center;
+}
+
+.admin-form{
+grid-template-columns:1fr;
+}
+
+.btn-save{
+grid-column:span 1;
 }
 
 }
