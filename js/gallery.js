@@ -45,18 +45,31 @@ const renderGallery = (filter = 'all') => {
     const championsGrid = document.getElementById('celebrationsPicturesGrid');
     const newseasonGrid = document.getElementById('newseasonPicturesGrid');
 
+    if (!matchdayGrid || !championsGrid || !newseasonGrid) return;
+
     matchdayGrid.innerHTML = '';
     championsGrid.innerHTML = '';
-     newseasonGrid.innerHTML = '';
+    newseasonGrid.innerHTML = '';
 
     let matchday = galleryPhotos.filter(p => p.sub === 'matchday');
     let champions = galleryPhotos.filter(p => p.sub === 'champions');
     let newseason = galleryPhotos.filter(p => p.sub === 'newseason');
 
-    if (filter === 'matchday') champions = [];
-    if (filter === 'champions') matchday = [];
-    if (filter === 'newseason') newseason = [];
-    
+    // FILTER FIXED
+    if (filter === 'matchday') {
+        champions = [];
+        newseason = [];
+    }
+
+    if (filter === 'champions') {
+        matchday = [];
+        newseason = [];
+    }
+
+    if (filter === 'newseason') {
+        matchday = [];
+        champions = [];
+    }
 
     matchday.forEach(photo => {
         matchdayGrid.innerHTML += createItem(photo);
@@ -65,6 +78,7 @@ const renderGallery = (filter = 'all') => {
     champions.forEach(photo => {
         championsGrid.innerHTML += createItem(photo);
     });
+
     newseason.forEach(photo => {
         newseasonGrid.innerHTML += createItem(photo);
     });
@@ -73,8 +87,8 @@ const renderGallery = (filter = 'all') => {
 const createItem = (photo) => {
     return `
         <div class="gallery-item">
-            <img loading="lazy" src="${photo.src}" onclick="openLightbox('${photo.src}')">
-            <p>${photo.title}</p>
+            <img loading="lazy" src="${photo.src}" alt="${photo.title}" onclick="openLightbox('${photo.src}')">
+            <p>${photo.title || 'Tango FC'}</p>
         </div>
     `;
 };
@@ -97,160 +111,14 @@ const closeLightbox = () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     renderGallery();
-});
 
-const openLightbox = (src) => {
+    // close when clicking outside image
     const lightbox = document.getElementById('lightbox');
-    const image = document.getElementById('lightboxImage');
-    const video = document.getElementById('lightboxVideo');
-    
-    // show image, hide video
-    video.pause();
-    video.style.display = 'none';
-    image.style.display = 'block';
-    image.src = src;
-    lightbox.style.display = 'flex';
-};
-
-const openLightboxVideo = (src) => {
-    const lightbox = document.getElementById('lightbox');
-    const image = document.getElementById('lightboxImage');
-    const video = document.getElementById('lightboxVideo');
-    image.style.display = 'none';
-    video.style.display = 'block';
-    video.src = src;
-    video.currentTime = 0;
-    video.play().catch(() => {});
-    lightbox.style.display = 'flex';
-};
-
-const closeLightbox = () => {
-    document.getElementById('lightbox').style.display = 'none';
-};
-
-const toggleSection = (event) => {
-    const title = event.target;
-    const content = title.nextElementSibling;
-    
-    if (content.style.display === 'none') {
-        content.style.display = 'block';
-        title.textContent = title.textContent.replace('📹 Videos', '▼ Videos').replace('🖼️ Pictures', '▼ Pictures');
-    } else {
-        content.style.display = 'none';
-        title.textContent = title.textContent.replace('▼ Videos', '📹 Videos').replace('▼ Pictures', '🖼️ Pictures');
-    }
-};
-
-const toggleSubsection = (event) => {
-    const title = event.target.closest('.subsection-title');
-    const content = title.nextElementSibling;
-    
-    if (content.style.display === 'grid') {
-        content.style.display = 'none';
-        title.classList.remove('open');
-    } else {
-        content.style.display = 'grid';
-        title.classList.add('open');
-    }
-};
-
-document.addEventListener('DOMContentLoaded', () => {
-    displayGallery();
-
-    // Close lightbox on outside click
-    document.getElementById('lightbox').addEventListener('click', (e) => {
+    lightbox.addEventListener('click', (e) => {
         if (e.target.id === 'lightbox') {
             closeLightbox();
         }
     });
-    // Initialize navigation dropdown behavior: show only group titles when opened,
-    // and allow each group title to expand its own items.
-    const initNavDropdown = () => {
-        const dropdownToggle = document.querySelector('.dropdown-toggle');
-        const dropdownMenu = document.querySelector('.dropdown-menu');
-        if (!dropdownToggle || !dropdownMenu) return;
-
-        // start hidden
-        dropdownMenu.style.display = 'none';
-
-        // ensure items are hidden and group titles show an arrow next to the emoji
-        dropdownMenu.querySelectorAll('.dropdown-group').forEach(group => {
-            const title = group.querySelector('.dropdown-group-title');
-            const items = group.querySelectorAll('.dropdown-item');
-            items.forEach(i => i.style.display = 'none');
-            if (title) {
-                // if arrow already exists skip rebuilding
-                if (!title.querySelector('.dropdown-arrow')) {
-                    const raw = title.innerHTML.trim();
-                    const parts = raw.split(/\s+/);
-                    const emoji = parts[0] || '';
-                    const rest = parts.slice(1).join(' ') || '';
-
-                    // build structured content: emoji, arrow span, label
-                    title.innerHTML = '';
-                    const emojiSpan = document.createElement('span');
-                    emojiSpan.className = 'dropdown-emoji';
-                    emojiSpan.innerHTML = emoji;
-                    const arrowSpan = document.createElement('span');
-                    arrowSpan.className = 'dropdown-arrow';
-                    arrowSpan.textContent = '▶';
-                    const labelSpan = document.createElement('span');
-                    labelSpan.className = 'dropdown-label';
-                    labelSpan.textContent = rest;
-
-                    title.appendChild(emojiSpan);
-                    title.appendChild(document.createTextNode(' '));
-                    title.appendChild(arrowSpan);
-                    title.appendChild(document.createTextNode(' '));
-                    title.appendChild(labelSpan);
-                }
-
-                const arrow = title.querySelector('.dropdown-arrow');
-                // keep the anchor navigable; attach expand/collapse to the arrow only
-                title.dataset.open = 'false';
-                if (arrow) {
-                    arrow.style.cursor = 'pointer';
-                    arrow.addEventListener('click', (ev) => {
-                        ev.preventDefault();
-                        ev.stopPropagation();
-                        const isOpen = title.dataset.open === 'true';
-                        items.forEach(it => it.style.display = isOpen ? 'none' : 'block');
-                        title.dataset.open = isOpen ? 'false' : 'true';
-                        arrow.textContent = isOpen ? '▶' : '▼';
-                        title.classList.toggle('open', !isOpen);
-                    });
-                }
-            }
-        });
-
-        dropdownToggle.addEventListener('click', (ev) => {
-            ev.preventDefault();
-            const open = dropdownMenu.style.display === 'block';
-            if (open) {
-                dropdownMenu.style.display = 'none';
-            } else {
-                // collapse all groups and show only titles
-                dropdownMenu.style.display = 'block';
-                dropdownMenu.querySelectorAll('.dropdown-item').forEach(i => i.style.display = 'none');
-                dropdownMenu.querySelectorAll('.dropdown-group-title').forEach(t => {
-                    t.dataset.open = 'false';
-                    const arrow = t.querySelector('.dropdown-arrow');
-                    if (arrow) arrow.textContent = '▶';
-                    t.classList.remove('open');
-                });
-            }
-        });
-
-        // close dropdown when clicking outside
-        document.addEventListener('click', (ev) => {
-            if (!dropdownMenu.contains(ev.target) && !dropdownToggle.contains(ev.target)) {
-                dropdownMenu.style.display = 'none';
-            }
-        });
-    };
-
-    initNavDropdown();
 });
-
 
 
