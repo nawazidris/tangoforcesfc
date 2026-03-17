@@ -1,210 +1,109 @@
 const galleryPhotos = [
     // Matchday Pictures
-    { id: 1, type: 'image', src: 'images/tango1.jpg', title: 'Match Victory', category: 'pictures', subcategory: 'matchday' },
-    { id: 2, type: 'image', src: 'images/tango2.jpg', title: 'Cup Final', category: 'pictures', subcategory: 'matchday' },
-    { id: 3, type: 'image', src: 'images/tango3.jpg', title: 'League Match', category: 'pictures', subcategory: 'matchday' },
-    { id: 4, type: 'image', src: 'images/tango4.jpg', title: 'Match Victory', category: 'pictures', subcategory: 'matchday' },
-    { id: 5, type: 'image', src: 'images/tango5.jpg', title: 'Cup Final', category: 'pictures', subcategory: 'matchday' },
-    { id: 6, type: 'image', src: 'images/tango6.jpg', title: 'League Match', category: 'pictures', subcategory: 'matchday' },
-    { id: 7, type: 'image', src: 'images/tango7.jpg', title: 'Match Victory', category: 'pictures', subcategory: 'matchday' },
-    { id: 8, type: 'image', src: 'images/tango8.jpg', title: 'Cup Final', category: 'pictures', subcategory: 'matchday' },
-    { id: 9, type: 'image', src: 'images/tango9.jpg', title: 'League Match', category: 'pictures', subcategory: 'matchday' },
-    { id: 10, type: 'image', src: 'images/tango10.jpg', title: 'Match Victory', category: 'pictures', subcategory: 'matchday' },
-    { id: 11, type: 'image', src: 'images/tango11.jpg', title: 'Cup Final', category: 'pictures', subcategory: 'matchday' },
-    { id: 12, type: 'image', src: 'images/tango12.jpg', title: 'League Match', category: 'pictures', subcategory: 'matchday' },
-    { id: 13, type: 'image', src: 'images/tango13.jpg', title: 'Match Victory', category: 'pictures', subcategory: 'matchday' },
-    { id: 14, type: 'image', src: 'images/tango14.jpg', title: 'Cup Final', category: 'pictures', subcategory: 'matchday' },
-    { id: 15, type: 'image', src: 'images/tango15.jpg', title: 'League Match', category: 'pictures', subcategory: 'matchday' },
-    { id: 16, type: 'image', src: 'images/tango16.jpg', title: 'Match Victory', category: 'pictures', subcategory: 'matchday' },
-    { id: 17, type: 'image', src: 'images/tango17.jpg', title: 'Cup Final', category: 'pictures', subcategory: 'matchday' },
-    { id: 18, type: 'image', src: 'images/tango18.jpg', title: 'League Match', category: 'pictures', subcategory: 'matchday' },
+    { id: 1, type: 'image', src: 'images/tango1.jpg', title: 'Match Victory', sub: 'matchday' },
+    { id: 2, type: 'image', src: 'images/tango2.jpg', title: 'Cup Final', sub: 'matchday' },
+    { id: 3, type: 'image', src: 'images/tango3.jpg', title: 'League Match', sub: 'matchday' },
+    { id: 4, type: 'image', src: 'images/tango4.jpg', title: 'Match Action', sub: 'matchday' },
+    { id: 5, type: 'image', src: 'images/tango5.jpg', title: 'Cup Final', sub: 'matchday' },
+    { id: 6, type: 'image', src: 'images/tango6.jpg', title: 'League Match', sub: 'matchday' },
+    { id: 7, type: 'image', src: 'images/tango7.jpg', title: 'Match Action', sub: 'matchday' },
+    { id: 8, type: 'image', src: 'images/tango8.jpg', title: 'Cup Final', sub: 'matchday' },
+    { id: 9, type: 'image', src: 'images/tango9.jpg', title: 'League Match', sub: 'matchday' },
+    { id: 10, type: 'image', src: 'images/tango10.jpg', title: 'Match Action', sub: 'matchday' },
+    { id: 11, type: 'image', src: 'images/tango11.jpg', title: 'Cup Final', sub: 'matchday' },
+    { id: 12, type: 'image', src: 'images/tango12.jpg', title: 'League Match', sub: 'matchday' },
+    { id: 13, type: 'image', src: 'images/tango13.jpg', title: 'Match Action', sub: 'matchday' },
+    { id: 14, type: 'image', src: 'images/tango14.jpg', title: 'Cup Final', sub: 'matchday' },
+    { id: 15, type: 'image', src: 'images/tango15.jpg', title: 'League Match', sub: 'matchday' },
+    { id: 16, type: 'image', src: 'images/tango16.jpg', title: 'Match Action', sub: 'matchday' },
+    { id: 17, type: 'image', src: 'images/tango17.jpg', title: 'Cup Final', sub: 'matchday' },
+    { id: 18, type: 'image', src: 'images/tango18.jpg', title: 'League Match', sub: 'matchday' },
     
     // Champions Celebrations Pictures - MOSSL Images
-    { id: 100, type: 'image', src: 'images/IMG_3505.jpg', title: 'MOSSL Celebration - IMG_3505', category: 'pictures', subcategory: 'champions' },
-    { id: 101, type: 'image', src: 'images/IMG_3506.jpg', title: 'MOSSL Celebration - IMG_3506', category: 'pictures', subcategory: 'champions' },
-    { id: 103, type: 'image', src: 'images/IMG_3508.jpg', title: 'MOSSL Celebration - IMG_3508', category: 'pictures', subcategory: 'champions' },
-    { id: 104, type: 'image', src: 'images/IMG_3509.jpg', title: 'MOSSL Celebration - IMG_3509', category: 'pictures', subcategory: 'champions' },
-    { id: 105, type: 'image', src: 'images/IMG_3510.jpg', title: 'MOSSL Celebration - IMG_3510', category: 'pictures', subcategory: 'champions' },
-    { id: 106, type: 'image', src: 'images/IMG_3511.jpg', title: 'MOSSL Celebration - IMG_3511', category: 'pictures', subcategory: 'champions' },
-    { id: 108, type: 'image', src: 'images/IMG_3513.jpg', title: 'MOSSL Celebration - IMG_3513', category: 'pictures', subcategory: 'champions' },
-    { id: 110, type: 'image', src: 'images/IMG_3518.jpg', title: 'MOSSL Celebration - IMG_3518', category: 'pictures', subcategory: 'champions' },
-    { id: 112, type: 'image', src: 'images/IMG_3520.jpg', title: 'MOSSL Celebration - IMG_3520', category: 'pictures', subcategory: 'champions' },
-    { id: 225, type: 'image', src: 'images/IMG_3662.jpg', title: 'MOSSL Celebration - IMG_3662', category: 'pictures', subcategory: 'champions' },
+    { id: 100, type: 'image', src: 'images/IMG_3505.jpg', title: 'Celebration', sub: 'champions' },
+    { id: 101, type: 'image', src: 'images/IMG_3506.jpg', title: 'Celebration', sub: 'champions' },
+    { id: 103, type: 'image', src: 'images/IMG_3508.jpg', title: 'Celebration', sub: 'champions' },
+    { id: 104, type: 'image', src: 'images/IMG_3509.jpg', title: 'Celebration', sub: 'champions' },
+    { id: 105, type: 'image', src: 'images/IMG_3510.jpg', title: 'Victory Moment', sub: 'champions' },
+    { id: 106, type: 'image', src: 'images/IMG_3511.jpg', title: 'Trophy Lift', sub: 'champions' },
+    { id: 108, type: 'image', src: 'images/IMG_3513.jpg', title: 'Victory Moment', sub: 'champions' },
+    { id: 110, type: 'image', src: 'images/IMG_3518.jpg', title: 'Trophy Lift', sub: 'champions' },
+    { id: 112, type: 'image', src: 'images/IMG_3520.jpg', title: 'Victory Moment', sub: 'champions' },
+    { id: 225, type: 'image', src: 'images/IMG_3662.jpg', title: 'Trophy Lift', sub: 'champions' },
+
+    // New Season - MOSSL Images
+    { id: 300, src: 'images/IMG_3505.jpg', title: 'New Season', sub: 'newseason' },
+    { id: 301, src: 'images/IMG_3506.jpg', title: 'New Season', sub: 'newseason' },
+    { id: 302, src: 'images/IMG_3508.jpg', title: 'New Season', sub: 'newseason' },
+    { id: 303, src: 'images/IMG_3509.jpg', title: 'New Season', sub: 'newseason' }
     
-    
+  
 ];
 
-const displayGalleryInGrid = (photos, gridId) => {
-    const container = document.getElementById(gridId);
-    if (!container) return;
-    
-    container.innerHTML = '';
-    
-    if (photos.length === 0) {
-        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 20px;">No items in this section</p>';
-        return;
-    }
+const renderGallery = (filter = 'all') => {
+    const matchdayGrid = document.getElementById('matchdayPicturesGrid');
+    const championsGrid = document.getElementById('celebrationsPicturesGrid');
+    const newseasonGrid = document.getElementById('newseasonPicturesGrid');
 
-    photos.forEach(photo => {
-        const item = document.createElement('div');
-        item.className = 'gallery-item';
-        if (photo.type === 'video') {
-            item.innerHTML = `
-                <video class="gallery-thumb" src="${photo.src}" muted playsinline preload="metadata" onclick="openLightboxVideo('${photo.src}')"></video>
-                <div class="play-overlay">▶</div>
-                <p>${photo.title}</p>
-            `;
-        } else {
-            item.innerHTML = `
-                <img src="${photo.src}" alt="${photo.title}" onclick="openLightbox('${photo.src}')">
-                <p>${photo.title}</p>
-            `;
-        }
-        container.appendChild(item);
+    matchdayGrid.innerHTML = '';
+    championsGrid.innerHTML = '';
+     newseasonGrid.innerHTML = '';
+
+    let matchday = galleryPhotos.filter(p => p.sub === 'matchday');
+    let champions = galleryPhotos.filter(p => p.sub === 'champions');
+    let newseason = galleryPhotos.filter(p => p.sub === 'newseason');
+
+    if (filter === 'matchday') champions = [];
+    if (filter === 'champions') matchday = [];
+    if (filter === 'newseason') newseason = [];
+    
+
+    matchday.forEach(photo => {
+        matchdayGrid.innerHTML += createItem(photo);
+    });
+
+    champions.forEach(photo => {
+        championsGrid.innerHTML += createItem(photo);
+    });
+    newseason.forEach(photo => {
+        newseasonGrid.innerHTML += createItem(photo);
     });
 };
 
-const displayGallery = () => {
-    // Get URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const type = urlParams.get('type'); // 'videos' or 'pictures'
-    const sub = urlParams.get('sub'); // 'matchday' or 'champions'
+const createItem = (photo) => {
+    return `
+        <div class="gallery-item">
+            <img loading="lazy" src="${photo.src}" onclick="openLightbox('${photo.src}')">
+            <p>${photo.title}</p>
+        </div>
+    `;
+};
 
-    // Update page title and description
-    const titleEl = document.getElementById('galleryTitle');
-    const descEl = document.getElementById('galleryDescription');
-    
-    if (type === 'videos') {
-        if (sub === 'matchday') {
-            titleEl.textContent = 'Matchday Videos';
-            descEl.textContent = 'Videos from matchday events';
-        } else if (sub === 'champions') {
-            titleEl.textContent = 'Champions Celebration Videos';
-            descEl.textContent = 'Videos from the 2025/26 MOSSL Champions celebrations';
-        } else {
-            titleEl.textContent = 'Club Videos';
-            descEl.textContent = 'Videos from matches and team events';
-        }
-    } else if (type === 'pictures') {
-        if (sub === 'matchday') {
-            titleEl.textContent = 'Matchday Pictures';
-            descEl.textContent = 'Photos from matchday events';
-        } else if (sub === 'champions') {
-            titleEl.textContent = 'Champions Celebration Pictures';
-            descEl.textContent = 'Photos from the 2025/26 MOSSL Champions celebrations';
-        } else {
-            titleEl.textContent = 'Club Pictures';
-            descEl.textContent = 'Photos from matches and team events';
-        }
-    } else {
-        titleEl.textContent = 'Club Gallery';
-        descEl.textContent = 'Photos and videos from matches and team events';
-    }
-
-    // Filter photos based on URL params
-    let filteredPhotos = galleryPhotos;
-    if (type) {
-        filteredPhotos = filteredPhotos.filter(p => p.category === type);
-    }
-    if (sub) {
-        filteredPhotos = filteredPhotos.filter(p => p.subcategory === sub);
-    }
-
-    // If no filters, show all
-    if (!type && !sub) {
-        const matchdayVideos = galleryPhotos.filter(p => p.category === 'videos' && p.subcategory === 'matchday');
-        const celebrationsVideos = galleryPhotos.filter(p => p.category === 'videos' && p.subcategory === 'champions');
-        const matchdayPictures = galleryPhotos.filter(p => p.category === 'pictures' && p.subcategory === 'matchday');
-        const celebrationsPictures = galleryPhotos.filter(p => p.category === 'pictures' && p.subcategory === 'champions');
-        
-        displayGalleryInGrid(matchdayVideos, 'matchdayVideosGrid');
-        displayGalleryInGrid(celebrationsVideos, 'celebrationsVideosGrid');
-        displayGalleryInGrid(matchdayPictures, 'matchdayPicturesGrid');
-        displayGalleryInGrid(celebrationsPictures, 'celebrationsPicturesGrid');
-        
-        // Show both sections
-        document.querySelectorAll('.gallery-section').forEach(section => {
-            section.style.display = 'block';
-        });
-        
-        // Set container to two columns
-        document.querySelector('.gallery-container').style.gridTemplateColumns = '1fr 1fr';
-    } else {
-        // Hide all sections first
-        document.querySelectorAll('.gallery-section').forEach(section => {
-            section.style.display = 'none';
-        });
-
-        // Set container to single column (full width)
-        document.querySelector('.gallery-container').style.gridTemplateColumns = '1fr';
-        
-        // Show only the relevant section
-        if (type === 'videos') {
-            document.querySelector('.gallery-section:nth-child(1)').style.display = 'block';
-            // Expand the videos section
-            const videosSection = document.querySelector('.gallery-section:nth-child(1)');
-            videosSection.querySelector('.section-content').style.display = 'block';
-            videosSection.querySelector('.section-title').textContent = '▼ Videos';
-            
-            // Filter and display based on sub
-            if (sub === 'matchday') {
-                const matchdayVideos = filteredPhotos.filter(p => p.subcategory === 'matchday');
-                displayGalleryInGrid(matchdayVideos, 'matchdayVideosGrid');
-                // Show only matchday subsection
-                videosSection.querySelectorAll('.subsection')[0].querySelector('.subsection-content').style.display = 'grid';
-                videosSection.querySelectorAll('.subsection')[0].querySelector('.subsection-title').classList.add('open');
-                videosSection.querySelectorAll('.subsection')[1].querySelector('.subsection-content').style.display = 'none';
-                videosSection.querySelectorAll('.subsection')[1].querySelector('.subsection-title').classList.remove('open');
-            } else if (sub === 'champions') {
-                const celebrationsVideos = filteredPhotos.filter(p => p.subcategory === 'champions');
-                displayGalleryInGrid(celebrationsVideos, 'celebrationsVideosGrid');
-                // Show only celebrations subsection
-                videosSection.querySelectorAll('.subsection')[0].querySelector('.subsection-content').style.display = 'none';
-                videosSection.querySelectorAll('.subsection')[0].querySelector('.subsection-title').classList.remove('open');
-                videosSection.querySelectorAll('.subsection')[1].querySelector('.subsection-content').style.display = 'grid';
-                videosSection.querySelectorAll('.subsection')[1].querySelector('.subsection-title').classList.add('open');
-            } else {
-                // Show all videos
-                const matchdayVideos = galleryPhotos.filter(p => p.category === 'videos' && p.subcategory === 'matchday');
-                const celebrationsVideos = galleryPhotos.filter(p => p.category === 'videos' && p.subcategory === 'champions');
-                displayGalleryInGrid(matchdayVideos, 'matchdayVideosGrid');
-                displayGalleryInGrid(celebrationsVideos, 'celebrationsVideosGrid');
-            }
-        } else if (type === 'pictures') {
-            document.querySelector('.gallery-section:nth-child(2)').style.display = 'block';
-            // Similar logic for pictures
-            const picturesSection = document.querySelector('.gallery-section:nth-child(2)');
-            picturesSection.querySelector('.section-content').style.display = 'block';
-            picturesSection.querySelector('.section-title').textContent = '▼ Pictures';
-            
-            if (sub === 'matchday') {
-                const matchdayPictures = filteredPhotos.filter(p => p.subcategory === 'matchday');
-                displayGalleryInGrid(matchdayPictures, 'matchdayPicturesGrid');
-                picturesSection.querySelectorAll('.subsection')[0].querySelector('.subsection-content').style.display = 'grid';
-                picturesSection.querySelectorAll('.subsection')[0].querySelector('.subsection-title').classList.add('open');
-                picturesSection.querySelectorAll('.subsection')[1].querySelector('.subsection-content').style.display = 'none';
-                picturesSection.querySelectorAll('.subsection')[1].querySelector('.subsection-title').classList.remove('open');
-            } else if (sub === 'champions') {
-                const celebrationsPictures = filteredPhotos.filter(p => p.subcategory === 'champions');
-                displayGalleryInGrid(celebrationsPictures, 'celebrationsPicturesGrid');
-                picturesSection.querySelectorAll('.subsection')[0].querySelector('.subsection-content').style.display = 'none';
-                picturesSection.querySelectorAll('.subsection')[0].querySelector('.subsection-title').classList.remove('open');
-                picturesSection.querySelectorAll('.subsection')[1].querySelector('.subsection-content').style.display = 'grid';
-                picturesSection.querySelectorAll('.subsection')[1].querySelector('.subsection-title').classList.add('open');
-            } else {
-                const matchdayPictures = galleryPhotos.filter(p => p.category === 'pictures' && p.subcategory === 'matchday');
-                const celebrationsPictures = galleryPhotos.filter(p => p.category === 'pictures' && p.subcategory === 'champions');
-                displayGalleryInGrid(matchdayPictures, 'matchdayPicturesGrid');
-                displayGalleryInGrid(celebrationsPictures, 'celebrationsPicturesGrid');
-            }
-        }
-    }
+const filterGallery = (type) => {
+    renderGallery(type);
 };
 
 const openLightbox = (src) => {
     const lightbox = document.getElementById('lightbox');
     const image = document.getElementById('lightboxImage');
+
+    image.src = src;
+    lightbox.style.display = 'flex';
+};
+
+const closeLightbox = () => {
+    document.getElementById('lightbox').style.display = 'none';
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderGallery();
+});
+
+const openLightbox = (src) => {
+    const lightbox = document.getElementById('lightbox');
+    const image = document.getElementById('lightboxImage');
     const video = document.getElementById('lightboxVideo');
+    
     // show image, hide video
     video.pause();
     video.style.display = 'none';
