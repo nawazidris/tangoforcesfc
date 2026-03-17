@@ -1,273 +1,208 @@
-/* ================= SECURITY ================= */
-
-const token = sessionStorage.getItem("adminToken");
-const expiry = sessionStorage.getItem("adminExpiry");
-
-if(!token || !expiry){
-window.location.href="tango-admin-access.html";
-}
-
-if(Date.now() > Number(expiry)){
-alert("Session expired");
-sessionStorage.clear();
-window.location.href="tango-admin-access.html";
-}
-
-function logout(){
-sessionStorage.clear();
-window.location.href="tango-admin-access.html";
-}
-
-/* ================= TABS ================= */
-
-document.addEventListener("DOMContentLoaded", function(){
-
-const buttons = document.querySelectorAll(".admin-tab-btn");
-const tabs = document.querySelectorAll(".admin-tab");
-
-buttons.forEach(btn=>{
-btn.addEventListener("click",function(){
-
-buttons.forEach(b=>b.classList.remove("active"));
-tabs.forEach(t=>t.classList.remove("active"));
-
-this.classList.add("active");
-document.getElementById(this.dataset.tab+"-tab").classList.add("active");
-
-});
-});
-
-});
-
-/* ================= DATA ================= */
+/* ================= STORAGE ================= */
 
 let players = JSON.parse(localStorage.getItem("adminPlayers")) || [];
 let matches = JSON.parse(localStorage.getItem("adminMatches")) || [];
+
+/* ================= DASHBOARD ================= */
+
+function updateDashboard() {
+    document.getElementById("totalPlayers").textContent = players.length;
+    document.getElementById("totalMatches").textContent = matches.length;
+    document.getElementById("upcomingMatches").textContent =
+        matches.filter(m => m.status === "upcoming").length;
+}
 
 /* ================= PLAYERS ================= */
 
 const playerForm = document.getElementById("playerForm");
 
-playerForm.addEventListener("submit",function(e){
-e.preventDefault();
+playerForm.addEventListener("submit", function(e) {
+    e.preventDefault();
 
-const id = document.getElementById("playerId").value || Date.now();
+    const id = document.getElementById("playerId").value || Date.now();
 
-const player = {
-id:Number(id),
-name:playerForm.playerName.value,
-nickname:playerForm.playerNickname.value,
-position:playerForm.playerPosition.value,
-number:playerForm.playerNumber.value,
-goals:Number(playerForm.playerGoals.value),
-assists:Number(playerForm.playerAssists.value),
-image:playerForm.playerImage.value
-};
+    const player = {
+        id: Number(id),
+        name: playerForm.playerName.value,
+        nickname: playerForm.playerNickname.value,
+        position: playerForm.playerPosition.value,
+        number: playerForm.playerNumber.value,
+        goals: Number(playerForm.playerGoals.value) || 0,
+        assists: Number(playerForm.playerAssists.value) || 0,
+        image: playerForm.playerImage.value
+    };
 
-players = players.filter(p=>p.id!==player.id);
-players.push(player);
+    players = players.filter(p => p.id !== player.id);
+    players.push(player);
 
-localStorage.setItem("adminPlayers",JSON.stringify(players));
+    localStorage.setItem("adminPlayers", JSON.stringify(players));
 
-playerForm.reset();
-displayPlayers();
-updateStatDropdown();
-
+    playerForm.reset();
+    displayPlayers();
+    updateDashboard();
 });
-
-function displayPlayers(){
-const container=document.getElementById("playersList");
-container.innerHTML="";
-
-players.forEach(p=>{
-container.innerHTML+=`
-<div>
-<strong>${p.name}</strong>
-<button onclick="editPlayer(${p.id})">Edit</button>
-<button onclick="deletePlayer(${p.id})">Delete</button>
-</div>
-`;
-});
-}
-
-function deletePlayer(id){
-players=players.filter(p=>p.id!==id);
-localStorage.setItem("adminPlayers",JSON.stringify(players));
-displayPlayers();
-updateStatDropdown();
-}
-
-function editPlayer(id){
-const p=players.find(x=>x.id===id);
-
-document.getElementById("playerId").value=p.id;
-playerForm.playerName.value=p.name;
-playerForm.playerNickname.value=p.nickname;
-playerForm.playerPosition.value=p.position;
-playerForm.playerNumber.value=p.number;
-playerForm.playerGoals.value=p.goals;
-playerForm.playerAssists.value=p.assists;
-playerForm.playerImage.value=p.image;
-}
 
 /* ================= MATCHES ================= */
 
-const matchForm=document.getElementById("matchForm");
+const matchForm = document.getElementById("matchForm");
 
-matchForm.addEventListener("submit",function(e){
-e.preventDefault();
+matchForm.addEventListener("submit", function(e) {
+    e.preventDefault();
 
-const id=document.getElementById("matchId").value || Date.now();
+    const id = document.getElementById("matchId").value || Date.now();
 
-const existingMatch = matches.find(m => m.id == id);
+    const existing = matches.find(m => m.id == id);
 
-const match={
-id:Number(id),
-homeTeam:matchForm.homeTeam.value,
-awayTeam:matchForm.awayTeam.value,
-date:matchForm.matchDate.value,
-time:matchForm.matchTime.value,
-venue:matchForm.matchVenue.value,
-status:matchForm.matchStatus.value,
-homeScore:matchForm.homeScore.value,
-awayScore:matchForm.awayScore.value,
-events: existingMatch ? existingMatch.events : []
-};
+    const match = {
+        id: Number(id),
+        homeTeam: matchForm.homeTeam.value,
+        awayTeam: matchForm.awayTeam.value,
+        date: matchForm.matchDate.value,
+        time: matchForm.matchTime.value,
+        venue: matchForm.matchVenue.value,
+        status: matchForm.matchStatus.value,
+        homeScore: Number(matchForm.homeScore.value) || 0,
+        awayScore: Number(matchForm.awayScore.value) || 0,
+        events: existing ? existing.events : []
+    };
 
-matches=matches.filter(m=>m.id!==match.id);
-matches.push(match);
+    matches = matches.filter(m => m.id !== match.id);
+    matches.push(match);
 
-localStorage.setItem("adminMatches",JSON.stringify(matches));
+    localStorage.setItem("adminMatches", JSON.stringify(matches));
 
-matchForm.reset();
-displayMatches();
-populateMatchDropdown();
+    matchForm.reset();
+    displayMatches();
+    populateMatchDropdown();
+    updateDashboard();
 });
-
-/* DISPLAY MATCHES */
-
-function displayMatches(){
-const container=document.getElementById("matchesList");
-container.innerHTML="";
-
-matches.forEach(m=>{
-container.innerHTML+=`
-<div>
-<strong>${m.homeTeam} vs ${m.awayTeam}</strong><br>
-${m.status==="completed" ?
-`Score: ${m.homeScore} - ${m.awayScore}` : "Upcoming"}
-<br>
-<button onclick="editMatch(${m.id})">Edit</button>
-<button onclick="deleteMatch(${m.id})">Delete</button>
-<button onclick="displayEvents(${m.id})">View Events</button>
-</div>
-`;
-});
-}
-
-function deleteMatch(id){
-matches=matches.filter(m=>m.id!==id);
-localStorage.setItem("adminMatches",JSON.stringify(matches));
-displayMatches();
-populateMatchDropdown();
-}
-
-function editMatch(id){
-const m=matches.find(x=>x.id===id);
-
-document.getElementById("matchId").value=m.id;
-matchForm.homeTeam.value=m.homeTeam;
-matchForm.awayTeam.value=m.awayTeam;
-matchForm.matchDate.value=m.date;
-matchForm.matchTime.value=m.time;
-matchForm.matchVenue.value=m.venue;
-matchForm.matchStatus.value=m.status;
-matchForm.homeScore.value=m.homeScore;
-matchForm.awayScore.value=m.awayScore;
-}
 
 /* ================= EVENTS ================= */
 
-function populateMatchDropdown(){
-const select = document.getElementById("eventMatchSelect");
-select.innerHTML="";
+const eventType = document.getElementById("eventType");
+const playerOffInput = document.getElementById("eventPlayerOff");
 
-matches.forEach(m=>{
-select.innerHTML+=`<option value="${m.id}">
-${m.homeTeam} vs ${m.awayTeam}
-</option>`;
+eventType.addEventListener("change", function() {
+    playerOffInput.style.display =
+        eventType.value === "sub" ? "block" : "none";
 });
+
+function addEvent() {
+
+    const matchId = Number(document.getElementById("eventMatchSelect").value);
+    const type = eventType.value;
+    const player = document.getElementById("eventPlayer").value;
+    const minute = Number(document.getElementById("eventMinute").value);
+    const playerOff = playerOffInput.value;
+
+    if (!player || !minute) {
+        alert("Please enter player and minute");
+        return;
+    }
+
+    const match = matches.find(m => m.id === matchId);
+    if (!match) return;
+
+    let event = { type, player, minute };
+
+    // Auto score update
+    if (type === "goal") {
+        if (match.homeTeam === "Tango Forces") {
+            match.homeScore++;
+        }
+    }
+
+    if (type === "sub") {
+        event.player_out = playerOff;
+    }
+
+    match.events.push(event);
+
+    // Sort by minute
+    match.events.sort((a, b) => a.minute - b.minute);
+
+    localStorage.setItem("adminMatches", JSON.stringify(matches));
+
+    displayEvents(matchId);
+    displayMatches();
 }
 
-function addEvent(){
+/* ================= DISPLAY FUNCTIONS ================= */
 
-const matchId = Number(document.getElementById("eventMatchSelect").value);
-const type = document.getElementById("eventType").value;
-const player = document.getElementById("eventPlayer").value;
-const minute = document.getElementById("eventMinute").value;
-const playerOff = document.getElementById("eventPlayerOff").value;
+function displayPlayers() {
+    const list = document.getElementById("playersList");
+    list.innerHTML = "";
 
-const match = matches.find(m=>m.id===matchId);
-if(!match) return;
-
-const event = { type, player, minute, playerOff };
-
-match.events.push(event);
-
-localStorage.setItem("adminMatches", JSON.stringify(matches));
-
-displayEvents(matchId);
+    players.forEach(p => {
+        list.innerHTML += `
+        <div>
+            <strong>${p.name}</strong> (#${p.number}) - ${p.position}
+        </div>`;
+    });
 }
 
-function displayEvents(matchId){
+function displayMatches() {
+    const list = document.getElementById("matchesList");
+    list.innerHTML = "";
 
-const container = document.getElementById("eventsList");
-container.innerHTML="";
-
-const match = matches.find(m=>m.id===matchId);
-if(!match || !match.events) return;
-
-match.events.forEach(e=>{
-
-let text="";
-
-if(e.type==="goal") text=`⚽ ${e.player} (${e.minute}')`;
-else if(e.type==="yellow") text=`🟨 ${e.player} (${e.minute}')`;
-else if(e.type==="red") text=`🟥 ${e.player} (${e.minute}')`;
-else if(e.type==="sub") text=`🔄 ${e.player} ⬅️ ${e.playerOff} (${e.minute}')`;
-
-container.innerHTML+=`<div>${text}</div>`;
-});
+    matches.forEach(m => {
+        list.innerHTML += `
+        <div>
+            <strong>${m.homeTeam} vs ${m.awayTeam}</strong><br>
+            ${m.status === "completed"
+                ? `${m.homeScore} - ${m.awayScore}`
+                : "Upcoming"}
+            <br>
+            <button onclick="displayEvents(${m.id})">View Events</button>
+        </div>`;
+    });
 }
 
-/* ================= STATS ================= */
+function populateMatchDropdown() {
+    const select = document.getElementById("eventMatchSelect");
+    select.innerHTML = "";
 
-function updateStatDropdown(){
-const select=document.getElementById("statPlayerSelect");
-select.innerHTML="";
-players.forEach(p=>{
-select.innerHTML+=`<option value="${p.id}">${p.name}</option>`;
-});
+    matches.forEach(m => {
+        select.innerHTML += `
+        <option value="${m.id}">
+            ${m.homeTeam} vs ${m.awayTeam}
+        </option>`;
+    });
 }
 
-function updatePlayerStats(){
-const id=Number(document.getElementById("statPlayerSelect").value);
-const player=players.find(p=>p.id===id);
+function displayEvents(matchId) {
 
-if(!player) return;
+    const container = document.getElementById("eventsList");
+    container.innerHTML = "";
 
-player.goals=Number(prompt("New Goals",player.goals));
-player.assists=Number(prompt("New Assists",player.assists));
+    const match = matches.find(m => m.id === matchId);
+    if (!match) return;
 
-localStorage.setItem("adminPlayers",JSON.stringify(players));
-alert("Stats Updated");
+    match.events.forEach(e => {
+
+        let text = "";
+
+        if (e.type === "goal")
+            text = `⚽ ${e.player} (${e.minute}')`;
+
+        if (e.type === "yellow")
+            text = `🟨 ${e.player} (${e.minute}')`;
+
+        if (e.type === "red")
+            text = `🟥 ${e.player} (${e.minute}')`;
+
+        if (e.type === "sub")
+            text = `🔁 ${e.player} ↔ ${e.player_out} (${e.minute}')`;
+
+        container.innerHTML += `<div>${text}</div>`;
+    });
 }
 
 /* ================= INIT ================= */
 
-document.addEventListener("DOMContentLoaded",function(){
-displayPlayers();
-displayMatches();
-updateStatDropdown();
-populateMatchDropdown();
+document.addEventListener("DOMContentLoaded", function() {
+    displayPlayers();
+    displayMatches();
+    populateMatchDropdown();
+    updateDashboard();
 });
