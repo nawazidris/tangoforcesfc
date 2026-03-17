@@ -1,10 +1,8 @@
-// videos.js
-
 // =============================
-// VIDEO DATASET
+// LOCAL + ADMIN VIDEOS MERGE
 // =============================
 
-const galleryVideos = [
+const localVideos = [
 
 { id: 1, src: 'images/tango01.mp4', title: 'Champions Celebration', subcategory: 'champions', date:'2026-02-01' },
 { id: 10, src: 'images/tango02.mp4', title: 'Champions Celebration', subcategory: 'champions', date:'2026-02-02' },
@@ -16,19 +14,24 @@ const galleryVideos = [
 
 ];
 
+// ADMIN VIDEOS
+const adminVideos = JSON.parse(localStorage.getItem("videos")) || [];
+
+// MERGE
+const galleryVideos = [...localVideos, ...adminVideos];
+
+let currentVideos = [...galleryVideos];
+
 // =============================
 // ELEMENTS
 // =============================
 
 const grid = document.getElementById("videoGrid");
 const counter = document.getElementById("videoCounter");
-const sortSelect = document.getElementById("videoSort");
 
 const lightbox = document.getElementById("videoLightbox");
 const lightboxVideo = document.getElementById("lightboxVideo");
-const closeBtn = document.querySelector(".video-lightbox .close-btn");
-
-let currentVideos = [...galleryVideos];
+const closeBtn = document.querySelector(".close-btn");
 
 // =============================
 // LOAD VIDEOS
@@ -38,34 +41,42 @@ function loadVideos(videos){
 
 grid.innerHTML = "";
 
+if(videos.length === 0){
+grid.innerHTML = "<p class='empty-msg'>No videos available</p>";
+return;
+}
+
 videos.forEach(video => {
 
 const card = document.createElement("div");
-card.className = "gallery-item";
+card.className = "video-card";
 
-/* THUMBNAIL */
+/* VIDEO */
 
 const thumb = document.createElement("video");
 
-thumb.src = video.src;
+thumb.src = video.src || video.url;
 thumb.muted = true;
 thumb.preload = "metadata";
 thumb.playsInline = true;
-thumb.loading = "lazy";
-
 thumb.className = "video-thumb";
+
+/* PLAY ICON */
+
+const playBtn = document.createElement("div");
+playBtn.className = "play-btn";
+playBtn.innerHTML = "▶";
 
 /* TITLE */
 
-const title = document.createElement("p");
-title.className = "video-title";
+const title = document.createElement("h3");
 title.textContent = video.title;
 
-/* CATEGORY TAG */
+/* TAG */
 
 const tag = document.createElement("span");
 tag.className = "video-tag";
-tag.textContent = video.subcategory;
+tag.textContent = video.subcategory || video.category;
 
 /* HOVER PREVIEW */
 
@@ -79,17 +90,18 @@ thumb.pause();
 thumb.currentTime = 0;
 });
 
-/* OPEN FULLSCREEN */
+/* OPEN */
 
 card.addEventListener("click", () => {
 
 lightbox.style.display = "flex";
-lightboxVideo.src = video.src;
+lightboxVideo.src = video.src || video.url;
 lightboxVideo.play();
 
 });
 
 card.appendChild(thumb);
+card.appendChild(playBtn);
 card.appendChild(tag);
 card.appendChild(title);
 
@@ -97,19 +109,7 @@ grid.appendChild(card);
 
 });
 
-updateCounter(videos.length);
-
-}
-
-// =============================
-// VIDEO COUNTER
-// =============================
-
-function updateCounter(total){
-
-if(counter){
-counter.textContent = total + " Videos";
-}
+counter.textContent = videos.length + " Videos";
 
 }
 
@@ -128,13 +128,11 @@ btn.addEventListener("click", ()=>{
 const filter = btn.dataset.filter;
 
 if(filter === "all"){
-
 currentVideos = [...galleryVideos];
-
 }else{
-
-currentVideos = galleryVideos.filter(v => v.subcategory === filter);
-
+currentVideos = galleryVideos.filter(v =>
+(v.subcategory || v.category) === filter
+);
 }
 
 loadVideos(currentVideos);
@@ -149,109 +147,22 @@ btn.classList.add("active");
 }
 
 // =============================
-// SORTING
-// =============================
-
-function setupSorting(){
-
-if(!sortSelect) return;
-
-sortSelect.addEventListener("change", ()=>{
-
-const value = sortSelect.value;
-
-if(value === "newest"){
-
-currentVideos.sort((a,b)=> new Date(b.date) - new Date(a.date));
-
-}
-
-if(value === "az"){
-
-currentVideos.sort((a,b)=> a.title.localeCompare(b.title));
-
-}
-
-if(value === "category"){
-
-currentVideos.sort((a,b)=> a.subcategory.localeCompare(b.subcategory));
-
-}
-
-loadVideos(currentVideos);
-
-});
-
-}
-
-// =============================
 // LIGHTBOX
 // =============================
 
 function closeLightbox(){
 
 lightboxVideo.pause();
-lightboxVideo.currentTime = 0;
+lightboxVideo.src = "";
 lightbox.style.display = "none";
 
 }
 
-function setupLightbox(){
-
-if(!lightbox) return;
-
-closeBtn.addEventListener("click", closeLightbox);
+closeBtn.onclick = closeLightbox;
 
 lightbox.addEventListener("click", e => {
-
-if(e.target === lightbox){
-
-closeLightbox();
-
-}
-
+if(e.target === lightbox) closeLightbox();
 });
-
-document.addEventListener("keydown", e => {
-
-if(e.key === "Escape" && lightbox.style.display === "flex"){
-
-closeLightbox();
-
-}
-
-});
-
-}
-
-// =============================
-// LAZY LOAD (IntersectionObserver)
-// =============================
-
-function setupLazyLoading(){
-
-const videos = document.querySelectorAll(".video-thumb");
-
-const observer = new IntersectionObserver(entries => {
-
-entries.forEach(entry => {
-
-if(entry.isIntersecting){
-
-const vid = entry.target;
-vid.preload = "metadata";
-
-observer.unobserve(vid);
-
-}
-
-});
-
-});
-
-videos.forEach(v => observer.observe(v));
-
-}
 
 // =============================
 // INIT
@@ -260,13 +171,6 @@ videos.forEach(v => observer.observe(v));
 document.addEventListener("DOMContentLoaded", ()=>{
 
 loadVideos(currentVideos);
-
 setupFilters();
-
-setupSorting();
-
-setupLightbox();
-
-setTimeout(setupLazyLoading,500);
 
 });
