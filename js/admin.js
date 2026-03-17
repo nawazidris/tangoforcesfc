@@ -1,264 +1,233 @@
-"use strict";
+/* ================= SECURITY ================= */
 
-/* ==============================
-   ADMIN PANEL SCRIPT (FIXED)
-================================= */
+const token = sessionStorage.getItem("adminToken");
+const expiry = sessionStorage.getItem("adminExpiry");
 
-document.addEventListener("DOMContentLoaded", function () {
+if(!token || !expiry){
+window.location.href="tango-admin-access.html";
+}
 
-    console.log("ADMIN JS LOADED");
+if(Date.now() > Number(expiry)){
+alert("Session expired");
+sessionStorage.clear();
+window.location.href="tango-admin-access.html";
+}
 
-    /* ================= STORAGE ================= */
+function logout(){
+sessionStorage.clear();
+window.location.href="tango-admin-access.html";
+}
 
-    let players = JSON.parse(localStorage.getItem("adminPlayers")) || [];
-    let matches = JSON.parse(localStorage.getItem("adminMatches")) || [];
+/* ================= TABS ================= */
 
-    /* ================= ELEMENTS ================= */
+document.addEventListener("DOMContentLoaded", function(){
 
-    const playerForm = document.getElementById("playerForm");
-    const matchForm = document.getElementById("matchForm");
-    const eventType = document.getElementById("eventType");
-    const playerOffInput = document.getElementById("eventPlayerOff");
+const buttons = document.querySelectorAll(".admin-tab-btn");
+const tabs = document.querySelectorAll(".admin-tab");
 
-    /* ================= DASHBOARD ================= */
+buttons.forEach(btn=>{
+btn.addEventListener("click",function(){
 
-    function updateDashboard() {
-        const totalPlayers = document.getElementById("totalPlayers");
-        const totalMatches = document.getElementById("totalMatches");
-        const upcomingMatches = document.getElementById("upcomingMatches");
+buttons.forEach(b=>b.classList.remove("active"));
+tabs.forEach(t=>t.classList.remove("active"));
 
-        if (totalPlayers) totalPlayers.textContent = players.length;
-        if (totalMatches) totalMatches.textContent = matches.length;
-        if (upcomingMatches)
-            upcomingMatches.textContent =
-                matches.filter(m => m.status === "upcoming").length;
-    }
+this.classList.add("active");
+document.getElementById(this.dataset.tab+"-tab").classList.add("active");
 
-    /* ================= PLAYERS ================= */
+});
+});
 
-    if (playerForm) {
-        playerForm.addEventListener("submit", function (e) {
-            e.preventDefault();
+});
 
-            const id =
-                document.getElementById("playerId").value || Date.now();
+/* ================= DATA ================= */
 
-            const player = {
-                id: Number(id),
-                name: document.getElementById("playerName").value,
-                nickname: document.getElementById("playerNickname").value,
-                position: document.getElementById("playerPosition").value,
-                number: document.getElementById("playerNumber").value,
-                goals: Number(document.getElementById("playerGoals").value) || 0,
-                assists: Number(document.getElementById("playerAssists").value) || 0,
-                image: document.getElementById("playerImage").value
-            };
+let players = JSON.parse(localStorage.getItem("adminPlayers")) || [];
+let matches = JSON.parse(localStorage.getItem("adminMatches")) || [];
 
-            players = players.filter(p => p.id !== player.id);
-            players.push(player);
+/* ================= PLAYERS ================= */
 
-            localStorage.setItem("adminPlayers", JSON.stringify(players));
+const playerForm = document.getElementById("playerForm");
 
-            playerForm.reset();
-            displayPlayers();
-            updateDashboard();
-        });
-    }
+playerForm.addEventListener("submit",function(e){
+e.preventDefault();
 
-    function displayPlayers() {
-        const list = document.getElementById("playersList");
-        if (!list) return;
+const id = document.getElementById("playerId").value || Date.now();
 
-        list.innerHTML = "";
+const player = {
+id:Number(id),
+name:playerForm.playerName.value,
+nickname:playerForm.playerNickname.value,
+position:playerForm.playerPosition.value,
+number:playerForm.playerNumber.value,
+goals:Number(playerForm.playerGoals.value),
+assists:Number(playerForm.playerAssists.value),
+image:playerForm.playerImage.value
+};
 
-        players.forEach(p => {
-            list.innerHTML += `
-                <div>
-                    <strong>${p.name}</strong>
-                    (#${p.number || "-"}) - ${p.position}
-                </div>
-            `;
-        });
-    }
+players = players.filter(p=>p.id!==player.id);
+players.push(player);
 
-    /* ================= MATCHES ================= */
+localStorage.setItem("adminPlayers",JSON.stringify(players));
 
-    if (matchForm) {
-        matchForm.addEventListener("submit", function (e) {
-            e.preventDefault();
+playerForm.reset();
+displayPlayers();
+updateStatDropdown();
 
-            const id =
-                document.getElementById("matchId").value || Date.now();
+});
 
-            const existing = matches.find(m => m.id == id);
+function displayPlayers(){
 
-            const match = {
-                id: Number(id),
-                homeTeam: document.getElementById("homeTeam").value,
-                awayTeam: document.getElementById("awayTeam").value,
-                date: document.getElementById("matchDate").value,
-                time: document.getElementById("matchTime").value,
-                venue: document.getElementById("matchVenue").value,
-                status: document.getElementById("matchStatus").value,
-                homeScore:
-                    Number(document.getElementById("homeScore").value) || 0,
-                awayScore:
-                    Number(document.getElementById("awayScore").value) || 0,
-                events: existing ? existing.events : []
-            };
+const container=document.getElementById("playersList");
+container.innerHTML="";
 
-            matches = matches.filter(m => m.id !== match.id);
-            matches.push(match);
+players.forEach(p=>{
 
-            localStorage.setItem(
-                "adminMatches",
-                JSON.stringify(matches)
-            );
+container.innerHTML+=`
+<div>
+<strong>${p.name}</strong>
+<button onclick="editPlayer(${p.id})">Edit</button>
+<button onclick="deletePlayer(${p.id})">Delete</button>
+</div>
+`;
 
-            matchForm.reset();
-            displayMatches();
-            populateMatchDropdown();
-            updateDashboard();
-        });
-    }
+});
 
-    function displayMatches() {
-        const list = document.getElementById("matchesList");
-        if (!list) return;
+}
 
-        list.innerHTML = "";
+function deletePlayer(id){
+players=players.filter(p=>p.id!==id);
+localStorage.setItem("adminPlayers",JSON.stringify(players));
+displayPlayers();
+updateStatDropdown();
+}
 
-        matches.forEach(m => {
-            list.innerHTML += `
-                <div>
-                    <strong>${m.homeTeam} vs ${m.awayTeam}</strong><br>
-                    ${
-                        m.status === "completed"
-                            ? `${m.homeScore} - ${m.awayScore}`
-                            : "Upcoming"
-                    }
-                    <br>
-                    <button onclick="displayEvents(${m.id})">
-                        View Events
-                    </button>
-                </div>
-            `;
-        });
-    }
+function editPlayer(id){
 
-    function populateMatchDropdown() {
-        const select = document.getElementById("eventMatchSelect");
-        if (!select) return;
+const p=players.find(x=>x.id===id);
 
-        select.innerHTML = "";
+document.getElementById("playerId").value=p.id;
+playerForm.playerName.value=p.name;
+playerForm.playerNickname.value=p.nickname;
+playerForm.playerPosition.value=p.position;
+playerForm.playerNumber.value=p.number;
+playerForm.playerGoals.value=p.goals;
+playerForm.playerAssists.value=p.assists;
+playerForm.playerImage.value=p.image;
 
-        matches.forEach(m => {
-            select.innerHTML += `
-                <option value="${m.id}">
-                    ${m.homeTeam} vs ${m.awayTeam}
-                </option>
-            `;
-        });
-    }
+}
 
-    /* ================= EVENTS ================= */
+/* ================= MATCHES ================= */
 
-    if (eventType) {
-        eventType.addEventListener("change", function () {
-            if (playerOffInput)
-                playerOffInput.style.display =
-                    eventType.value === "sub"
-                        ? "block"
-                        : "none";
-        });
-    }
+const matchForm=document.getElementById("matchForm");
 
-    window.addEvent = function () {
-        const matchId = Number(
-            document.getElementById("eventMatchSelect").value
-        );
+matchForm.addEventListener("submit",function(e){
+e.preventDefault();
 
-        const type = document.getElementById("eventType").value;
-        const player = document.getElementById("eventPlayer").value;
-        const minute = Number(
-            document.getElementById("eventMinute").value
-        );
-        const playerOff = playerOffInput?.value;
+const id=document.getElementById("matchId").value || Date.now();
 
-        if (!player || !minute) {
-            alert("Please enter player and minute");
-            return;
-        }
+const match={
+id:Number(id),
+homeTeam:matchForm.homeTeam.value,
+awayTeam:matchForm.awayTeam.value,
+date:matchForm.matchDate.value,
+time:matchForm.matchTime.value,
+venue:matchForm.matchVenue.value,
+status:matchForm.matchStatus.value,
+homeScore:matchForm.homeScore.value,
+awayScore:matchForm.awayScore.value
+};
 
-        const match = matches.find(m => m.id === matchId);
-        if (!match) return;
+matches=matches.filter(m=>m.id!==match.id);
+matches.push(match);
 
-        let event = { type, player, minute };
+localStorage.setItem("adminMatches",JSON.stringify(matches));
 
-        if (type === "goal") {
-            match.homeScore++;
-        }
+matchForm.reset();
+displayMatches();
 
-        if (type === "sub") {
-            event.player_out = playerOff;
-        }
+});
 
-        match.events.push(event);
+function displayMatches(){
 
-        match.events.sort((a, b) => a.minute - b.minute);
+const container=document.getElementById("matchesList");
+container.innerHTML="";
 
-        localStorage.setItem(
-            "adminMatches",
-            JSON.stringify(matches)
-        );
+matches.forEach(m=>{
 
-        displayEvents(matchId);
-        displayMatches();
-    };
+container.innerHTML+=`
+<div>
+<strong>${m.homeTeam} vs ${m.awayTeam}</strong>
+<br>
+${m.status==="completed" ?
+`Score: ${m.homeScore} - ${m.awayScore}` :
+"Upcoming"}
 
-    window.displayEvents = function (matchId) {
-        const container =
-            document.getElementById("eventsList");
+<button onclick="editMatch(${m.id})">Edit</button>
+<button onclick="deleteMatch(${m.id})">Delete</button>
+</div>
+`;
 
-        if (!container) return;
+});
 
-        container.innerHTML = "";
+}
 
-        const match = matches.find(m => m.id === matchId);
-        if (!match) return;
+function deleteMatch(id){
+matches=matches.filter(m=>m.id!==id);
+localStorage.setItem("adminMatches",JSON.stringify(matches));
+displayMatches();
+}
 
-        match.events.forEach(e => {
-            let text = "";
+function editMatch(id){
 
-            if (e.type === "goal")
-                text = `⚽ ${e.player} (${e.minute}')`;
+const m=matches.find(x=>x.id===id);
 
-            if (e.type === "yellow")
-                text = `🟨 ${e.player} (${e.minute}')`;
+document.getElementById("matchId").value=m.id;
 
-            if (e.type === "red")
-                text = `🟥 ${e.player} (${e.minute}')`;
+matchForm.homeTeam.value=m.homeTeam;
+matchForm.awayTeam.value=m.awayTeam;
+matchForm.matchDate.value=m.date;
+matchForm.matchTime.value=m.time;
+matchForm.matchVenue.value=m.venue;
+matchForm.matchStatus.value=m.status;
+matchForm.homeScore.value=m.homeScore;
+matchForm.awayScore.value=m.awayScore;
 
-            if (e.type === "sub")
-                text = `🔁 ${e.player} ↔ ${e.player_out}
-                (${e.minute}')`;
+}
 
-            container.innerHTML += `<div>${text}</div>`;
-        });
-    };
+/* ================= STATS ================= */
 
-    /* ================= LOGOUT ================= */
+function updateStatDropdown(){
 
-    window.logout = function () {
-        localStorage.clear();
-        window.location.href = "index.html";
-    };
+const select=document.getElementById("statPlayerSelect");
+select.innerHTML="";
 
-    /* ================= INIT ================= */
+players.forEach(p=>{
+select.innerHTML+=`<option value="${p.id}">${p.name}</option>`;
+});
 
-    displayPlayers();
-    displayMatches();
-    populateMatchDropdown();
-    updateDashboard();
+}
 
+function updatePlayerStats(){
+
+const id=Number(document.getElementById("statPlayerSelect").value);
+
+const player=players.find(p=>p.id===id);
+
+if(!player) return;
+
+player.goals=Number(prompt("New Goals",player.goals));
+player.assists=Number(prompt("New Assists",player.assists));
+
+localStorage.setItem("adminPlayers",JSON.stringify(players));
+
+alert("Stats Updated");
+
+}
+
+/* ================= INIT ================= */
+
+document.addEventListener("DOMContentLoaded",function(){
+displayPlayers();
+displayMatches();
+updateStatDropdown();
 });
