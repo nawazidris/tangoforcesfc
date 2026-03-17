@@ -45,8 +45,6 @@ const renderGallery = (filter = 'all') => {
     const championsGrid = document.getElementById('celebrationsPicturesGrid');
     const newseasonGrid = document.getElementById('newseasonPicturesGrid');
 
-    if (!matchdayGrid || !championsGrid || !newseasonGrid) return;
-
     matchdayGrid.innerHTML = '';
     championsGrid.innerHTML = '';
     newseasonGrid.innerHTML = '';
@@ -55,7 +53,6 @@ const renderGallery = (filter = 'all') => {
     let champions = galleryPhotos.filter(p => p.sub === 'champions');
     let newseason = galleryPhotos.filter(p => p.sub === 'newseason');
 
-    // FILTER FIXED
     if (filter === 'matchday') {
         champions = [];
         newseason = [];
@@ -87,22 +84,25 @@ const renderGallery = (filter = 'all') => {
 const createItem = (photo) => {
     return `
         <div class="gallery-item">
-            <img loading="lazy" src="${photo.src}" alt="${photo.title}" onclick="openLightbox('${photo.src}')">
-            <p>${photo.title || 'Tango FC'}</p>
+            <img loading="lazy" src="${photo.src}" onclick="openLightbox('${photo.src}')">
+            <p>${photo.title}</p>
         </div>
     `;
 };
 
-const filterGallery = (type) => {
+const filterGallery = (event, type) => {
     renderGallery(type);
+
+    document.querySelectorAll('.gallery-filters button').forEach(btn => {
+        btn.classList.remove('active');
+    });
+
+    event.target.classList.add('active');
 };
 
 const openLightbox = (src) => {
-    const lightbox = document.getElementById('lightbox');
-    const image = document.getElementById('lightboxImage');
-
-    image.src = src;
-    lightbox.style.display = 'flex';
+    document.getElementById('lightboxImage').src = src;
+    document.getElementById('lightbox').style.display = 'flex';
 };
 
 const closeLightbox = () => {
@@ -112,13 +112,10 @@ const closeLightbox = () => {
 document.addEventListener('DOMContentLoaded', () => {
     renderGallery();
 
-    // close when clicking outside image
-    const lightbox = document.getElementById('lightbox');
-    lightbox.addEventListener('click', (e) => {
+    document.getElementById('lightbox').addEventListener('click', (e) => {
         if (e.target.id === 'lightbox') {
             closeLightbox();
         }
     });
 });
-
 
