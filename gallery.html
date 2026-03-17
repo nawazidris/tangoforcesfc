@@ -19,7 +19,7 @@
             <li><a href="matches.html">Matches</a></li>
             <li><a href="history.html">Club History</a></li>
             <li><a href="videos.html">Videos</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="gallery.html" class="active">Gallery</a></li>
         </ul>
     </nav>
 </header>
@@ -27,42 +27,40 @@
 <main>
 
     <section class="gallery-header">
-        <h2 id="galleryTitle">Club Gallery</h2>
-        <p id="galleryDescription">Photos from matches and team events</p>
+        <h2>Club Gallery</h2>
+        <p>Photos from matches and team events</p>
     </section>
 
-    <!-- FILTERS -->
+    <!-- FILTER BUTTONS -->
     <div class="gallery-filters">
-        <button onclick="filterGallery('all')">All</button>
-        <button onclick="filterGallery('matchday')">Matchday</button>
-        <button onclick="filterGallery('champions')">Champions</button>
-        <button onclick="filterGallery('newseason')">2026 Season</button>
+        <button onclick="filterGallery(event,'all')" class="active">All</button>
+        <button onclick="filterGallery(event,'matchday')">Matchday</button>
+        <button onclick="filterGallery(event,'champions')">Champions</button>
+        <button onclick="filterGallery(event,'newseason')">2026 Season</button>
     </div>
 
     <div class="gallery-container">
 
-        <!-- Matchday -->
         <div class="subsection">
-            <h3 class="subsection-title">Matchday Pictures</h3>
+            <h3>Matchday Pictures</h3>
             <div class="gallery-grid" id="matchdayPicturesGrid"></div>
         </div>
 
-        <!-- Champions -->
         <div class="subsection">
-            <h3 class="subsection-title">2025/26 MOSSL Champions</h3>
+            <h3>2025/26 MOSSL Champions</h3>
             <div class="gallery-grid" id="celebrationsPicturesGrid"></div>
         </div>
 
-        <!-- 2026 Season -->
         <div class="subsection">
-            <h3 class="subsection-title">2026 Season</h3>
+            <h3>2026 Season</h3>
             <div class="gallery-grid" id="newseasonPicturesGrid"></div>
         </div>
 
     </div>
 
     <!-- LIGHTBOX -->
-    <div id="lightbox" onclick="closeLightbox()">
+    <div id="lightbox">
+        <span class="close-btn" onclick="closeLightbox()">✖</span>
         <img id="lightboxImage">
     </div>
 
