@@ -52,50 +52,27 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <div class="admin-main">
 
 <header class="admin-topbar">
-
 <h1>Admin Dashboard</h1>
-
 </header>
 
 <main class="admin-content">
 
 <!-- DASHBOARD -->
-
 <section id="dashboard-tab" class="admin-tab active">
-
 <div class="dashboard-cards">
-
-<div class="card">
-<h3>Total Players</h3>
-<p id="totalPlayers">0</p>
+<div class="card"><h3>Total Players</h3><p id="totalPlayers">0</p></div>
+<div class="card"><h3>Total Matches</h3><p id="totalMatches">0</p></div>
+<div class="card"><h3>Upcoming Matches</h3><p id="upcomingMatches">0</p></div>
 </div>
-
-<div class="card">
-<h3>Total Matches</h3>
-<p id="totalMatches">0</p>
-</div>
-
-<div class="card">
-<h3>Upcoming Matches</h3>
-<p id="upcomingMatches">0</p>
-</div>
-
-</div>
-
 </section>
 
 <!-- PLAYERS -->
-
 <section id="players-tab" class="admin-tab">
-
 <h2>Manage Players</h2>
 
 <form id="playerForm" class="admin-form">
-
 <input type="hidden" id="playerId">
-
 <input type="text" id="playerName" placeholder="Player Name" required>
-
 <input type="text" id="playerNickname" placeholder="Nickname">
 
 <select id="playerPosition">
@@ -106,41 +83,29 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 </select>
 
 <input type="number" id="playerNumber" placeholder="Jersey Number">
-
 <input type="number" id="playerGoals" placeholder="Goals">
-
 <input type="number" id="playerAssists" placeholder="Assists">
-
 <input type="text" id="playerImage" placeholder="Image URL">
 
 <button type="submit" class="btn-save">
 <i class="fa fa-save"></i> Save Player
 </button>
-
 </form>
 
 <div id="playersList" class="admin-list"></div>
-
 </section>
 
 <!-- MATCHES -->
-
 <section id="matches-tab" class="admin-tab">
 
 <h2>Manage Matches</h2>
 
 <form id="matchForm" class="admin-form">
-
 <input type="hidden" id="matchId">
-
 <input type="text" id="homeTeam" placeholder="Home Team">
-
 <input type="text" id="awayTeam" placeholder="Away Team">
-
 <input type="date" id="matchDate">
-
 <input type="time" id="matchTime">
-
 <input type="text" id="matchVenue" placeholder="Venue">
 
 <select id="matchStatus">
@@ -149,31 +114,46 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 </select>
 
 <input type="number" id="homeScore" placeholder="Home Score">
-
 <input type="number" id="awayScore" placeholder="Away Score">
 
 <button type="submit" class="btn-save">
 <i class="fa fa-save"></i> Save Match
 </button>
-
 </form>
 
 <div id="matchesList" class="admin-list"></div>
 
+<hr>
+
+<h3>Match Events</h3>
+
+<select id="eventMatchSelect"></select>
+
+<select id="eventType">
+<option value="goal">Goal</option>
+<option value="yellow">Yellow Card</option>
+<option value="red">Red Card</option>
+<option value="sub">Substitution</option>
+</select>
+
+<input type="text" id="eventPlayer" placeholder="Player Name">
+<input type="number" id="eventMinute" placeholder="Minute">
+<input type="text" id="eventPlayerOff" placeholder="Player Off (for subs)" style="display:none;">
+
+<button onclick="addEvent()">Add Event</button>
+
+<div id="eventsList"></div>
+
 </section>
 
 <!-- STATS -->
-
 <section id="stats-tab" class="admin-tab">
-
 <h2>Update Player Stats</h2>
-
 <select id="statPlayerSelect"></select>
 
 <button onclick="updatePlayerStats()" class="btn-save">
 Update Stats
 </button>
-
 </section>
 
 </main>
