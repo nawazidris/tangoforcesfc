@@ -76,12 +76,10 @@ updateStatDropdown();
 });
 
 function displayPlayers(){
-
 const container=document.getElementById("playersList");
 container.innerHTML="";
 
 players.forEach(p=>{
-
 container.innerHTML+=`
 <div>
 <strong>${p.name}</strong>
@@ -89,9 +87,7 @@ container.innerHTML+=`
 <button onclick="deletePlayer(${p.id})">Delete</button>
 </div>
 `;
-
 });
-
 }
 
 function deletePlayer(id){
@@ -102,7 +98,6 @@ updateStatDropdown();
 }
 
 function editPlayer(id){
-
 const p=players.find(x=>x.id===id);
 
 document.getElementById("playerId").value=p.id;
@@ -113,7 +108,6 @@ playerForm.playerNumber.value=p.number;
 playerForm.playerGoals.value=p.goals;
 playerForm.playerAssists.value=p.assists;
 playerForm.playerImage.value=p.image;
-
 }
 
 /* ================= MATCHES ================= */
@@ -125,6 +119,8 @@ e.preventDefault();
 
 const id=document.getElementById("matchId").value || Date.now();
 
+const existingMatch = matches.find(m => m.id == id);
+
 const match={
 id:Number(id),
 homeTeam:matchForm.homeTeam.value,
@@ -134,7 +130,8 @@ time:matchForm.matchTime.value,
 venue:matchForm.matchVenue.value,
 status:matchForm.matchStatus.value,
 homeScore:matchForm.homeScore.value,
-awayScore:matchForm.awayScore.value
+awayScore:matchForm.awayScore.value,
+events: existingMatch ? existingMatch.events : []
 };
 
 matches=matches.filter(m=>m.id!==match.id);
@@ -144,45 +141,41 @@ localStorage.setItem("adminMatches",JSON.stringify(matches));
 
 matchForm.reset();
 displayMatches();
-
+populateMatchDropdown();
 });
 
-function displayMatches(){
+/* DISPLAY MATCHES */
 
+function displayMatches(){
 const container=document.getElementById("matchesList");
 container.innerHTML="";
 
 matches.forEach(m=>{
-
 container.innerHTML+=`
 <div>
-<strong>${m.homeTeam} vs ${m.awayTeam}</strong>
-<br>
+<strong>${m.homeTeam} vs ${m.awayTeam}</strong><br>
 ${m.status==="completed" ?
-`Score: ${m.homeScore} - ${m.awayScore}` :
-"Upcoming"}
-
+`Score: ${m.homeScore} - ${m.awayScore}` : "Upcoming"}
+<br>
 <button onclick="editMatch(${m.id})">Edit</button>
 <button onclick="deleteMatch(${m.id})">Delete</button>
+<button onclick="displayEvents(${m.id})">View Events</button>
 </div>
 `;
-
 });
-
 }
 
 function deleteMatch(id){
 matches=matches.filter(m=>m.id!==id);
 localStorage.setItem("adminMatches",JSON.stringify(matches));
 displayMatches();
+populateMatchDropdown();
 }
 
 function editMatch(id){
-
 const m=matches.find(x=>x.id===id);
 
 document.getElementById("matchId").value=m.id;
-
 matchForm.homeTeam.value=m.homeTeam;
 matchForm.awayTeam.value=m.awayTeam;
 matchForm.matchDate.value=m.date;
@@ -191,26 +184,74 @@ matchForm.matchVenue.value=m.venue;
 matchForm.matchStatus.value=m.status;
 matchForm.homeScore.value=m.homeScore;
 matchForm.awayScore.value=m.awayScore;
+}
 
+/* ================= EVENTS ================= */
+
+function populateMatchDropdown(){
+const select = document.getElementById("eventMatchSelect");
+select.innerHTML="";
+
+matches.forEach(m=>{
+select.innerHTML+=`<option value="${m.id}">
+${m.homeTeam} vs ${m.awayTeam}
+</option>`;
+});
+}
+
+function addEvent(){
+
+const matchId = Number(document.getElementById("eventMatchSelect").value);
+const type = document.getElementById("eventType").value;
+const player = document.getElementById("eventPlayer").value;
+const minute = document.getElementById("eventMinute").value;
+const playerOff = document.getElementById("eventPlayerOff").value;
+
+const match = matches.find(m=>m.id===matchId);
+if(!match) return;
+
+const event = { type, player, minute, playerOff };
+
+match.events.push(event);
+
+localStorage.setItem("adminMatches", JSON.stringify(matches));
+
+displayEvents(matchId);
+}
+
+function displayEvents(matchId){
+
+const container = document.getElementById("eventsList");
+container.innerHTML="";
+
+const match = matches.find(m=>m.id===matchId);
+if(!match || !match.events) return;
+
+match.events.forEach(e=>{
+
+let text="";
+
+if(e.type==="goal") text=`⚽ ${e.player} (${e.minute}')`;
+else if(e.type==="yellow") text=`🟨 ${e.player} (${e.minute}')`;
+else if(e.type==="red") text=`🟥 ${e.player} (${e.minute}')`;
+else if(e.type==="sub") text=`🔄 ${e.player} ⬅️ ${e.playerOff} (${e.minute}')`;
+
+container.innerHTML+=`<div>${text}</div>`;
+});
 }
 
 /* ================= STATS ================= */
 
 function updateStatDropdown(){
-
 const select=document.getElementById("statPlayerSelect");
 select.innerHTML="";
-
 players.forEach(p=>{
 select.innerHTML+=`<option value="${p.id}">${p.name}</option>`;
 });
-
 }
 
 function updatePlayerStats(){
-
 const id=Number(document.getElementById("statPlayerSelect").value);
-
 const player=players.find(p=>p.id===id);
 
 if(!player) return;
@@ -219,9 +260,7 @@ player.goals=Number(prompt("New Goals",player.goals));
 player.assists=Number(prompt("New Assists",player.assists));
 
 localStorage.setItem("adminPlayers",JSON.stringify(players));
-
 alert("Stats Updated");
-
 }
 
 /* ================= INIT ================= */
@@ -230,4 +269,5 @@ document.addEventListener("DOMContentLoaded",function(){
 displayPlayers();
 displayMatches();
 updateStatDropdown();
+populateMatchDropdown();
 });
