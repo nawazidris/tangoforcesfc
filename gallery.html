@@ -4,14 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery - Tango Football Club</title>
-    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Main Theme 
+    <link rel="stylesheet" href="css/style.css"> -->
+
+    <!-- Gallery Specific Styles -->
+    <link rel="stylesheet" href="css/gallery.css">
 </head>
+
 <body>
 
 <header>
     <div class="header-top">
         <h1>Tango Football Club</h1>
     </div>
+
     <nav>
         <ul>
             <li><a href="index.html">Home</a></li>
@@ -26,19 +33,21 @@
 
 <main>
 
-    <section class="gallery-header">
+    <!-- HERO SECTION (Matches Videos Style) -->
+    <section class="page-hero">
         <h2>Club Gallery</h2>
         <p>Photos from matches and team events</p>
     </section>
 
     <!-- FILTER BUTTONS -->
     <div class="gallery-filters">
-        <button onclick="filterGallery(event,'all')" class="active">All</button>
-        <button onclick="filterGallery(event,'matchday')">Matchday</button>
-        <button onclick="filterGallery(event,'champions')">Champions</button>
-        <button onclick="filterGallery(event,'newseason')">2026 Season</button>
+        <button class="active" onclick="filterGallery('all')">All</button>
+        <button onclick="filterGallery('matchday')">Matchday</button>
+        <button onclick="filterGallery('champions')">Champions</button>
+        <button onclick="filterGallery('newseason')">2026 Season</button>
     </div>
 
+    <!-- GALLERY -->
     <div class="gallery-container">
 
         <div class="subsection">
@@ -59,7 +68,7 @@
     </div>
 
     <!-- LIGHTBOX -->
-    <div id="lightbox">
+    <div id="lightbox" class="lightbox">
         <span class="close-btn" onclick="closeLightbox()">✖</span>
         <img id="lightboxImage">
     </div>
@@ -71,5 +80,6 @@
 </footer>
 
 <script src="js/gallery.js"></script>
+
 </body>
 </html>

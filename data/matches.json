@@ -1,5 +1,23 @@
 [
   {
+    "id": 0,
+    "homeTeam": "Tango FC",
+    "awayTeam": "Steers FC",
+    "homeScore": 4,
+    "awayScore": 3,
+    "date": "2025-10-18",
+    "time": "15:00",
+    "venue": "Rujeko Stadium",
+    "status": "completed",
+    "competition": "League",
+    "events": [
+      { "type": "goal", "team": "home", "player": "Edrice", "assist": "Jamz", "minute": 15 },
+      { "type": "goal", "team": "home", "player": "Edrice", "minute": 40 },
+      { "type": "goal", "team": "home", "player": "Edrice", "minute": 70 },
+      { "type": "goal", "team": "home", "player": "Bleeja", "assist": "Edrice", "minute": 88 }
+    ]
+  },
+  {
     "id": 1,
     "homeTeam": "Tango FC",
     "awayTeam": "Mugodhi FC",
@@ -110,18 +128,6 @@
       { "type": "goal", "team": "away", "player": "Vincho", "minute": 66 },
       { "type": "goal", "team": "away", "player": "Jamela", "minute": 80 }
     ]
-  },
-  {
-    "id": 8,
-    "homeTeam": "Tango FC",
-    "awayTeam": "ZRP FC",
-    "homeScore": null,
-    "awayScore": null,
-    "date": "2026-03-14",
-    "time": "15:00",
-    "venue": "Zimuto Stadium",
-    "status": "upcoming",
-    "competition": "League",
-    "events": []
   }
+  
 ]
