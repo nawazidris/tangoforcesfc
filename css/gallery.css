@@ -136,18 +136,29 @@ nav ul li a.active::after {
 =================================*/
 
 .page-hero {
-    background: linear-gradient(135deg, #007bff, #5a67d8);
-    color: white;
+    margin: 30px 20px 50px 20px;
+    padding: 40px 20px;
+
     text-align: center;
-    padding: 60px 20px;
-    border-radius: 12px;
-    margin: 30px auto;
-    max-width: 1200px;
+
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba( 0, 123, 255, 0.05) 0%, rgba( 0, 123, 255, 0.02) 100%);
 }
 
 .page-hero h2 {
-    font-size: 32px;
-    margin-bottom: 10px;
+    font-size: 36px;
+    font-weight: 700;
+
+    background: linear-gradient(135deg, #007aff, #003d82);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.page-hero p {
+    font-size: 18px;
+    font-weight: 500;
+
+    opacity: 0.8;
+    color: var(--text-color);
 }
 
 /* ===============================

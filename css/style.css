@@ -2809,33 +2809,27 @@ section {
 /* ========== GALLERY PAGE ========== */
 
 .gallery-header {
-    padding: 70px 20px;
+   margin: 30px 20px 50px 20px;
+    padding: 40px 20px;
 
     text-align: center;
 
-    color: white;
-    background: linear-gradient(135deg, #007aff, #5856d6);
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba( 0, 123, 255, 0.05) 0%, rgba( 0, 123, 255, 0.02) 100%);
 }
 
 .gallery-header h2 {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 700;
 
-    margin-bottom: 10px;
-
-    color: var(--text-color);
     background: linear-gradient(135deg, #007aff, #003d82);
     -webkit-background-clip: text;
-    background-clip: text;
-
     -webkit-text-fill-color: transparent;
 }
 
 .gallery-header p {
-    font-size: 16px;
-
-    max-width: 600px;
-    margin: 0 auto;
+    font-size: 18px;
+    font-weight: 500;
 
     opacity: 0.8;
     color: var(--text-color);
@@ -5120,12 +5114,24 @@ RESPONSIVE
         padding: 20px;
     }
 }
+/* HIDE sidebar + hamburger on desktop */
+.menu-toggle,
+#sidebar,
+#overlay {
+    display: none;
+}
 
-@media(max-width: 480px) {
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+/* MOBILE ONLY */
+@media (max-width: 768px) {
+
+    .menu-toggle {
+        display: block;
     }
 
+    #sidebar {
+        display: block;
+    }
+}
     .season-overview {
         padding: 20px;
     }
@@ -5137,18 +5143,55 @@ RESPONSIVE
     .philosophy-intro h4 {
         font-size: 1.3rem;
     }
-}
 
-@media(max-width: 768px) {
-    /* Navigation */
+    /* Hide normal menu */
+    @media (max-width: 768px) {
+    @media (max-width: 768px) {
 
+    /* Hide desktop menu */
     nav ul {
-        align-items: center;
-        flex-direction: column;
-
-        gap: 10px;
+        display: none;
     }
 
+    /* Show hamburger */
+    .menu-toggle {
+        display: block;
+    }
+
+    /* Sidebar should be usable */
+    #sidebar {
+        display: block;
+    }
+}
+}
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100%;
+    transition: 0.3s ease;
+    z-index: 1000;
+}
+
+#sidebar.active {
+    left: 0;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    z-index: 999;
+}
+
+#overlay.active {
+    display: block;
+}
     /* Hero section */
 
     .hero h1 {
@@ -5204,4 +5247,4 @@ RESPONSIVE
     .section-container {
         padding: 20px;
     }
-}
+
