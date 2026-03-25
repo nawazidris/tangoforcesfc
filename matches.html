@@ -1,56 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matches & Fixtures - Tango Football Club</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matches & Fixtures - Tango Football Club</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ===== BODY ===== */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f6f9;
+    color: #333;
+}
+
+/* ===== HEADER ===== */
+header {
+    background: #837694;
+    color: #fff;
+    padding: 15px 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+nav ul li {
+    margin-right: 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* ===== MATCHES HEADER ===== */
+.matches-header {
+    text-align: center;
+    padding: 20px;
+}
+
+.matches-header h2 {
+    font-size: 28px;
+}
+
+.matches-header p {
+    font-size: 16px;
+    color: #555;
+}
+
+.season-badge span {
+    background: #837694;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+/* ===== FILTER BUTTONS ===== */
+.matches-filters {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.matches-filters button {
+    margin: 5px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #837694;
+    color: white;
+    font-weight: bold;
+}
+
+.matches-filters button.active {
+    background: #555;
+}
+
+.matches-filters button:hover {
+    background: #555;
+}
+
+/* ===== MATCH CARDS ===== */
+.matches-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 0 20px 40px;
+}
+
+.match-card {
+    background: white;
+    width: 320px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 15px;
+    transition: transform 0.2s;
+}
+
+.match-card:hover {
+    transform: translateY(-3px);
+}
+
+.match-date {
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.match-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.team {
+    flex: 1;
+    text-align: center;
+}
+
+.team span {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.vs {
+    flex: 0 0 50px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.venue {
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+}
+
+/* ===== EVENTS ===== */
+.team-events {
+    text-align: left;
+    margin-top: 5px;
+}
+
+.team-event {
+    font-size: 13px;
+    background: #f0f0f0;
+    margin: 2px 0;
+    padding: 3px 6px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.team-event span {
+    font-weight: bold;
+}
+
+/* COLORS FOR EVENTS */
+.team-event:contains("⚽") { color: green; }
+.team-event:contains("🎯") { color: blue; }
+.team-event:contains("🟨") { color: orange; }
+.team-event:contains("🟥") { color: red; }
+.team-event:contains("🔁") { color: purple; }
+
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    padding: 15px;
+    background: #837694;
+    color: white;
+}
+</style>
 </head>
 <body>
-    <header>
-        <div class="header-top">
-            <h1>Tango Football Club</h1>
-            
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="technical-team.html">Technical Team</a></li>
-                <li><a href="roster.html">Player Roster</a></li>
-                <li><a href="matches.html">Matches</a></li>
-                <li><a href="history.html">Club History</a></li>
-                <li><a href="videos.html">Videos</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-               
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section class="matches-header">
-            <h2>⚽ Matches & Fixtures</h2>
-            <p>Season 2025-2026</p>
-            <div class="season-badge">
-                <span>🏆 Current Season</span>
-            </div>
-        </section>
+<header>
+    <div class="header-top">
+        <h1>Tango Football Club</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="technical-team.html">Technical Team</a></li>
+            <li><a href="roster.html">Player Roster</a></li>
+            <li><a href="matches.html">Matches</a></li>
+            <li><a href="history.html">Club History</a></li>
+            <li><a href="videos.html">Videos</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+    </nav>
+</header>
 
-        <section class="matches-filters">
-            <button class="match-filter-btn active" data-filter="all">All Matches</button>
-            <button class="match-filter-btn" data-filter="upcoming">Upcoming</button>
-            <button class="match-filter-btn" data-filter="completed">Completed</button>
-            <button class="match-refresh-btn" id="refreshMatches" title="Refresh matches from admin">🔄 Refresh</button>
-        </section>
+<main>
+<section class="matches-header">
+    <h2>⚽ Matches & Fixtures</h2>
+    <p>Season 2025-2026</p>
+    <div class="season-badge"><span>🏆 Current Season</span></div>
+</section>
 
-        <div class="matches-container" id="matchesContainer"></div>
-    </main>
-    <footer>
-        <p>&copy; 2026 Tango Football Club</p>
-    </footer>
-    <script src="js/theme.js"></script>
-    <script src="js/matches.js"></script>
+<section class="matches-filters">
+    <button class="match-filter-btn active" data-filter="all">All Matches</button>
+    <button class="match-filter-btn" data-filter="upcoming">Upcoming</button>
+    <button class="match-filter-btn" data-filter="completed">Completed</button>
+    <button id="refreshMatches" title="Refresh matches">🔄 Refresh</button>
+</section>
+
+<div class="matches-container" id="matchesContainer"></div>
+</main>
+
+<footer>
+    <p>&copy; 2026 Tango Football Club</p>
+</footer>
+
+<script src="js/theme.js"></script>
+<script src="js/matches.js"></script>
 </body>
 </html>
-
-
-
