@@ -91,6 +91,23 @@ header {
 nav {
     padding: 0 20px 10px 20px;
 }
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+.nav-links li a {
+  text-decoration: none;
+  color: #fffefe;
+  padding: 8px 12px;
+  display: block;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
 
 nav ul {
     display: flex;
@@ -140,106 +157,7 @@ nav a.active::after {
     background-color: #ffffff;
 }
 
-/* Dropdown Menu Styles */
 
-nav li.dropdown {
-    position: relative;
-}
-
-nav .dropdown-toggle {
-    cursor: pointer;
-}
-
-nav .dropdown-menu {
-    position: absolute;
-    z-index: 1000;
-    top: 100%;
-    left: 0;
-
-    display: none;
-
-    min-width: 280px;
-    margin-top: 8px;
-    padding: 12px 0;
-
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    background-color: var(--card-bg);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-}
-
-nav li.dropdown:hover .dropdown-menu {
-    display: block;
-}
-
-nav .dropdown-group {
-    padding: 8px 0;
-}
-
-nav .dropdown-group:not(:last-child) {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-nav .dropdown-group-title {
-    font-size: 14px;
-    font-weight: 600;
-
-    display: flex;
-    align-items: center;
-
-    padding: 10px 20px;
-
-    cursor: pointer;
-    transition: all 0.18s ease;
-
-    color: var(--text-color);
-
-    gap: 8px;
-}
-
-/* emoji and arrow in group titles */
-
-nav .dropdown-emoji {
-    line-height: 1;
-
-    display: inline-block;
-}
-
-nav .dropdown-arrow {
-    font-weight: 700;
-
-    display: inline-block;
-
-    transition: transform 0.18s ease, color 0.18s ease;
-
-    color: rgba(0, 0, 0, 0.6);
-}
-
-/* when a group title has the open class, nudge the arrow and change color */
-
-nav .dropdown-group-title.open .dropdown-arrow {
-    transform: translateX(4px) scale( 1.05);
-
-    color: var(--header-bg);
-}
-
-nav .dropdown-item {
-    font-size: 14px;
-
-    display: block;
-
-    padding: 10px 40px;
-
-    transition: all 0.3s ease;
-    text-decoration: none;
-
-    color: var(--text-color);
-}
-
-nav .dropdown-item:hover {
-    color: #ffffff;
-    background-color: var(--nav-hover);
-}
 
 main {
     max-width: 1200px;
@@ -1464,6 +1382,7 @@ section {
 
         color: #7f8c8d;
     }
+    
 }
 
 /* ========== RESPONSIVE ========== */
