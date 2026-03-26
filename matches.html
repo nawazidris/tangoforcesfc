@@ -6,31 +6,119 @@
 <title>Matches & Fixtures - Tango Football Club</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
+
+    :root {
+    --primary: #002b5c;
+    --accent: #0ea5e9;
+    --background: #ffffff;
+
+    /* 🔥 FIX: ADD MISSING VARIABLES */
+    --header-bg: rgba(0, 43, 92, 0.95);
+    --header-text: #ffffff;
+    --nav-hover: rgba(14, 165, 233, 0.2);
+}
+
+/* DARK MODE */
+
+body.dark-mode {
+    --bg-color: #0f172a;
+    --text-color: #f1f5f9;
+    --card-bg: #1e293b;
+    --goal-color: #22c55e;
+    --yellow-card: #facc15;
+    --red-card: #ef4444;
+}
+
+:root[data-theme="light"] {
+    --bg-color: #ffffff;
+    --text-color: #0b1724;
+    --card-bg: #ffffff;
+    --header-bg: #002b4f;
+    --header-text: #ffffff;
+    --nav-hover: #001f3a;
+    --secondary-bg: #f0f4f8;
+}
+
+:root[data-theme="dark"] {
+    --bg-color: #0b0f14;
+    --text-color: #e6eef6;
+    --card-bg: #0f1720;
+    --header-bg: #00131f;
+    --header-text: #e6eef6;
+    --nav-hover: #003a66;
+    --secondary-bg: #0b1220;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
 /* ===== BODY ===== */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f4f6f9;
-    color: #333;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+
+    transition: background-color 0.3s, color 0.3s;
+    letter-spacing: -0.3px;
+
+    color: var(--text-color);
+    background-color: var(--bg-color);
 }
+
+
 
 /* ===== HEADER ===== */
 header {
-    background: #837694;
-    color: #fff;
-    padding: 15px 20px;
+    position: sticky;
+    z-index: 100;
+    top: 0;
+
+    color: var(--header-text);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: var(--header-bg);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 }
 
-header h1 {
-    margin: 0;
-    font-size: 24px;
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 20px;
 }
+
+.header-top h1 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+nav {
+    padding: 0 20px 10px 20px;
+}
+
+
 
 nav ul {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    max-width: 1200px;
+    margin: 0 auto;
+
     list-style: none;
-    padding: 0;
-    margin: 10px 0 0 0;
+
+    gap: 25px;
 }
 
 nav ul li {
@@ -63,7 +151,7 @@ nav ul li a:hover {
 }
 
 .season-badge span {
-    background: #837694;
+    background: #5903c9;
     color: white;
     padding: 5px 12px;
     border-radius: 15px;
@@ -82,7 +170,7 @@ nav ul li a:hover {
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    background: #837694;
+    background: #5903c9;
     color: white;
     font-weight: bold;
 }
@@ -182,13 +270,7 @@ nav ul li a:hover {
 .team-event:contains("🟥") { color: red; }
 .team-event:contains("🔁") { color: purple; }
 
-/* ===== FOOTER ===== */
-footer {
-    text-align: center;
-    padding: 15px;
-    background: #837694;
-    color: white;
-}
+
 </style>
 </head>
 <body>

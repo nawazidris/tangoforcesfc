@@ -13,6 +13,44 @@
     --nav-hover: rgba(14, 165, 233, 0.2);
 }
 
+/* DARK MODE */
+
+body.dark-mode {
+    --bg-color: #0f172a;
+    --text-color: #f1f5f9;
+    --card-bg: #1e293b;
+    --goal-color: #22c55e;
+    --yellow-card: #facc15;
+    --red-card: #ef4444;
+}
+
+:root[data-theme="light"] {
+    --bg-color: #ffffff;
+    --text-color: #0b1724;
+    --card-bg: #ffffff;
+    --header-bg: #002b4f;
+    --header-text: #ffffff;
+    --nav-hover: #001f3a;
+    --secondary-bg: #f0f4f8;
+}
+
+:root[data-theme="dark"] {
+    --bg-color: #0b0f14;
+    --text-color: #e6eef6;
+    --card-bg: #0f1720;
+    --header-bg: #00131f;
+    --header-text: #e6eef6;
+    --nav-hover: #003a66;
+    --secondary-bg: #0b1220;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
 /* ===============================
    HEADER + NAV (FIXED)
 =================================*/
