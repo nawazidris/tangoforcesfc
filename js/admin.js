@@ -25,7 +25,6 @@ function logout(){
     sessionStorage.clear();
     window.location.href = "tango-admin-access.html";
 }
-// Make logout global
 window.logout = logout;
 
 /* ================= DATA ================= */

@@ -11,7 +11,7 @@ const basePlayers = [
     // Midfielders
     { id: 8, name: "Alious Jamela", nickname: "Bambo", position: "Midfielder", number: 8, goals: 12, assists: 15, playerImage: "images/jamela.jpg" },
     { id: 9, name: "Delight Mwadira", nickname: "Mashefu", position: "Midfielder", number: 13, goals: 8, assists: 18, playerImage: "images/delo.jpg" },
-    { id: 10, name: "Milton Bosha ", nickname: "Milito", position: "Midfielder", number: 4, goals: 10, assists: 16, playerImage: "images/milito1.jpg" },
+    { id: 10, name: "Milton Bosha", nickname: "Milito", position: "Midfielder", number: 4, goals: 10, assists: 16, playerImage: "images/milito1.jpg" },
     { id: 11, name: "Providence Mashuro", nickname: "Shule", position: "Midfielder", number: 17, goals: 6, assists: 12, playerImage: "images/shule.jpg" },
     { id: 12, name: "Blessed Shoko", nickname: "Tsoko", position: "Midfielder", number: 14, goals: 7, assists: 14, playerImage: "images/shoko.jpg" },
     { id: 13, name: "Edward Mapuranga", nickname: "Dos", position: "Midfielder", number: 14, goals: 7, assists: 14, playerImage: "images/dos.jpg" },
@@ -28,38 +28,42 @@ const basePlayers = [
     { id: 22, name: "Washington Murambidza", nickname: "Washco", position: "Defender", number: 22, goals: 0, assists: 0, playerImage: "images/washco.jpg" },
     { id: 23, name: "Ian Pisirai", nickname: "Ian", position: "Defender", number: 20, goals: 23, assists: 0, playerImage: "images/ian.jpg" },
     { id: 24, name: "Leeroy Mamombe", nickname: "Maleedza", position: "Defender", number: 24, goals: 0, assists: 0, playerImage: "images/maleedza.jpg" },
-    { id :25, name:"Bruce Tanaka Venganai" , nickname:"Tanaka" , position:"Defender" , number :21 , goals :0 , assists :0 , playerImage:"images/bruce.jpg"},
+    { id: 25, name: "Bruce Tanaka Venganai", nickname: "Tanaka", position: "Defender", number: 21, goals: 0, assists: 0, playerImage: "images/bruce.jpg" },
 
     // Goalkeepers
     { id: 26, name: "Knowledge Sheche", nickname: "Ba Rashy", position: "Goalkeeper", number: 1, cleansheets: 20, SavePercentage: 60, playerImage: "images/rashy1.jpg" },
     { id: 27, name: "Robert Marongwe", nickname: "Robho", position: "Goalkeeper", number: 23, cleansheets: 2, SavePercentage: 20, playerImage: "images/robho.jpg" },
-    
-
 ];
 
 let allPlayers = [];
 
-// Load players from both base data and admin panel
+/* ================= LOAD PLAYERS ================= */
 function loadAllPlayers() {
-    // Start with base players
+
+    // Base players
     allPlayers = [...basePlayers];
 
-    // Load admin players from localStorage
+    // Admin players
     const adminPlayersData = localStorage.getItem('adminPlayers');
+
     if (adminPlayersData) {
         const adminPlayers = JSON.parse(adminPlayersData);
-        // Mark admin players as new signings and add them
+
         const adminPlayersWithFlag = adminPlayers.map(player => ({
             ...player,
             isNewSigning: true
         }));
+
         allPlayers = [...allPlayers, ...adminPlayersWithFlag];
     }
 
-    // Update hero stats
+    // ✅ CRITICAL: MAKE AVAILABLE TO MATCHES PAGE
+    localStorage.setItem('allPlayers', JSON.stringify(allPlayers));
+
     updateHeroStats();
 }
 
+/* ================= HERO STATS ================= */
 function updateHeroStats() {
     const totalPlayersElement = document.getElementById('totalPlayers');
     if (totalPlayersElement) {
@@ -67,24 +71,24 @@ function updateHeroStats() {
     }
 }
 
+/* ================= INIT ================= */
 document.addEventListener('DOMContentLoaded', () => {
+
     const rosterContainer = document.getElementById('rosterPlayers');
     const filterButtons = document.querySelectorAll('.filter-btn');
 
-    // Load all players (base + admin)
     loadAllPlayers();
-
-    // Store players in localStorage for player-detail page
-    localStorage.setItem('allPlayers', JSON.stringify(allPlayers));
 
     displayPlayers(allPlayers, rosterContainer);
 
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
+
             filterButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
 
             const position = button.getAttribute('data-position');
+
             const filtered = position === 'all'
                 ? allPlayers
                 : allPlayers.filter(player => player.position === position);
@@ -94,20 +98,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+/* ================= DISPLAY ================= */
 function displayPlayers(players, container) {
     container.innerHTML = '';
     players.forEach(player => {
-        const playerCube = createPlayerCube(player);
-        container.appendChild(playerCube);
+        const cube = createPlayerCube(player);
+        container.appendChild(cube);
     });
 }
 
+/* ================= PLAYER CARD ================= */
 function createPlayerCube(player) {
-    const cubeWrapper = document.createElement('div');
-    cubeWrapper.className = 'player-cube-wrapper';
-    cubeWrapper.style.cursor = 'pointer';
-    cubeWrapper.onclick = () => {
-        // Store selected player and navigate
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'player-cube-wrapper';
+    wrapper.style.cursor = 'pointer';
+
+    wrapper.onclick = () => {
         localStorage.setItem('selectedPlayer', JSON.stringify(player));
         window.location.href = `player-detail.html?id=${player.id}`;
     };
@@ -115,93 +122,64 @@ function createPlayerCube(player) {
     const cube = document.createElement('div');
     cube.className = 'player-cube';
 
-    // Front face - Name
-    const frontFace = document.createElement('div');
-    frontFace.className = 'cube-face front-face';
-    frontFace.innerHTML = `
+    /* FRONT */
+    const front = document.createElement('div');
+    front.className = 'cube-face front-face';
+    front.innerHTML = `
         <div class="cube-face-content">
-            <img src="${player.playerImage}" alt="${player.name}" class="player-passport-photo">
+            <img src="${player.playerImage}" class="player-passport-photo">
             <h3>${player.name}</h3>
-            <p class="jersey">#${player.number}</p>
-            ${player.isNewSigning ? '<div class="new-signing-badge">⭐ NEW SIGNING</div>' : ''}
+            <p>#${player.number}</p>
+            ${player.isNewSigning ? '<div class="new-signing-badge">⭐ NEW</div>' : ''}
         </div>
     `;
 
-    // Right face - Nickname
-    const rightFace = document.createElement('div');
-    rightFace.className = 'cube-face right-face';
-    rightFace.innerHTML = `
+    /* RIGHT */
+    const right = document.createElement('div');
+    right.className = 'cube-face right-face';
+    right.innerHTML = `
         <div class="cube-face-content">
             <h4>Nickname</h4>
-            <p class="nickname-text">"${player.nickname}"</p>
+            <p>"${player.nickname}"</p>
         </div>
     `;
 
-    // Back face - Career Stats (different based on position)
-    const backFace = document.createElement('div');
-    backFace.className = 'cube-face back-face';
+    /* BACK */
+    const back = document.createElement('div');
+    back.className = 'cube-face back-face';
 
-    let statsHTML = '<div class="cube-face-content"><h4>Career Stats</h4>';
+    let stats = `<div class="cube-face-content"><h4>Stats</h4>`;
 
     if (player.position === 'Goalkeeper') {
-        statsHTML += `
-            <div class="stat-item">
-                <span class="stat-label">Save %</span>
-                <span class="stat-value">${player.SavePercentage || player.savePercentage || 0}%</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Clean Sheets</span>
-                <span class="stat-value">${player.cleansheets || 0}</span>
-            </div>
-        `;
-    } else if (player.position === 'Defender') {
-        statsHTML += `
-            <div class="stat-item">
-                <span class="stat-label">Goals</span>
-                <span class="stat-value">${player.goals || 0}</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Assists</span>
-                <span class="stat-value">${player.assists || 0}</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Clean Sheets</span>
-                <span class="stat-value">${player.cleansheets || 0}</span>
-            </div>
+        stats += `
+            <p>Save %: ${player.SavePercentage || 0}%</p>
+            <p>Clean Sheets: ${player.cleansheets || 0}</p>
         `;
     } else {
-        // Forwards and Midfielders
-        statsHTML += `
-            <div class="stat-item">
-                <span class="stat-label">Goals</span>
-                <span class="stat-value">${player.goals || 0}</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Assists</span>
-                <span class="stat-value">${player.assists || 0}</span>
-            </div>
+        stats += `
+            <p>Goals: ${player.goals || 0}</p>
+            <p>Assists: ${player.assists || 0}</p>
         `;
     }
 
-    statsHTML += '</div>';
-    backFace.innerHTML = statsHTML;
+    stats += `</div>`;
+    back.innerHTML = stats;
 
-    // Left face - Position
-    const leftFace = document.createElement('div');
-    leftFace.className = 'cube-face left-face';
-    leftFace.innerHTML = `
+    /* LEFT */
+    const left = document.createElement('div');
+    left.className = 'cube-face left-face';
+    left.innerHTML = `
         <div class="cube-face-content">
-            <h4>Position</h4>
-            <p class="position-text">${player.position}</p>
-            <div class="position-badge">${player.position.charAt(0)}</div>
+            <h4>${player.position}</h4>
         </div>
     `;
 
-    cube.appendChild(frontFace);
-    cube.appendChild(rightFace);
-    cube.appendChild(backFace);
-    cube.appendChild(leftFace);
+    cube.appendChild(front);
+    cube.appendChild(right);
+    cube.appendChild(back);
+    cube.appendChild(left);
 
-    cubeWrapper.appendChild(cube);
-    return cubeWrapper;
+    wrapper.appendChild(cube);
+
+    return wrapper;
 }
