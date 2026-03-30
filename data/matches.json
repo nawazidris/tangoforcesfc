@@ -150,10 +150,12 @@
     "id": 9,
     "homeTeam": "Tango FC",
     "awayTeam": "Exor Stars",
+     "homeScore": 0,
+    "awayScore": 1,
     "date": "2026-03-28",
     "time": "15:00",
     "venue": "Shakashe Stadium",
-    "status": "upcoming",
+    "status": "completed",
     "competition": "League",
     "events": []
   },
