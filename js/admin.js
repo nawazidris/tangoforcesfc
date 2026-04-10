@@ -91,6 +91,10 @@ function bindForms(){
 function renderPlayers(){
     const container = document.getElementById("playersList");
     if(!container) return;
+    if(players.length === 0){
+        container.innerHTML = "<p>No players added yet.</p>";
+        return;
+    }
     container.innerHTML = players.map(p=>`
         <div class="card"><strong>${p.name}</strong><br>⚽ ${p.goals} | 🎯 ${p.assists}</div>
     `).join("");
@@ -100,7 +104,10 @@ function renderPlayers(){
 function populatePlayerDropdown(){
     const select = document.getElementById("eventPlayer");
     if(!select) return;
-    select.innerHTML = players.map(p=>`<option value="${p.name}">${p.name}</option>`).join("");
+    const options = [`<option value="">Select player</option>`].concat(
+        players.map(p=>`<option value="${p.name}">${p.name}</option>`)
+    );
+    select.innerHTML = options.join("");
 }
 
 /* ================= EVENTS ================= */
@@ -144,6 +151,10 @@ function updateStats(events){
 function renderMatches(){
     const container = document.getElementById("matchesList");
     if(!container) return;
+    if(matches.length === 0){
+        container.innerHTML = "<p>No matches added yet.</p>";
+        return;
+    }
     container.innerHTML = matches.map(m=>`
         <div class="card"><strong>${m.homeTeam} vs ${m.awayTeam}</strong><br>
         ${m.status==="completed"?`${m.homeScore} - ${m.awayScore}`:"Upcoming"}</div>
