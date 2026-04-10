@@ -195,19 +195,19 @@ container.innerHTML = achievements.map(a=>`
 }
 
 function displayTimeline(milestones){
+    const container = document.getElementById("timelineContainer");
 
-const container = document.getElementById("timelineContainer");
-
-container.innerHTML = milestones.map(m=>`
-
+    container.innerHTML = milestones.map(m => {
+        const [year, ...descriptionParts] = m.split(' - ');
+        const description = descriptionParts.join(' - ').trim();
+        return `
 <div class="timeline-item">
-
-<div class="timeline-marker"></div>
-
-<div class="timeline-content">${m}</div>
-
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+        <div class="timeline-year">${year.trim()}</div>
+        <div class="timeline-description">${description}</div>
+    </div>
 </div>
-
-`).join("");
-
+`;
+    }).join("");
 }

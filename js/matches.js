@@ -7,9 +7,44 @@ function getPlayerName(id){
     return p ? p.name : "Unknown";
 }
 
+function getPlayerById(id){
+    const allPlayers = JSON.parse(localStorage.getItem('allPlayers') || '[]');
+    const adminPlayers = JSON.parse(localStorage.getItem('adminPlayers') || '[]');
+    return adminPlayers.find(x => x.id === id) || allPlayers.find(x => x.id === id);
+}
+
+function getPlayerByName(playerName){
+    if(!playerName) return null;
+    const normalized = playerName.trim().toLowerCase();
+    const allPlayers = JSON.parse(localStorage.getItem('allPlayers') || '[]');
+    const adminPlayers = JSON.parse(localStorage.getItem('adminPlayers') || '[]');
+    return [...adminPlayers, ...allPlayers].find(p =>
+        (p.name && p.name.trim().toLowerCase() === normalized) ||
+        (p.nickname && p.nickname.trim().toLowerCase() === normalized)
+    );
+}
+
+function getPlayerDisplayName(event){
+    const playerName = event.playerId ? getPlayerName(event.playerId) : event.player || 'Unknown';
+    const player = event.playerId ? getPlayerById(event.playerId) : getPlayerByName(playerName);
+    if(player && player.nickname){
+        return player.nickname;
+    }
+    return formatEventName(playerName);
+}
+
 function formatEventName(fullName){
     if(!fullName) return 'Unknown';
     return fullName.split(' ')[0];
+}
+
+function getSeasonLabel(dateString){
+    const date = new Date(dateString);
+    if(isNaN(date)) return 'Season';
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    if(month >= 3) return `${year} Season`;
+    return `${year - 1}/${year} Season`;
 }
 
 /* ================= FETCH MATCHES ================= */
@@ -78,40 +113,62 @@ const displayMatches = (matches, filter='all') => {
     }
 
     if(filtered.length === 0){
-        container.innerHTML = `<p>No matches found</p>`;
+        container.innerHTML = `<p class="no-matches-text">No matches found</p>`;
         return;
     }
 
-    filtered.forEach(match => {
-        const isCompleted = match.status === 'completed';
-        const matchDate = new Date(match.date).toLocaleDateString();
+    const groupedBySeason = filtered.reduce((acc, match) => {
+        const season = getSeasonLabel(match.date);
+        if(!acc[season]) acc[season] = [];
+        acc[season].push(match);
+        return acc;
+    }, {});
 
-        const matchElement = document.createElement('div');
-        matchElement.className = `match-card ${isCompleted ? 'completed' : 'upcoming'}`;
-
-        matchElement.innerHTML = `
-            <div class="match-date">${matchDate} | ${match.time || ''}</div>
-
-            <div class="match-content">
-                <div class="team home-team">
-                    <span class="team-name">${match.homeTeam}</span>
-                    ${renderEvents(match, 'home')}
-                </div>
-
-                <div class="vs">
-                    ${isCompleted ? `${match.homeScore} - ${match.awayScore}` : 'VS'}
-                </div>
-
-                <div class="team away-team">
-                    <span class="team-name">${match.awayTeam}</span>
-                    ${renderEvents(match, 'away')}
-                </div>
-            </div>
-
-            <div class="venue">📍 ${match.venue || ''}</div>
+    Object.keys(groupedBySeason).forEach(season => {
+        const seasonSection = document.createElement('section');
+        seasonSection.className = 'season-section';
+        seasonSection.innerHTML = `
+            <h3 class="season-heading">${season}</h3>
         `;
 
-        container.appendChild(matchElement);
+        groupedBySeason[season].forEach(match => {
+            const isCompleted = match.status === 'completed';
+            const matchDate = new Date(match.date).toLocaleDateString(undefined, {
+                day: '2-digit', month: 'short', year: 'numeric'
+            });
+
+            const matchCard = document.createElement('div');
+            matchCard.className = `match-card ${isCompleted ? 'completed' : 'upcoming'}`;
+
+            matchCard.innerHTML = `
+                <div class="match-card-header">
+                    <div class="match-date">${matchDate}</div>
+                    <div class="match-status ${match.status}">${match.status.toUpperCase()}</div>
+                </div>
+                <div class="match-teams">
+                    <div class="team team-home">
+                        <span class="team-label">Home</span>
+                        <div class="team-name">${match.homeTeam}</div>
+                    </div>
+                    <div class="match-score">${isCompleted ? `${match.homeScore} - ${match.awayScore}` : 'VS'}</div>
+                    <div class="team team-away">
+                        <span class="team-label">Away</span>
+                        <div class="team-name">${match.awayTeam}</div>
+                    </div>
+                </div>
+                ${renderEvents(match, 'home') || renderEvents(match, 'away') ? `
+                <div class="match-events-row">
+                    ${renderEvents(match, 'home')}
+                    ${renderEvents(match, 'away')}
+                </div>
+                ` : ''}
+                <div class="venue">📍 ${match.venue || 'TBA'}</div>
+            `;
+
+            seasonSection.appendChild(matchCard);
+        });
+
+        container.appendChild(seasonSection);
     });
 };
 
@@ -143,7 +200,7 @@ const renderEvents = (match, teamType) => {
             switch(e.type){
                 case "goal":
                     icon = "⚽";
-                    text = `${displayName} ${e.minute ? e.minute + "'" : ''}`;
+                    text = `${getPlayerDisplayName(e)} ${e.minute ? e.minute + "'" : ''}`;
                     className = "event-goal";
                     break;
 
@@ -155,7 +212,7 @@ const renderEvents = (match, teamType) => {
 
                 case "yellow_card":
                     icon = "🟨";
-                    text = `${playerName} ${e.minute || ''}'`;
+                    text = `${getPlayerDisplayName(e)} ${e.minute || ''}'`;
                     className = "event-yellow";
                     break;
 
