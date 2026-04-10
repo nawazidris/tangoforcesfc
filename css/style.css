@@ -1,3 +1,4 @@
+/* ========== THEME / COLORS ========== */
 :root {
     --bg-color: #ffffff;
     --text-color: #111;
@@ -38,6 +39,7 @@ body.dark-mode {
     --secondary-bg: #0b1220;
 }
 
+/* ========== RESET / BASE STYLES ========== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -59,6 +61,7 @@ body {
     background-color: var(--bg-color);
 }
 
+/* ========== HEADER / NAVIGATION ========== */
 header {
     position: sticky;
     z-index: 100;
@@ -159,12 +162,14 @@ nav a.active::after {
 
 
 
+/* ========== PAGE LAYOUT ========== */
 main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
+/* ========== HERO SECTION ========== */
 .hero {
     margin: 20px 0;
     padding: 100px 40px;
@@ -233,6 +238,7 @@ section h2 {
     text-align: center;
 }
 
+/* ========== PLAYER CUBE / ROSTER SECTION ========== */
 .players-cube-grid {
     display: grid;
 
@@ -523,51 +529,7 @@ to {
     color: #1d1d1f;
 }
 
-.position-badge {
-    font-size: 18px;
-    font-weight: 700;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 40px;
-    height: 40px;
-    margin-top: 10px;
-
-    color: white;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #007aff, #0056b3);
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
-}
-
-.stat-item {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-
-    margin-bottom: 12px;
-}
-
-.stat-label {
-    font-size: 12px;
-    font-weight: 600;
-
-    margin-bottom: 4px;
-
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-
-    opacity: 0.7;
-}
-
-.stat-value {
-    font-size: 20px;
-    font-weight: 800;
-
-    color: #007aff;
-    text-shadow: 0 1px 3px rgba(0, 123, 255, 0.2);
-}
 
 /* Front Face Styling */
 
@@ -670,7 +632,7 @@ to {
     margin-bottom: 15px;
 }
 
-.position-badge {
+.player-position-large .position-badge {
     font-size: 28px;
     font-weight: 700;
 
@@ -717,7 +679,7 @@ to {
 
 /* Top Face Styling */
 
-.player-info {
+.top-face .player-info {
     display: flex;
     justify-content: space-around;
 
@@ -776,17 +738,6 @@ to {
     font-weight: 500;
 }
 
-.player-passport-photo {
-    width: 120px;
-    height: 120px;
-    margin-bottom: 12px;
-
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 50%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-
-    object-fit: cover;
-}
 
 @keyframes fadeIn {
 
@@ -804,26 +755,7 @@ to {
 
 }
 
-section {
-    animation: fadeIn 0.6s ease-out;
-}
-
-.player-cube-wrapper {
-    animation: fadeIn 0.8s ease-out backwards;
-}
-
-.player-cube-wrapper:nth-child(1) {
-    animation-delay: 0.1s;
-}
-
-.player-cube-wrapper:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.player-cube-wrapper:nth-child(3) {
-    animation-delay: 0.3s;
-}
-
+/* ========== RESPONSIVE STYLES ========== */
 @media(max-width: 768px) {
     .players-cube-grid {
         padding: 10px;
@@ -1137,19 +1069,8 @@ section {
     box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
 }
 
-.matches-container {
-    display: flex;
-    flex-direction: column;
-
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-
-    gap: 20px;
-}
-
-/* MATCH CARDS */
-
+/* ========== MATCH CARDS ==========
+   Keep a single matches container definition and preserve the final intended layout. */
 .matches-container {
     display: flex;
     flex-direction: column;
@@ -1209,7 +1130,7 @@ section {
 
 .match-content {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
 
     gap: 10px;
@@ -1279,45 +1200,58 @@ section {
 /* EVENTS */
 
 .team-events {
-    font-size: 0.9rem;
-    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 
-    margin-top: 4px;
-    padding: 8px 12px;
+    margin-top: 6px;
+    padding: 10px 12px;
 
-    color: #34495e;
-    border-left: 4px solid #2c3e50;
-    border-radius: 6px;
-    background-color: #f9f9f9;
+    color: #243447;
+    border-left: 4px solid #1d4f91;
+    border-radius: 10px;
+    background-color: #eef6ff;
 }
 
 .team-event {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 
-    margin: 3px 0;
-    padding: 2px 6px;
-
-    border-radius: 4px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    line-height: 1.4;
 }
 
-/* GOAL */
-
-.team-event:has(:contains( "⚽")) {
-    font-weight: 600;
-
-    color:#0a7d33;
+.event-goal {
+    background: #e6f6f0;
+    color: #0a7d33;
+    border: 1px solid #7dd3a7;
 }
 
-/* YELLOW CARD */
-
-.team-event:has(:contains( "🟨")) {
-    color: #b38b00;
+.event-assist {
+    background: #eff8ff;
+    color: #0369a1;
+    border: 1px solid #7dd3fc;
 }
 
-/* RED CARD */
+.event-yellow {
+    background: #fef3c7;
+    color: #b45309;
+    border: 1px solid #facc15;
+}
 
-.team-event:has(:contains( "🟥")) {
-    color: #c62828;
+.event-red {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+}
+
+.event-sub {
+    background: #ede9fe;
+    color: #5b21b6;
+    border: 1px solid #c4b5fd;
 }
 
 /* MATCH STATUS COLORS */
@@ -1485,11 +1419,11 @@ section {
     gap: 40px;
 }
 
-.stat-item {
+.hero-stats .stat-item {
     text-align: center;
 }
 
-.stat-number {
+.hero-stats .stat-number {
     font-size: 2.5rem;
     font-weight: 800;
 
@@ -1501,7 +1435,7 @@ section {
     text-shadow: 0 2px 10px rgba(0, 212, 255, 0.3);
 }
 
-.stat-label {
+.hero-stats .stat-label {
     font-size: 0.9rem;
     font-weight: 600;
 
@@ -1782,7 +1716,7 @@ section {
         gap: 20px;
     }
 
-    .stat-number {
+    .hero-stats .stat-number {
         font-size: 2rem;
     }
 
@@ -2445,7 +2379,7 @@ section {
     background: linear-gradient(135deg, rgba( 0, 122, 255, 0.1) , rgba( 88, 86, 214, 0.1) );
 }
 
-.stat-number {
+.stats-grid .stat-number {
     font-size: 2rem;
     font-weight: 700;
 
@@ -2456,7 +2390,7 @@ section {
     color: #007aff;
 }
 
-.stat-label {
+.stats-grid .stat-label {
     font-size: 0.9rem;
     font-weight: 500;
 
@@ -4139,7 +4073,7 @@ RESPONSIVE
     background: rgba(0, 123, 255, 0.05);
 }
 
-.stat-label {
+.profile-stats .stat-label {
     font-size: 12px;
     font-weight: 600;
 
@@ -4150,7 +4084,7 @@ RESPONSIVE
     opacity: 0.7;
 }
 
-.stat-number {
+.profile-stats .stat-number {
     font-size: 32px;
     font-weight: 700;
 
@@ -4467,7 +4401,7 @@ RESPONSIVE
     gap: 5px;
 }
 
-.stat-value {
+.stat-card .stat-value {
     font-size: 2.5rem;
     font-weight: 700;
     line-height: 1;
@@ -4534,7 +4468,7 @@ RESPONSIVE
     object-fit: cover;
 }
 
-.position-badge {
+.player-avatar .position-badge {
     font-size: 0.7rem;
     font-weight: 600;
 
@@ -4560,13 +4494,13 @@ RESPONSIVE
     background: linear-gradient(45deg, rgba( 0, 122, 255, 0.1) , rgba( 88, 86, 214, 0.1) );
 }
 
-.player-info {
+.player-card .player-info {
     padding: 20px;
 
     text-align: center;
 }
 
-.player-info h4 {
+.player-card .player-info h4 {
     font-size: 1.2rem;
     font-weight: 700;
 
@@ -4978,7 +4912,7 @@ RESPONSIVE
         padding: 15px;
     }
 
-    .stat-number {
+    .stats-grid .stat-number {
         font-size: 1.5rem;
     }
 

@@ -83,6 +83,10 @@ function bindForms(){
             const player = {
                 id: Number(id),
                 name: document.getElementById("playerName").value,
+                nickname: document.getElementById("playerNickname").value || '',
+                position: document.getElementById("playerPosition").value || 'Forward',
+                number: Number(document.getElementById("playerNumber").value) || null,
+                playerImage: document.getElementById("playerImage").value || 'images/idris.jpg',
                 goals: Number(document.getElementById("playerGoals").value)||0,
                 assists: Number(document.getElementById("playerAssists").value)||0
             };
@@ -149,7 +153,9 @@ function renderPlayers(){
     }
     container.innerHTML = players.map(p=>`
         <div class="card">
-            <strong>${p.name}</strong><br>⚽ ${p.goals} | 🎯 ${p.assists}
+            <strong>${p.name}</strong> <span style="color:#005cb8;">(${p.position || 'Forward'})</span><br>
+            #${p.number || 'N/A'} | ⚽ ${p.goals} | 🎯 ${p.assists}<br>
+            <small>${p.nickname || ''}</small>
             <button type="button" class="small-btn" onclick="editPlayer(${p.id})">Edit</button>
         </div>
     `).join("");
@@ -237,6 +243,10 @@ function editPlayer(id){
     if(!player) return;
     document.getElementById("playerId").value = player.id;
     document.getElementById("playerName").value = player.name;
+    document.getElementById("playerNickname").value = player.nickname || '';
+    document.getElementById("playerPosition").value = player.position || 'Forward';
+    document.getElementById("playerNumber").value = player.number || '';
+    document.getElementById("playerImage").value = player.playerImage || '';
     document.getElementById("playerGoals").value = player.goals;
     document.getElementById("playerAssists").value = player.assists;
 }

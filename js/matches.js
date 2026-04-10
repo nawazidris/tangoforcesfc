@@ -7,6 +7,11 @@ function getPlayerName(id){
     return p ? p.name : "Unknown";
 }
 
+function formatEventName(fullName){
+    if(!fullName) return 'Unknown';
+    return fullName.split(' ')[0];
+}
+
 /* ================= FETCH MATCHES ================= */
 const fetchMatches = async () => {
     const container = document.getElementById('matchesContainer');
@@ -89,7 +94,7 @@ const displayMatches = (matches, filter='all') => {
 
             <div class="match-content">
                 <div class="team home-team">
-                    <span>${match.homeTeam}</span>
+                    <span class="team-name">${match.homeTeam}</span>
                     ${renderEvents(match, 'home')}
                 </div>
 
@@ -98,8 +103,8 @@ const displayMatches = (matches, filter='all') => {
                 </div>
 
                 <div class="team away-team">
+                    <span class="team-name">${match.awayTeam}</span>
                     ${renderEvents(match, 'away')}
-                    <span>${match.awayTeam}</span>
                 </div>
             </div>
 
@@ -133,17 +138,18 @@ const renderEvents = (match, teamType) => {
             const playerName = e.playerId 
                 ? getPlayerName(e.playerId)
                 : e.player || "Unknown";
+            const displayName = formatEventName(playerName);
 
             switch(e.type){
                 case "goal":
                     icon = "⚽";
-                    text = `${playerName} ${e.minute || ''}'`;
+                    text = `${displayName} ${e.minute ? e.minute + "'" : ''}`;
                     className = "event-goal";
                     break;
 
                 case "assist":
                     icon = "🎯";
-                    text = `${playerName} ${e.minute || ''}'`;
+                    text = `${displayName} ${e.minute ? e.minute + "'" : ''}`;
                     className = "event-assist";
                     break;
 

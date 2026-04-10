@@ -99,9 +99,20 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ================= DISPLAY ================= */
+function sortPlayersByPosition(players) {
+    const order = { Forward: 1, Midfielder: 2, Defender: 3, Goalkeeper: 4 };
+    return [...players].sort((a, b) => {
+        const positionA = order[a.position] || 5;
+        const positionB = order[b.position] || 5;
+        if (positionA !== positionB) return positionA - positionB;
+        return (a.name || '').localeCompare(b.name || '');
+    });
+}
+
 function displayPlayers(players, container) {
     container.innerHTML = '';
-    players.forEach(player => {
+    const sorted = sortPlayersByPosition(players);
+    sorted.forEach(player => {
         const cube = createPlayerCube(player);
         container.appendChild(cube);
     });

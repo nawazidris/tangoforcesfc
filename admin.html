@@ -5,46 +5,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tango FC Admin Panel</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>
-body{margin:0;font-family:Arial;background:#f4f6f9;}
-.admin-wrapper{display:flex;height:100vh;}
-.sidebar{width:220px;background:#837694;color:#fff;padding:20px;}
-.sidebar h2{text-align:center;}
-.sidebar button{width:100%;padding:10px;margin:10px 0;border:none;background:#222;color:white;cursor:pointer;border-radius:6px;}
-.sidebar button:hover{background:#444;}
-.logout{background:red;}
-.main{flex:1;padding:20px;overflow-y:auto;}
-.card{background:white;padding:15px;border-radius:10px;margin-bottom:15px;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
-input, select{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:1px solid #ccc;}
-button.save{background:#111;color:white;padding:10px;border:none;width:100%;border-radius:6px;cursor:pointer;}
-button.save:hover{background:#333;}
-button.small-btn{background:#837694;color:white;border:none;border-radius:6px;padding:6px 10px;cursor:pointer;margin-top:10px;}
-button.small-btn:hover{background:#5a4761;}
-.event{background:#eee;padding:6px;margin:5px 0;border-radius:5px;}
-</style>
+<link rel="stylesheet" href="css/admin.css">
+
 </head>
 <body>
 
 <div class="admin-wrapper">
 
-<div class="sidebar">
-<h2>Tango Admin</h2>
-<button onclick="showTab('players')"><i class="fa fa-users"></i> Players</button>
-<button onclick="showTab('matches')"><i class="fa fa-futbol"></i> Matches</button>
-<button class="logout" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</button>
+<div class="admin-sidebar">
+<h2 class="club-name">Tango Admin</h2>
+<button class="admin-tab-btn" onclick="showTab('players')"><i class="fa fa-users"></i> Players</button>
+<button class="admin-tab-btn" onclick="showTab('matches')"><i class="fa fa-futbol"></i> Matches</button>
+<button class="logout-btn" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</button>
 </div>
 
-<div class="main">
+<div class="admin-main">
 
-<div id="playersTab" class="tab">
+<div id="playersTab" class="admin-tab active">
 <div class="card">
 <h3>Add Player</h3>
 <form id="playerForm">
 <input type="hidden" id="playerId">
 <input id="playerName" placeholder="Player Name" required>
+<input id="playerNickname" placeholder="Nickname" required>
+<select id="playerPosition" required>
+    <option value="Forward">Forward</option>
+    <option value="Midfielder">Midfielder</option>
+    <option value="Defender">Defender</option>
+    <option value="Goalkeeper">Goalkeeper</option>
+</select>
+<input id="playerNumber" type="number" placeholder="Shirt Number">
+<input id="playerImage" placeholder="Image URL">
 <input id="playerGoals" type="number" placeholder="Goals">
 <input id="playerAssists" type="number" placeholder="Assists">
-<button type="submit" class="save">Save Player</button>
+<button type="submit" class="btn-save">Save Player</button>
 </form>
 </div>
 
@@ -54,7 +48,7 @@ button.small-btn:hover{background:#5a4761;}
 </div>
 </div>
 
-<div id="matchesTab" class="tab" style="display:none">
+<div id="matchesTab" class="admin-tab">
 <div class="card">
 <h3>Add Match</h3>
 <form id="matchForm">
@@ -84,10 +78,10 @@ button.small-btn:hover{background:#5a4761;}
 <option value="away">Away</option>
 </select>
 <input id="eventMinute" placeholder="Minute">
-<button type="button" onclick="addEvent()">Add Event</button>
+<button type="button" class="small-btn" onclick="addEvent()">Add Event</button>
 <div id="eventList"></div>
 
-<button type="submit" class="save">Save Match</button>
+<button type="submit" class="btn-save">Save Match</button>
 </form>
 </div>
 
