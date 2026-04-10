@@ -14,6 +14,7 @@ async function init(){
     bindForms();
     renderAll();
     populatePlayerDropdown();
+    toggleAssistField();
 }
 
 /* ================= AUTH ================= */
@@ -163,25 +164,48 @@ function renderPlayers(){
 
 /* ================= PLAYER DROPDOWN ================= */
 function populatePlayerDropdown(){
-    const select = document.getElementById("eventPlayer");
-    if(!select) return;
+    const playerSelect = document.getElementById("eventPlayer");
+    const assistSelect = document.getElementById("eventAssist");
+    if(!playerSelect) return;
     const source = rosterPlayers.length ? rosterPlayers : players;
     const options = [`<option value="">Select player</option>`].concat(
         source.map(p=>`<option value="${p.name}">${p.name}</option>`)
     );
-    select.innerHTML = options.join("");
+    playerSelect.innerHTML = options.join("");
+    if(assistSelect){
+        assistSelect.innerHTML = [`<option value="">Assist (optional)</option>`].concat(
+            source.map(p=>`<option value="${p.name}">${p.name}</option>`)
+        ).join("");
+    }
+}
+
+function toggleAssistField(){
+    const type = document.getElementById("eventType").value;
+    const assistSelect = document.getElementById("eventAssist");
+    if(!assistSelect) return;
+    assistSelect.style.display = type === 'goal' ? 'block' : 'none';
 }
 
 /* ================= EVENTS ================= */
 function addEvent(){
     const player = document.getElementById("eventPlayer").value;
     const type = document.getElementById("eventType").value;
+    const assist = document.getElementById("eventAssist")?.value || '';
     const team = document.getElementById("eventTeam").value;
     const minute = document.getElementById("eventMinute").value;
 
     if(!player){ alert("Select a player"); return; }
+    if(type === 'goal' && assist && assist === player){
+        alert('Assist cannot be the same player as the goal scorer.');
+        return;
+    }
 
-    currentEvents.push({type, team, player, minute});
+    const event = {type, team, player, minute};
+    if(type === 'goal' && assist){
+        event.assist = assist;
+    }
+
+    currentEvents.push(event);
     renderEventList();
 }
 window.addEvent = addEvent;
@@ -190,10 +214,17 @@ function renderEventList(){
     const container = document.getElementById("eventList");
     if(!container) return;
     if(currentEvents.length===0){ container.innerHTML="<p>No events added</p>"; return; }
-    container.innerHTML=currentEvents.map((e,i)=>`
-        <div class="event">${e.minute?"'"+e.minute+"'":""} ${e.player} (${e.type}) 
-        <button onclick="removeEvent(${i})">❌</button></div>
-    `).join("");
+    container.innerHTML=currentEvents.map((e,i)=>{
+        let details = `${e.player} (${e.type})`;
+        if(e.type === 'goal' && e.assist){
+            details = `${e.player} (goal, assist: ${e.assist})`;
+        } else if(e.type === 'assist'){
+            details = `${e.player} (assist)`;
+        }
+        return `
+        <div class="event">${e.minute?"'"+e.minute+"'":""} ${details} 
+        <button onclick="removeEvent(${i})">❌</button></div>`;
+    }).join("");
 }
 function removeEvent(idx){ currentEvents.splice(idx,1); renderEventList(); }
 window.removeEvent = removeEvent;
@@ -201,10 +232,18 @@ window.removeEvent = removeEvent;
 /* ================= UPDATE PLAYER STATS ================= */
 function updateStats(events){
     events.forEach(e=>{
-        const p = players.find(x=>x.name===e.player);
-        if(!p) return;
-        if(e.type==="goal") p.goals++;
-        if(e.type==="assist") p.assists++;
+        const scorer = players.find(x=>x.name===e.player);
+        if(e.type==="goal" && scorer){
+            scorer.goals++;
+            if(e.assist){
+                const assister = players.find(x=>x.name===e.assist);
+                if(assister) assister.assists++;
+            }
+        }
+        if(e.type==="assist"){
+            const assistant = players.find(x=>x.name===e.player);
+            if(assistant) assistant.assists++;
+        }
     });
     savePlayers();
 }
@@ -231,9 +270,16 @@ function revertStats(match){
     if(!match || !match.events) return;
     match.events.forEach(e=>{
         const p = players.find(x=>x.name===e.player);
-        if(!p) return;
-        if(e.type === "goal") p.goals = Math.max(0, p.goals - 1);
-        if(e.type === "assist") p.assists = Math.max(0, p.assists - 1);
+        if(e.type === "goal" && p){
+            p.goals = Math.max(0, p.goals - 1);
+            if(e.assist){
+                const assister = players.find(x=>x.name===e.assist);
+                if(assister) assister.assists = Math.max(0, assister.assists - 1);
+            }
+        }
+        if(e.type === "assist" && p){
+            p.assists = Math.max(0, p.assists - 1);
+        }
     });
     savePlayers();
 }

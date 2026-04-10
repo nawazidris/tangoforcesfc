@@ -191,16 +191,18 @@ const renderEvents = (match, teamType) => {
             let text = '';
             let className = '';
 
-            // ✅ SUPPORT BOTH SYSTEMS (OLD + NEW)
-            const playerName = e.playerId 
-                ? getPlayerName(e.playerId)
-                : e.player || "Unknown";
-            const displayName = formatEventName(playerName);
+            const displayName = getPlayerDisplayName(e);
+            const assistPlayer = e.assist ? getPlayerDisplayName({ player: e.assist }) : e.assist;
+            const playerOut = e.player_out ? getPlayerDisplayName({ player: e.player_out }) : e.player_out;
+            const playerIn = e.player_in ? getPlayerDisplayName({ player: e.player_in }) : e.player_in;
 
             switch(e.type){
                 case "goal":
                     icon = "⚽";
-                    text = `${getPlayerDisplayName(e)} ${e.minute ? e.minute + "'" : ''}`;
+                    text = `${displayName} ${e.minute ? e.minute + "'" : ''}`;
+                    if(e.assist){
+                        text += ` (assist: ${assistPlayer || 'Unknown'})`;
+                    }
                     className = "event-goal";
                     break;
 
@@ -212,21 +214,25 @@ const renderEvents = (match, teamType) => {
 
                 case "yellow_card":
                     icon = "🟨";
-                    text = `${getPlayerDisplayName(e)} ${e.minute || ''}'`;
+                    text = `${displayName} ${e.minute || ''}'`;
                     className = "event-yellow";
                     break;
 
                 case "red_card":
                     icon = "🟥";
-                    text = `${playerName} ${e.minute || ''}'`;
+                    text = `${displayName} ${e.minute || ''}'`;
                     className = "event-red";
                     break;
 
                 case "substitution":
                     icon = "🔁";
-                    text = `${e.player_out || ''} ↔ ${e.player_in || ''}`;
+                    text = `${playerOut || ''} ↔ ${playerIn || ''}`;
                     className = "event-sub";
                     break;
+            }
+
+            if(e.type === 'assist' && e.assist){
+                text = `${displayName} (assist: ${assistPlayer || 'Unknown'}) ${e.minute ? e.minute + "'" : ''}`;
             }
 
             return `<div class="team-event ${className}">

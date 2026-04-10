@@ -67,11 +67,14 @@
 
 <h4>Match Events</h4>
 <select id="eventPlayer"></select>
-<select id="eventType">
+<select id="eventType" onchange="toggleAssistField()">
 <option value="goal">Goal ⚽</option>
 <option value="assist">Assist 🎯</option>
 <option value="yellow_card">Yellow 🟨</option>
 <option value="red_card">Red 🟥</option>
+</select>
+<select id="eventAssist" style="display:none;">
+    <option value="">Assist (optional)</option>
 </select>
 <select id="eventTeam">
 <option value="home">Home</option>
