@@ -178,10 +178,12 @@
     "id": 11,
     "homeTeam": "FC Duchima",
     "awayTeam": "Tango FC",
+    "homeScore": 0,
+    "awayScore": 0,
     "date": "2026-04-11",
     "time": "15:00",
     "venue": "Border Stadium",
-    "status": "upcoming",
+    "status": "completed",
     "competition": "League",
     "events": []
   },
