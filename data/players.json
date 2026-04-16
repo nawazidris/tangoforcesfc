@@ -1,50 +1,44 @@
 [
     {
         "id": 1,
-        "name": "John Doe",
+        "name": "Edrice",
         "position": "Forward",
-        "age": 25,
-        "team": "Team A",
         "stats": {
-            "gamesPlayed": 30,
-            "goals": 15,
-            "assists": 10
+            "gamesPlayed": 3,
+            "goals": 1,
+            "assists": 0
         }
     },
     {
         "id": 2,
-        "name": "Jane Smith",
+        "name": "Tan Tan",
         "position": "Midfielder",
-        "age": 22,
-        "team": "Team A",
         "stats": {
-            "gamesPlayed": 30,
-            "goals": 5,
-            "assists": 20
+            "gamesPlayed": 4,
+            "goals": 1,
+            "assists": 1
         }
     },
     {
         "id": 3,
-        "name": "Mike Johnson",
+        "name": "Tsano",
         "position": "Defender",
-        "age": 28,
-        "team": "Team B",
         "stats": {
-            "gamesPlayed": 30,
-            "goals": 2,
-            "assists": 5
+            "gamesPlayed": 4,
+            "goals": 1,
+            "cleanSheets": 1,
+            "assists": 0
         }
     },
     {
         "id": 4,
-        "name": "Emily Davis",
+        "name": "Rashy",
         "position": "Goalkeeper",
-        "age": 24,
-        "team": "Team B",
         "stats": {
-            "gamesPlayed": 30,
-            "goalsAgainst": 20,
-            "saves": 80
+            "gamesPlayed": 2,
+            "goalsAgainst": 1,
+             "cleanSheets": 1,
+            "saves": 5
         }
     }
 ]

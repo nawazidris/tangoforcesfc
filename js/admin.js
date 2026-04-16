@@ -15,6 +15,7 @@ async function init(){
     renderAll();
     populatePlayerDropdown();
     toggleAssistField();
+    loadAdminStandings();
 }
 
 /* ================= AUTH ================= */
@@ -142,6 +143,11 @@ function bindForms(){
             renderMatches();
         });
     }
+
+    const standingsInput = document.getElementById("standingsFileInput");
+    if (standingsInput) {
+        standingsInput.addEventListener("change", handleStandingsUpload);
+    }
 }
 
 /* ================= PLAYERS ================= */
@@ -228,6 +234,97 @@ function renderEventList(){
 }
 function removeEvent(idx){ currentEvents.splice(idx,1); renderEventList(); }
 window.removeEvent = removeEvent;
+
+function handleStandingsUpload(event){
+    const file = event.target.files?.[0];
+    if(!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+        const text = reader.result;
+        const parsed = parseStandingText(text);
+        if(parsed){
+            localStorage.setItem('leagueStandingsJson', JSON.stringify(parsed));
+            renderStandingsPreview(parsed);
+            alert('Standings uploaded and saved for the stats page.');
+        } else {
+            alert('Unable to parse the standings log. Please use a plain table format.');
+        }
+    };
+    reader.readAsText(file);
+}
+
+function parseStandingText(text){
+    if(!text || typeof text !== 'string') return null;
+    const lines = text.trim().split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+    if(lines.length < 2) return null;
+
+    const headers = lines[0].match(/\S+/g) || [];
+    if(headers.length < 3) return null;
+
+    const rows = lines.slice(1).map(line => {
+        const tokens = line.match(/\S+/g) || [];
+        if(tokens.length === headers.length) {
+            return tokens;
+        }
+
+        if(tokens.length >= headers.length + 1) {
+            const position = tokens[0];
+            const stats = tokens.slice(-8);
+            const teamName = tokens.slice(1, tokens.length - 8).join(' ');
+            return [position, teamName, ...stats];
+        }
+
+        return null;
+    }).filter(row => row && row.length === headers.length);
+
+    return rows.length ? { headers, rows } : null;
+}
+
+function renderStandingsPreview(parsed){
+    const preview = document.getElementById('standingsAdminPreview');
+    if(!preview) return;
+    preview.innerHTML = '';
+    if(!parsed || !parsed.headers || !parsed.rows || parsed.rows.length === 0){
+        preview.innerHTML = '<p>No standings could be rendered.</p>';
+        return;
+    }
+
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    parsed.headers.forEach(header => {
+        const th = document.createElement('th');
+        th.textContent = header;
+        headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    parsed.rows.forEach(row => {
+        const tr = document.createElement('tr');
+        row.forEach(cell => {
+            const td = document.createElement('td');
+            td.textContent = cell;
+            tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    preview.appendChild(table);
+}
+
+function loadAdminStandings(){
+    const stored = localStorage.getItem('leagueStandingsJson');
+    if (!stored) return;
+    try {
+        const parsed = JSON.parse(stored);
+        renderStandingsPreview(parsed);
+    } catch (error) {
+        console.warn('Could not load stored standings preview.', error);
+    }
+}
 
 /* ================= UPDATE PLAYER STATS ================= */
 function updateStats(events){

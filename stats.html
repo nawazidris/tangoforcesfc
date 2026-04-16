@@ -10,39 +10,77 @@
     <header>
         <div class="header-top">
             <h1>Player Statistics</h1>
-           
         </div>
         <nav>
-            <ul>
+            <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="technical-team.html">Technical Team</a></li>
                 <li><a href="roster.html">Player Roster</a></li>
                 <li><a href="matches.html">Matches</a></li>
+                <li><a href="stats.html" class="active">Stats</a></li>
+                <li><a href="league-standings.html">League Standings</a></li>
                 <li><a href="history.html">Club History</a></li>
                 <li><a href="videos.html">Videos</a></li>
                 <li><a href="gallery.html">Gallery</a></li>
-                
             </ul>
         </nav>
     </header>
     <main>
+        <section class="stats-overview">
+            <div class="stats-summary-cards">
+                <div class="summary-card">
+                    <span class="summary-label">Matches Played</span>
+                    <strong id="summaryMatches">0</strong>
+                </div>
+                <div class="summary-card">
+                    <span class="summary-label">Goals Scored</span>
+                    <strong id="summaryGoalsFor">0</strong>
+                </div>
+                <div class="summary-card">
+                    <span class="summary-label">Goals Conceded</span>
+                    <strong id="summaryGoalsAgainst">0</strong>
+                </div>
+                <div class="summary-card">
+                    <span class="summary-label">Goal Difference</span>
+                    <strong id="summaryGoalDiff">0</strong>
+                </div>
+            </div>
+        </section>
+
+                <section class="top-scorers">
+            <h2>Top Scorers</h2>
+            <div class="top-scorers-cards" id="topScorersContainer"></div>
+        </section>
+
+        <section class="stats-chart">
+            <h2>Goals vs Assists</h2>
+            <div class="chart-card" id="goalsAssistsChart"></div>
+        </section>
+
         <section id="stats-section">
             <h2>Statistics Overview</h2>
-            <table id="stats-table">
-                <thead>
-                    <tr>
-                        <th>Player Name</th>
-                        <th>Games Played</th>
-                        <th>Points</th>
-                        <th>Assists</th>
-                        <th>Rebounds</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Player stats will be populated here -->
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table id="stats-table">
+                    <thead>
+                        <tr>
+                            <th>Player Name</th>
+                            <th>Position</th>
+                            <th>Team</th>
+                            <th>Games Played</th>
+                            <th>Goals</th>
+                            <th>Assists</th>
+                            <th>Clean Sheets</th>
+                            <th>Goals Against</th>
+                            <th>Saves</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Player stats will be populated here -->
+                    </tbody>
+                </table>
+            </div>
         </section>
+
     </main>
     <script src="js/theme.js"></script>
     <script src="js/stats.js"></script>

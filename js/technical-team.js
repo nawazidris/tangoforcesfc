@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Build hierarchy: CEO on top, next 3 in middle row, rest in bottom row
         const ceo = technicalTeam.find(m => m.role.toLowerCase() === 'ceo') || technicalTeam[0];
         const others = technicalTeam.filter(m => m !== ceo);
-        const middle = others.slice(0, 2);
+        const middle = others.slice(0, 3);
         const bottom = others.slice(3);
 
         const topRow = document.createElement('div');

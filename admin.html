@@ -4,104 +4,149 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Welcome to Tango FC Admin Panel</title>
+<link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="css/admin.css">
 
 </head>
-<body>
+<body class="admin-page">
 
-<div class="admin-wrapper">
+<header>
+    <div class="header-top">
+        <h1>Tango Football Club Admin</h1>
+    </div>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="technical-team.html">Technical Team</a></li>
+            <li><a href="roster.html">Player Roster</a></li>
+            <li><a href="matches.html">Matches</a></li>
+            <li><a href="stats.html">Stats</a></li>
+            <li><a href="league-standings.html">League Standings</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="videos.html">Videos</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="admin.html" class="active">Admin</a></li>
+        </ul>
+    </nav>
+</header>
 
-<div class="admin-sidebar">
-<h2 class="club-name">Tango Admin</h2>
-<button class="admin-tab-btn" onclick="showTab('players')"><i class="fa fa-users"></i> Players</button>
-<button class="admin-tab-btn" onclick="showTab('matches')"><i class="fa fa-futbol"></i> Matches</button>
-<button class="logout-btn" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</button>
-</div>
+<main class="admin-main">
+    <div class="admin-wrapper">
+        <aside class="admin-sidebar">
+            <h2 class="club-name">Tango Admin</h2>
+            <div class="sidebar-menu">
+                <button class="admin-tab-btn active" onclick="showTab('players')"><i class="fa fa-users"></i><span>Players</span></button>
+                <button class="admin-tab-btn" onclick="showTab('matches')"><i class="fa fa-futbol"></i><span>Matches</span></button>
+                <button class="admin-tab-btn" onclick="showTab('standings')"><i class="fa fa-table"></i><span>Standings</span></button>
+            </div>
+            <button class="logout-btn" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</button>
+        </aside>
 
-<div class="admin-main">
+        <section class="admin-area">
+            
 
-<div id="playersTab" class="admin-tab active">
-<div class="card">
-<h3>Add Player</h3>
-<form id="playerForm">
-<input type="hidden" id="playerId">
-<input id="playerName" placeholder="Player Name" required>
-<input id="playerNickname" placeholder="Nickname" required>
-<select id="playerPosition" required>
-    <option value="Forward">Forward</option>
-    <option value="Midfielder">Midfielder</option>
-    <option value="Defender">Defender</option>
-    <option value="Goalkeeper">Goalkeeper</option>
-</select>
-<input id="playerNumber" type="number" placeholder="Shirt Number">
-<input id="playerImage" placeholder="Image URL">
-<input id="playerGoals" type="number" placeholder="Goals">
-<input id="playerAssists" type="number" placeholder="Assists">
-<button type="submit" class="btn-save">Save Player</button>
-</form>
-</div>
+            <div id="playersTab" class="admin-tab active">
+                <div class="card">
+                    <h3>Add Player</h3>
+                    <form id="playerForm" class="admin-form">
+                        <input type="hidden" id="playerId">
+                        <input id="playerName" placeholder="Player Name" required>
+                        <input id="playerNickname" placeholder="Nickname" required>
+                        <select id="playerPosition" required>
+                            <option value="Forward">Forward</option>
+                            <option value="Midfielder">Midfielder</option>
+                            <option value="Defender">Defender</option>
+                            <option value="Goalkeeper">Goalkeeper</option>
+                        </select>
+                        <input id="playerNumber" type="number" placeholder="Shirt Number">
+                        <input id="playerImage" placeholder="Image URL">
+                        <input id="playerGoals" type="number" placeholder="Goals">
+                        <input id="playerAssists" type="number" placeholder="Assists">
+                        <button type="submit" class="btn-save">Save Player</button>
+                    </form>
+                </div>
 
-<div class="card">
-<h3>Players List</h3>
-<div id="playersList"></div>
-</div>
-</div>
+                <div class="card">
+                    <h3>Players List</h3>
+                    <div id="playersList"></div>
+                </div>
+            </div>
 
-<div id="matchesTab" class="admin-tab">
-<div class="card">
-<h3>Add Match</h3>
-<form id="matchForm">
-<input type="hidden" id="matchId">
-<input id="homeTeam" placeholder="Home Team" required>
-<input id="awayTeam" placeholder="Away Team" required>
-<input type="date" id="matchDate" required>
-<input type="time" id="matchTime">
-<input id="matchVenue" placeholder="Venue">
-<select id="matchStatus">
-<option value="upcoming">Upcoming</option>
-<option value="completed">Completed</option>
-</select>
-<input type="number" id="homeScore" placeholder="Home Score">
-<input type="number" id="awayScore" placeholder="Away Score">
+            <div id="matchesTab" class="admin-tab">
+                <div class="card">
+                    <h3>Add Match</h3>
+                    <form id="matchForm" class="admin-form">
+                        <input type="hidden" id="matchId">
+                        <input id="homeTeam" placeholder="Home Team" required>
+                        <input id="awayTeam" placeholder="Away Team" required>
+                        <input type="date" id="matchDate" required>
+                        <input type="time" id="matchTime">
+                        <input id="matchVenue" placeholder="Venue">
+                        <select id="matchStatus">
+                            <option value="upcoming">Upcoming</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        <input type="number" id="homeScore" placeholder="Home Score">
+                        <input type="number" id="awayScore" placeholder="Away Score">
 
-<h4>Match Events</h4>
-<select id="eventPlayer"></select>
-<select id="eventType" onchange="toggleAssistField()">
-<option value="goal">Goal ⚽</option>
-<option value="assist">Assist 🎯</option>
-<option value="yellow_card">Yellow 🟨</option>
-<option value="red_card">Red 🟥</option>
-</select>
-<select id="eventAssist" style="display:none;">
-    <option value="">Assist (optional)</option>
-</select>
-<select id="eventTeam">
-<option value="home">Home</option>
-<option value="away">Away</option>
-</select>
-<input id="eventMinute" placeholder="Minute">
-<button type="button" class="small-btn" onclick="addEvent()">Add Event</button>
-<div id="eventList"></div>
+                        <h4>Match Events</h4>
+                        <div class="event-row">
+                            <select id="eventPlayer"></select>
+                            <select id="eventType" onchange="toggleAssistField()">
+                                <option value="goal">Goal ⚽</option>
+                                <option value="assist">Assist 🎯</option>
+                                <option value="yellow_card">Yellow 🟨</option>
+                                <option value="red_card">Red 🟥</option>
+                            </select>
+                        </div>
+                        <div class="event-row">
+                            <select id="eventAssist" style="display:none;">
+                                <option value="">Assist (optional)</option>
+                            </select>
+                            <select id="eventTeam">
+                                <option value="home">Home</option>
+                                <option value="away">Away</option>
+                            </select>
+                            <input id="eventMinute" placeholder="Minute">
+                        </div>
+                        <button type="button" class="small-btn" onclick="addEvent()">Add Event</button>
+                        <div id="eventList"></div>
+                        <button type="submit" class="btn-save">Save Match</button>
+                    </form>
+                </div>
 
-<button type="submit" class="btn-save">Save Match</button>
-</form>
-</div>
+                <div class="card">
+                    <h3>Matches List</h3>
+                    <div id="matchesList"></div>
+                </div>
+            </div>
 
-<div class="card">
-<h3>Matches List</h3>
-<div id="matchesList"></div>
-</div>
-</div>
-
-</div>
-</div>
+            <div id="standingsTab" class="admin-tab">
+                <div class="card">
+                    <h3>Upload Standings Log</h3>
+                    <p>Upload a plain-text standings table and make it available on the public stats page.</p>
+                    <label class="file-upload">
+                        <span>Select standings file</span>
+                        <input type="file" id="standingsFileInput" accept=".txt,text/plain">
+                    </label>
+                    <p><a class="btn-secondary" href="league-standings.html">View League Standings Page</a></p>
+                    <div id="standingsAdminPreview" class="log-preview"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
 
 <script src="js/admin.js"></script>
 <script>
 function showTab(tab){
-    document.getElementById("playersTab").style.display = tab==="players"?"block":"none";
-    document.getElementById("matchesTab").style.display = tab==="matches"?"block":"none";
+    ['players','matches','standings'].forEach(name => {
+        const section = document.getElementById(`${name}Tab`);
+        const button = document.querySelector(`.admin-tab-btn[onclick="showTab('${name}')"]`);
+        if(section) section.style.display = name === tab ? 'block' : 'none';
+        if(button) button.classList.toggle('active', name === tab);
+    });
 }
 </script>
 </body>
