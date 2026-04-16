@@ -953,6 +953,7 @@ to {
     font-weight: 700;
 
     background: linear-gradient(135deg, #007aff, #003d82);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -1391,8 +1392,8 @@ to {
     margin-bottom: 20px;
 
     background: linear-gradient(45deg, #ffffff, #e0e7ff);
-    -webkit-background-clip: text;
     background-clip: text;
+    -webkit-background-clip: text;
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 
     -webkit-text-fill-color: transparent;
@@ -2694,6 +2695,7 @@ to {
     font-weight: 700;
 
     background: linear-gradient(135deg, #007aff, #003d82);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -4235,9 +4237,9 @@ RESPONSIVE
     font-weight: 700;
     margin-bottom: 10px;
     background: linear-gradient(135deg, #007aff, #5856d6);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
 .section-header p {
@@ -4964,7 +4966,6 @@ RESPONSIVE
 
 /* MOBILE ONLY */
 @media (max-width: 768px) {
-
     .menu-toggle {
         display: block;
     }

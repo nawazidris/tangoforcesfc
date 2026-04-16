@@ -117,58 +117,50 @@ const displayMatches = (matches, filter='all') => {
         return;
     }
 
-    const groupedBySeason = filtered.reduce((acc, match) => {
-        const season = getSeasonLabel(match.date);
-        if(!acc[season]) acc[season] = [];
-        acc[season].push(match);
-        return acc;
-    }, {});
-
-    Object.keys(groupedBySeason).forEach(season => {
-        const seasonSection = document.createElement('section');
-        seasonSection.className = 'season-section';
-        seasonSection.innerHTML = `
-            <h3 class="season-heading">${season}</h3>
-        `;
-
-        groupedBySeason[season].forEach(match => {
-            const isCompleted = match.status === 'completed';
-            const matchDate = new Date(match.date).toLocaleDateString(undefined, {
-                day: '2-digit', month: 'short', year: 'numeric'
-            });
-
-            const matchCard = document.createElement('div');
-            matchCard.className = `match-card ${isCompleted ? 'completed' : 'upcoming'}`;
-
-            matchCard.innerHTML = `
-                <div class="match-card-header">
-                    <div class="match-date">${matchDate}</div>
-                    <div class="match-status ${match.status}">${match.status.toUpperCase()}</div>
-                </div>
-                <div class="match-teams">
-                    <div class="team team-home">
-                        <span class="team-label">Home</span>
-                        <div class="team-name">${match.homeTeam}</div>
-                    </div>
-                    <div class="match-score">${isCompleted ? `${match.homeScore} - ${match.awayScore}` : 'VS'}</div>
-                    <div class="team team-away">
-                        <span class="team-label">Away</span>
-                        <div class="team-name">${match.awayTeam}</div>
-                    </div>
-                </div>
-                ${renderEvents(match, 'home') || renderEvents(match, 'away') ? `
-                <div class="match-events-row">
-                    ${renderEvents(match, 'home')}
-                    ${renderEvents(match, 'away')}
-                </div>
-                ` : ''}
-                <div class="venue">📍 ${match.venue || 'TBA'}</div>
-            `;
-
-            seasonSection.appendChild(matchCard);
+    filtered.forEach(match => {
+        const isCompleted = match.status === 'completed';
+        const matchDate = new Date(match.date).toLocaleDateString(undefined, {
+            day: 'numeric', month: 'short'
         });
 
-        container.appendChild(seasonSection);
+        const matchCard = document.createElement('div');
+        matchCard.className = `match-card ${isCompleted ? 'completed' : 'upcoming'}`;
+
+        const homeEvents = renderEvents(match, 'home');
+        const awayEvents = renderEvents(match, 'away');
+        const hasEvents = homeEvents || awayEvents;
+
+        matchCard.innerHTML = `
+            <div class="match-card-header">
+                <div class="match-date">${matchDate}</div>
+                <div class="match-status ${match.status}">${match.status.toUpperCase()}</div>
+            </div>
+            <div class="match-meta">
+                <span>🏆 ${match.competition || 'League'}</span>
+                <span>📍 ${match.venue ? match.venue.substring(0, 14) : 'TBA'}</span>
+            </div>
+            <div class="match-teams">
+                <div class="team">
+                    <div class="team-name">${match.homeTeam}</div>
+                </div>
+                <div class="match-score">${isCompleted ? `${match.homeScore} - ${match.awayScore}` : 'VS'}</div>
+                <div class="team">
+                    <div class="team-name">${match.awayTeam}</div>
+                </div>
+            </div>
+            ${hasEvents ? `
+            <div class="match-events-row">
+                <div class="team-events">
+                    ${homeEvents}
+                </div>
+                <div class="team-events">
+                    ${awayEvents}
+                </div>
+            </div>
+            ` : ''}
+        `;
+
+        container.appendChild(matchCard);
     });
 };
 
@@ -183,63 +175,60 @@ const renderEvents = (match, teamType) => {
 
     if(teamEvents.length === 0) return '';
 
-    return `
-    <div class="team-events">
-        ${teamEvents.map(e => {
+    return teamEvents.map(e => {
 
-            let icon = '';
-            let text = '';
-            let className = '';
+        let icon = '';
+        let text = '';
+        let className = '';
 
-            const displayName = getPlayerDisplayName(e);
-            const assistPlayer = e.assist ? getPlayerDisplayName({ player: e.assist }) : e.assist;
-            const playerOut = e.player_out ? getPlayerDisplayName({ player: e.player_out }) : e.player_out;
-            const playerIn = e.player_in ? getPlayerDisplayName({ player: e.player_in }) : e.player_in;
+        const displayName = getPlayerDisplayName(e);
+        const assistPlayer = e.assist ? getPlayerDisplayName({ player: e.assist }) : e.assist;
+        const playerOut = e.player_out ? getPlayerDisplayName({ player: e.player_out }) : e.player_out;
+        const playerIn = e.player_in ? getPlayerDisplayName({ player: e.player_in }) : e.player_in;
 
-            switch(e.type){
-                case "goal":
-                    icon = "⚽";
-                    text = `${displayName} ${e.minute ? e.minute + "'" : ''}`;
-                    if(e.assist){
-                        text += ` (assist: ${assistPlayer || 'Unknown'})`;
-                    }
-                    className = "event-goal";
-                    break;
+        switch(e.type){
+            case "goal":
+                icon = "⚽";
+                text = `${displayName}`;
+                if(e.minute) text += ` ${e.minute}'`;
+                if(e.assist){
+                    text += ` (${assistPlayer})`;
+                }
+                className = "event-goal";
+                break;
 
-                case "assist":
-                    icon = "🎯";
-                    text = `${displayName} ${e.minute ? e.minute + "'" : ''}`;
-                    className = "event-assist";
-                    break;
+            case "assist":
+                icon = "🎯";
+                text = `${displayName}`;
+                if(e.minute) text += ` ${e.minute}'`;
+                className = "event-assist";
+                break;
 
-                case "yellow_card":
-                    icon = "🟨";
-                    text = `${displayName} ${e.minute || ''}'`;
-                    className = "event-yellow";
-                    break;
+            case "yellow_card":
+                icon = "🟨";
+                text = `${displayName}`;
+                if(e.minute) text += ` ${e.minute}'`;
+                className = "event-yellow";
+                break;
 
-                case "red_card":
-                    icon = "🟥";
-                    text = `${displayName} ${e.minute || ''}'`;
-                    className = "event-red";
-                    break;
+            case "red_card":
+                icon = "🟥";
+                text = `${displayName}`;
+                if(e.minute) text += ` ${e.minute}'`;
+                className = "event-red";
+                break;
 
-                case "substitution":
-                    icon = "🔁";
-                    text = `${playerOut || ''} ↔ ${playerIn || ''}`;
-                    className = "event-sub";
-                    break;
-            }
+            case "substitution":
+                icon = "🔁";
+                text = `${playerOut} ↔ ${playerIn}`;
+                className = "event-sub";
+                break;
+        }
 
-            if(e.type === 'assist' && e.assist){
-                text = `${displayName} (assist: ${assistPlayer || 'Unknown'}) ${e.minute ? e.minute + "'" : ''}`;
-            }
-
-            return `<div class="team-event ${className}">
-                ${icon} ${text}
-            </div>`;
-        }).join('')}
-    </div>`;
+        return `<div class="team-event ${className}">
+            ${icon} ${text}
+        </div>`;
+    }).join('');
 };
 
 /* ================= INIT ================= */

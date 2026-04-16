@@ -20,13 +20,13 @@ async function init(){
 /* ================= AUTH ================= */
 function checkAuth(){
     if(sessionStorage.getItem("adminToken") !== "tango_secure_admin"){
-        window.location.href = "tango-admin-access.html";
+        window.location.href = "login.html";
     }
 }
 
 function logout(){
     sessionStorage.clear();
-    window.location.href = "tango-admin-access.html";
+    window.location.href = "login.html";
 }
 window.logout = logout;
 
