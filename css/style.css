@@ -1811,23 +1811,23 @@ to {
 
 @media(max-width: 768px) {
     .roster-hero {
-        padding: 40px 20px;
+        padding: 35px 16px;
     }
 
     .hero-content h2 {
-        font-size: 2.5rem;
+        font-size: 2.3rem;
     }
 
     .hero-content p {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     .hero-stats {
-        gap: 20px;
+        gap: 18px;
     }
 
     .hero-stats .stat-number {
-        font-size: 2rem;
+        font-size: 1.9rem;
     }
 
     .filter-buttons {
@@ -1836,39 +1836,38 @@ to {
 
     .filter-btn {
         font-size: 0.9rem;
-
-        padding: 10px 16px;
+        padding: 9px 14px;
     }
 
     .players-cube-grid {
-        grid-template-columns: repeat(auto-fit, minmax( 240px, 1fr) );
-        gap: 30px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 24px;
     }
 
     .player-cube-wrapper {
-        height: 280px;
+        height: 250px;
     }
 
     .player-cube,
     .cube-face {
-        width: 240px;
-        height: 240px;
+        width: 200px;
+        height: 200px;
     }
 
     .front-face {
-        transform: translateZ(120px);
+        transform: translateZ(100px);
     }
 
     .back-face {
-        transform: rotateY(180deg) translateZ( 120px);
+        transform: rotateY(180deg) translateZ(100px);
     }
 
     .right-face {
-        transform: rotateY(90deg) translateZ( 120px);
+        transform: rotateY(90deg) translateZ(100px);
     }
 
     .left-face {
-        transform: rotateY(270deg) translateZ( 120px);
+        transform: rotateY(270deg) translateZ(100px);
     }
 
     .footer-actions {
@@ -1879,39 +1878,49 @@ to {
     .btn-primary,
     .btn-secondary {
         justify-content: center;
-
-        width: 200px;
+        width: 180px;
     }
 }
 
 @media(max-width: 480px) {
     .hero-content h2 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 
     .hero-stats {
         flex-direction: column;
-
         gap: 15px;
     }
 
     .players-cube-grid {
         grid-template-columns: 1fr;
-        gap: 25px;
+        gap: 18px;
     }
 
     .player-cube-wrapper {
-        height: 260px;
+        height: 220px;
     }
 
     .player-cube,
     .cube-face {
-        width: 220px;
-        height: 220px;
+        width: 180px;
+        height: 180px;
     }
 
     .front-face {
-        transform: translateZ(110px);
+        transform: translateZ(90px);
+    }
+
+    .back-face {
+        transform: rotateY(180deg) translateZ(90px);
+    }
+
+    .right-face {
+        transform: rotateY(90deg) translateZ(90px);
+    }
+
+    .left-face {
+        transform: rotateY(270deg) translateZ(90px);
     }
 
     .back-face {
@@ -5556,34 +5565,53 @@ RESPONSIVE
 
 /* MOBILE ENHANCEMENTS */
 @media (max-width: 768px) {
+    nav {
+        padding: 0 12px 4px;
+    }
+
     nav ul {
-        flex-direction: row;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        justify-content: flex-start;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 6px;
         align-items: center;
-        gap: 12px;
-        padding-bottom: 10px;
-        scrollbar-width: thin;
+        width: 100%;
     }
 
     nav ul li {
-        flex: 0 0 auto;
+        grid-column: span 1;
     }
 
-    nav ul::-webkit-scrollbar {
-        height: 6px;
+    nav ul li:nth-child(5) {
+        grid-row: 2;
+        grid-column: 1;
     }
 
-    nav ul::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.25);
-        border-radius: 999px;
+    nav ul li:nth-child(6) {
+        grid-row: 2;
+        grid-column: 2;
+    }
+
+    nav ul li:nth-child(7) {
+        grid-row: 2;
+        grid-column: 3;
+    }
+
+    nav ul li:nth-child(8) {
+        grid-row: 2;
+        grid-column: 4;
+    }
+
+    nav ul li:nth-child(9) {
+        grid-row: 2;
+        grid-column: 5;
     }
 
     nav a {
-        font-size: 14px;
-        padding: 10px 14px;
-        white-space: nowrap;
+        font-size: 10px;
+        padding: 4px 6px;
+        white-space: normal;
+        text-align: center;
+        display: block;
     }
 
     .header-top {
@@ -5634,8 +5662,13 @@ RESPONSIVE
 
 @media (max-width: 480px) {
     nav a {
-        font-size: 13px;
-        padding: 8px 10px;
+        font-size: 10px;
+        padding: 4px 5px;
+    }
+
+    nav ul {
+        gap: 5px;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
     }
 
     .hero {
@@ -5645,6 +5678,96 @@ RESPONSIVE
     .hero-content h1,
     .hero-content h2 {
         font-size: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    header .header-top h1 {
+        font-size: 18px;
+    }
+
+    .hero {
+        padding: 48px 16px;
+    }
+
+    .hero-content h1,
+    .hero-content h2 {
+        font-size: 28px;
+    }
+
+    .hero-content p,
+    .about-content p,
+    .stats-summary-cards,
+    .news-grid,
+    .about-values,
+    .stats-grid {
+        font-size: 14px;
+    }
+
+    section,
+    .stats-card,
+    .standings-card,
+    .gallery-item,
+    .admin-intro,
+    .match-card,
+    .mobile-card {
+        padding: 16px;
+    }
+
+    section h2,
+    .page-hero h2,
+    .standings-header h2,
+    .gallery-hero h2 {
+        font-size: 22px;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .gallery-filters button,
+    .admin-tab-btn,
+    .logout-btn {
+        font-size: 13px;
+        padding: 10px 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 13px;
+    }
+
+    header .header-top h1 {
+        font-size: 16px;
+    }
+
+    section,
+    .stats-card,
+    .standings-card,
+    .gallery-item,
+    .admin-intro,
+    .match-card,
+    .mobile-card {
+        padding: 14px;
+    }
+
+    section h2,
+    .page-hero h2,
+    .standings-header h2,
+    .gallery-hero h2 {
+        font-size: 20px;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .gallery-filters button,
+    .admin-tab-btn,
+    .logout-btn {
+        font-size: 12px;
+        padding: 8px 12px;
     }
 }
     /* Hero section */

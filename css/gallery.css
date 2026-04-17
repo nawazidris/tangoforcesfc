@@ -334,11 +334,51 @@ nav ul li a.active::after {
         gap: 15px;
     }
 
+    nav a,
+    nav ul li a {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+
     .page-hero h2 {
         font-size: 24px;
     }
 
+    .page-hero p {
+        font-size: 15px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 12px;
+    }
+
     .gallery-item img {
         height: 170px;
+    }
+}
+
+@media (max-width: 480px) {
+    nav ul {
+        gap: 10px;
+    }
+
+    nav a,
+    nav ul li a {
+        font-size: 12px;
+        padding: 5px 8px;
+    }
+
+    .page-hero h2 {
+        font-size: 22px;
+    }
+
+    .page-hero p {
+        font-size: 14px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 10px;
     }
 }
