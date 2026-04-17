@@ -120,7 +120,7 @@ const displayMatches = (matches, filter='all') => {
     filtered.forEach(match => {
         const isCompleted = match.status === 'completed';
         const matchDate = new Date(match.date).toLocaleDateString(undefined, {
-            day: 'numeric', month: 'short'
+            day: 'numeric', month: 'short', year: 'numeric'
         });
 
         const matchCard = document.createElement('div');
@@ -134,6 +134,7 @@ const displayMatches = (matches, filter='all') => {
         matchCard.innerHTML = `
             <div class="mobile-header">
                 <span>🏆 ${match.competition || 'League'}</span>
+                <span class="match-date">${matchDate}</span>
                 <span>🏟️ ${match.venue ? match.venue.substring(0, 24) : 'TBA'}</span>
             </div>
             <div class="mobile-main">
