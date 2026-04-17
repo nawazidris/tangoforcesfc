@@ -130,30 +130,23 @@ const displayMatches = (matches, filter='all') => {
         const awayEvents = renderEvents(match, 'away');
         const hasEvents = homeEvents || awayEvents;
 
+        matchCard.className = `mobile-card ${isCompleted ? 'completed' : 'upcoming'}`;
         matchCard.innerHTML = `
-            <div class="match-card-header">
-                <div class="match-date">${matchDate}</div>
-                <div class="match-status ${match.status}">${match.status.toUpperCase()}</div>
-            </div>
-            <div class="match-meta">
+            <div class="mobile-header">
                 <span>🏆 ${match.competition || 'League'}</span>
-                <span>📍 ${match.venue ? match.venue.substring(0, 14) : 'TBA'}</span>
+                <span>🏟️ ${match.venue ? match.venue.substring(0, 24) : 'TBA'}</span>
             </div>
-            <div class="match-teams">
-                <div class="team">
-                    <div class="team-name">${match.homeTeam}</div>
-                </div>
-                <div class="match-score">${isCompleted ? `${match.homeScore} - ${match.awayScore}` : 'VS'}</div>
-                <div class="team">
-                    <div class="team-name">${match.awayTeam}</div>
-                </div>
+            <div class="mobile-main">
+                <div class="team">${match.homeTeam}</div>
+                <div class="score">${isCompleted ? `${match.homeScore}–${match.awayScore}` : 'VS'}</div>
+                <div class="team">${match.awayTeam}</div>
             </div>
             ${hasEvents ? `
-            <div class="match-events-row">
-                <div class="team-events">
+            <div class="mobile-events">
+                <div class="event-column left">
                     ${homeEvents}
                 </div>
-                <div class="team-events">
+                <div class="event-column right">
                     ${awayEvents}
                 </div>
             </div>
