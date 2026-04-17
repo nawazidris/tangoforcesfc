@@ -16,6 +16,12 @@
     margin: 0 auto;
 }
 
+@media (min-width: 1024px) {
+    .matches-container {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
 .mobile-card {
     background: var(--match-bg);
     color: var(--match-text);
@@ -85,56 +91,53 @@
 }
 
 .mobile-events {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-}
-
-.event-column {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.event-column.left {
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: flex-start;
+    gap: 12px;
+    margin-top: 8px;
 }
 
-.event-column.right {
-    align-items: flex-end;
+.event-text {
+    flex: 1 1 45%;
+    min-width: 0;
+    font-size: 0.70rem;
+    line-height: 1.4;
+    color: var(--match-muted);
+    white-space: normal;
+    overflow-wrap: anywhere;
 }
 
-.team-event {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 8px;
-    border-radius: 999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: var(--match-text);
-    white-space: nowrap;
+.event-text.left {
+    text-align: left;
 }
 
-.team-event.event-goal { border-color: #34d399; }
-.team-event.event-assist { border-color: #60a5fa; }
-.team-event.event-yellow { border-color: #facc15; }
-.team-event.event-red { border-color: #f87171; }
-.team-event.event-sub { border-color: #c084fc; }
+.event-text.right {
+    text-align: right;
+}
 
 @media (max-width: 620px) {
     .mobile-main {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .mobile-main .team {
+        width: auto;
+        min-width: 0;
+        max-width: 30%;
+        font-size: 0.82rem;
+    }
+
+    .score {
+        font-size: 1.12rem;
     }
 
     .mobile-events {
-        grid-template-columns: 1fr;
-    }
-
-    .event-column.right {
-        align-items: flex-start;
+        gap: 8px;
     }
 }

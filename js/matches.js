@@ -126,9 +126,9 @@ const displayMatches = (matches, filter='all') => {
         const matchCard = document.createElement('div');
         matchCard.className = `match-card ${isCompleted ? 'completed' : 'upcoming'}`;
 
-        const homeEvents = renderEvents(match, 'home');
-        const awayEvents = renderEvents(match, 'away');
-        const hasEvents = homeEvents || awayEvents;
+        const homeEventsText = renderEventsText(match, 'home');
+        const awayEventsText = renderEventsText(match, 'away');
+        const hasEvents = homeEventsText || awayEventsText;
 
         matchCard.className = `mobile-card ${isCompleted ? 'completed' : 'upcoming'}`;
         matchCard.innerHTML = `
@@ -143,12 +143,8 @@ const displayMatches = (matches, filter='all') => {
             </div>
             ${hasEvents ? `
             <div class="mobile-events">
-                <div class="event-column left">
-                    ${homeEvents}
-                </div>
-                <div class="event-column right">
-                    ${awayEvents}
-                </div>
+                <div class="event-text left">${homeEventsText || ''}</div>
+                <div class="event-text right">${awayEventsText || ''}</div>
             </div>
             ` : ''}
         `;
@@ -158,7 +154,7 @@ const displayMatches = (matches, filter='all') => {
 };
 
 /* ================= RENDER EVENTS ================= */
-const renderEvents = (match, teamType) => {
+const renderEventsText = (match, teamType) => {
 
     if(!match.events || match.events.length === 0) return '';
 
@@ -168,11 +164,9 @@ const renderEvents = (match, teamType) => {
 
     if(teamEvents.length === 0) return '';
 
-    return teamEvents.map(e => {
-
+    const formatted = teamEvents.map(e => {
         let icon = '';
         let text = '';
-        let className = '';
 
         const displayName = getPlayerDisplayName(e);
         const assistPlayer = e.assist ? getPlayerDisplayName({ player: e.assist }) : e.assist;
@@ -185,43 +179,38 @@ const renderEvents = (match, teamType) => {
                 text = `${displayName}`;
                 if(e.minute) text += ` ${e.minute}'`;
                 if(e.assist){
-                    text += ` (${assistPlayer})`;
+                    text += ` 🅰️ ${assistPlayer}`;
                 }
-                className = "event-goal";
                 break;
 
             case "assist":
-                icon = "🎯";
+                icon = "🅰️";
                 text = `${displayName}`;
                 if(e.minute) text += ` ${e.minute}'`;
-                className = "event-assist";
                 break;
 
             case "yellow_card":
                 icon = "🟨";
                 text = `${displayName}`;
                 if(e.minute) text += ` ${e.minute}'`;
-                className = "event-yellow";
                 break;
 
             case "red_card":
                 icon = "🟥";
                 text = `${displayName}`;
                 if(e.minute) text += ` ${e.minute}'`;
-                className = "event-red";
                 break;
 
             case "substitution":
                 icon = "🔁";
                 text = `${playerOut} ↔ ${playerIn}`;
-                className = "event-sub";
                 break;
         }
 
-        return `<div class="team-event ${className}">
-            ${icon} ${text}
-        </div>`;
-    }).join('');
+        return `${icon} ${text}`;
+    });
+
+    return formatted.join('; ');
 };
 
 /* ================= INIT ================= */

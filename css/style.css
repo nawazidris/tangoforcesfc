@@ -5557,14 +5557,33 @@ RESPONSIVE
 /* MOBILE ENHANCEMENTS */
 @media (max-width: 768px) {
     nav ul {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
         align-items: center;
         gap: 12px;
+        padding-bottom: 10px;
+        scrollbar-width: thin;
+    }
+
+    nav ul li {
+        flex: 0 0 auto;
+    }
+
+    nav ul::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    nav ul::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 999px;
     }
 
     nav a {
         font-size: 14px;
         padding: 10px 14px;
+        white-space: nowrap;
     }
 
     .header-top {
