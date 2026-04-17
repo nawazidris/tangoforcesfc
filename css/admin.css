@@ -51,12 +51,10 @@
 }
 
 .admin-page .nav-links li a {
-    font-family: var(--font-heading);
     color: #0f172a;
     background: rgba(37, 99, 235, 0.08);
     padding: 10px 14px;
     border-radius: 12px;
-    letter-spacing: 0.05em;
 }
 
 .admin-page .nav-links li a.active,
