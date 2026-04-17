@@ -56,14 +56,20 @@ body.dark-mode {
 =================================*/
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font-base);
     line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
 
     transition: background-color 0.3s, color 0.3s;
     letter-spacing: -0.3px;
 
     color: var(--text-color);
     background-color: var(--bg-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
 }
 
 header {
@@ -105,47 +111,46 @@ nav ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-
+    gap: 18px;
     max-width: 1200px;
     margin: 0 auto;
-
     list-style: none;
-
-    gap: 25px;
 }
-nav a {
-    font-size: 15px;
-    font-weight: 500;
 
+nav ul li {
+    flex: 1 1 150px;
+    min-width: 110px;
+    max-width: 200px;
+}
+
+nav a,
+nav ul li a {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center;
+    white-space: normal;
+    display: block;
     position: relative;
-
-    padding: 8px 12px;
-
+    padding: 8px 10px;
     transition: all 0.3s ease;
     text-decoration: none;
-
     color: var(--header-text);
     border-radius: 8px;
 }
 
 nav a:hover,
-nav a.active {
+nav a.active,
+nav ul li a:hover,
+nav ul li a.active {
     color: #ffffff;
     background-color: var(--nav-hover);
 }
+
 nav ul li {
     list-style: none;
-}
-
-nav ul li a {
-    color: var(--header-text);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 15px;
-    padding: 8px 14px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    position: relative;
 }
 
 /* Hover + Active */
@@ -331,13 +336,20 @@ nav ul li a.active::after {
     }
 
     nav ul {
-        gap: 15px;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 10px;
+        width: 100%;
+    }
+
+    nav ul li {
+        grid-column: span 1;
     }
 
     nav a,
     nav ul li a {
-        font-size: 13px;
-        padding: 6px 10px;
+        font-size: 12px;
+        padding: 6px 8px;
     }
 
     .page-hero h2 {
@@ -360,13 +372,13 @@ nav ul li a.active::after {
 
 @media (max-width: 480px) {
     nav ul {
-        gap: 10px;
+        gap: 8px;
     }
 
     nav a,
     nav ul li a {
-        font-size: 12px;
-        padding: 5px 8px;
+        font-size: 11px;
+        padding: 4px 7px;
     }
 
     .page-hero h2 {
@@ -380,5 +392,17 @@ nav ul li a.active::after {
     .gallery-grid {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
         gap: 10px;
+    }
+}
+
+@media (min-width: 992px) {
+    nav ul {
+        flex-wrap: nowrap;
+    }
+
+    nav ul li {
+        flex: 0 1 auto;
+        min-width: 0;
+        max-width: none;
     }
 }
