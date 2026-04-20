@@ -55,7 +55,7 @@
     "awayScore": 1,
     "date": "2025-11-29",
     "time": "15:00",
-    "venue": "Tango Stadium",
+    "venue": "Rujeko Stadium",
     "status": "completed",
     "competition": "League",
     "events": [
@@ -65,7 +65,7 @@
   },
   {
     "id": 4,
-    "homeTeam": "GZu FC",
+    "homeTeam": "GZU FC",
     "awayTeam": "Tango FC",
     "homeScore": 2,
     "awayScore": 4,
@@ -191,12 +191,16 @@
     "id": 12,
     "homeTeam": "Tango FC",
     "awayTeam": "Sparklions FC",
+    "homeScore": 1,
+    "awayScore": 2,
     "date": "2026-04-18",
     "time": "15:00",
     "venue": "Shakashe Stadium",
     "status": "upcoming",
     "competition": "League",
-    "events": []
+    "events": [
+      { "type": "goal", "team": "home", "player": "Kimmich", "minute": 67 }
+    ]
   },
   {
     "id": 13,
