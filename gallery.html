@@ -47,14 +47,19 @@
 
     <!-- FILTER BUTTONS -->
     <div class="gallery-filters">
-        <button class="active" onclick="filterGallery('all')">All</button>
+        <button onclick="filterGallery('all')">All</button>
         <button onclick="filterGallery('matchday')">Matchday</button>
         <button onclick="filterGallery('champions')">Champions</button>
-        <button onclick="filterGallery('newseason')">2026 Season</button>
+        <button class="active" onclick="filterGallery('newseason')">2026 Season</button>
     </div>
 
     <!-- GALLERY -->
     <div class="gallery-container">
+
+        <div class="subsection">
+            <h3>2026 Season</h3>
+            <div class="gallery-grid" id="newseasonPicturesGrid"></div>
+        </div>
 
         <div class="subsection">
             <h3>Matchday Pictures</h3>
@@ -66,10 +71,7 @@
             <div class="gallery-grid" id="celebrationsPicturesGrid"></div>
         </div>
 
-        <div class="subsection">
-            <h3>2026 Season</h3>
-            <div class="gallery-grid" id="newseasonPicturesGrid"></div>
-        </div>
+       
 
     </div>
 

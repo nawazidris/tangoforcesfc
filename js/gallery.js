@@ -1,4 +1,17 @@
 const galleryPhotos = [
+     // New Season
+    { id: 300, src: 'images/new1.jpeg', title: 'New Season', sub: 'newseason' },
+    { id: 301, src: 'images/new2.jpeg', title: 'New Season', sub: 'newseason' },
+    { id: 302, src: 'images/new3.jpeg', title: 'New Season', sub: 'newseason' },
+    { id: 303, src: 'images/new4.jpeg', title: 'New Season', sub: 'newseason' },
+    { id: 304, src: 'images/new5.jpeg', title: 'New Season', sub: 'newseason' },
+    { id: 305, src: 'images/new6.jpeg', title: 'New Season', sub: 'newseason' },
+    { id: 306, src: 'images/new7.jpeg', title: 'New Season', sub: 'newseason' },
+    { id: 307, src: 'images/new8.jpeg', title: 'New Season', sub: 'newseason' },
+    { id: 308, src: 'images/new9.jpeg', title: 'New Season', sub: 'newseason' },
+    { id: 309, src: 'images/new10.jpeg', title: 'New Season', sub: 'newseason' },
+    { id: 310, src: 'images/new11.jpeg', title: 'New Season', sub: 'newseason' },
+
     // Matchday Pictures
     { id: 1, src: 'images/tango1.jpg', title: 'Match Victory', sub: 'matchday' },
     { id: 2, src: 'images/tango2.jpg', title: 'Cup Final', sub: 'matchday' },
@@ -29,21 +42,9 @@ const galleryPhotos = [
     { id: 108, src: 'images/IMG_3513.jpg', title: 'Victory Moment', sub: 'champions' },
     { id: 110, src: 'images/IMG_3518.jpg', title: 'Trophy Lift', sub: 'champions' },
     { id: 112, src: 'images/IMG_3520.jpg', title: 'Victory Moment', sub: 'champions' },
-    { id: 225, src: 'images/IMG_3662.jpg', title: 'Trophy Lift', sub: 'champions' },
+    { id: 225, src: 'images/IMG_3662.jpg', title: 'Trophy Lift', sub: 'champions' }
 
-    // New Season
-    { id: 300, src: 'images/new1.jpeg', title: 'New Season', sub: 'newseason' },
-    { id: 301, src: 'images/new2.jpeg', title: 'New Season', sub: 'newseason' },
-    { id: 302, src: 'images/new3.jpeg', title: 'New Season', sub: 'newseason' },
-    { id: 303, src: 'images/new4.jpeg', title: 'New Season', sub: 'newseason' },
-    { id: 304, src: 'images/new5.jpeg', title: 'New Season', sub: 'newseason' },
-    { id: 305, src: 'images/new6.jpeg', title: 'New Season', sub: 'newseason' },
-    { id: 306, src: 'images/new7.jpeg', title: 'New Season', sub: 'newseason' },
-    { id: 307, src: 'images/new8.jpeg', title: 'New Season', sub: 'newseason' },
-    { id: 308, src: 'images/new9.jpeg', title: 'New Season', sub: 'newseason' },
-    { id: 309, src: 'images/new10.jpeg', title: 'New Season', sub: 'newseason' },
-    { id: 310, src: 'images/new11.jpeg', title: 'New Season', sub: 'newseason' }
-
+   
 ];
 
 let currentImages = [];
@@ -51,9 +52,10 @@ let currentIndex = 0;
 
 function renderGallery(filter = 'all') {
     const grids = {
+        newseason: document.getElementById('newseasonPicturesGrid'),
         matchday: document.getElementById('matchdayPicturesGrid'),
-        champions: document.getElementById('celebrationsPicturesGrid'),
-        newseason: document.getElementById('newseasonPicturesGrid')
+        champions: document.getElementById('celebrationsPicturesGrid')
+        
     };
 
     Object.values(grids).forEach(grid => grid.innerHTML = '');
@@ -118,3 +120,5 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') changeImage(1);
     if (e.key === 'ArrowLeft') changeImage(-1);
 });
+
+window.onload = () => filterGallery('newseason');

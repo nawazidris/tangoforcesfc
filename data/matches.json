@@ -196,7 +196,7 @@
     "date": "2026-04-18",
     "time": "15:00",
     "venue": "Shakashe Stadium",
-    "status": "upcoming",
+    "status": "completed",
     "competition": "League",
     "events": [
       { "type": "goal", "team": "home", "player": "Kimmich", "minute": 67 }
