@@ -103,23 +103,47 @@ header {
     z-index: 100;
     top: 0;
 
-    color: var(--header-text);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background-color: var(--header-bg);
-
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background-color: #ffffff;
+    color: #0c2340;
+    border-bottom: 1px solid rgba(0, 45, 90, 0.12);
+    box-shadow: 0 10px 30px rgba(15, 44, 90, 0.05);
 }
 
 .header-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     width: 100%;
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
-    padding: 16px 20px;
+    padding: 14px 24px;
+    gap: 24px;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: #002b4f;
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.brand-logo {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #003d82 0%, #005cb8 100%);
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .header-top h1 {
@@ -128,21 +152,34 @@ header {
 }
 
 nav {
-    padding: 0 20px 10px 20px;
+    padding: 0;
 }
+
 .nav-links {
     list-style: none;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
-    gap: 20px;
+    align-items: center;
+    gap: 18px;
+    padding: 0;
+    margin: 0;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+.nav-links li {
+    flex: 0 0 auto;
 }
 
 .nav-links li a {
     text-decoration: none;
-    color: #fffefe;
-    padding: 8px 12px;
+    color: #0c2340;
+    padding: 10px 16px;
     display: block;
+    border-radius: 999px;
+    transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 nav ul {
@@ -152,12 +189,12 @@ nav ul {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 1300px;
+    margin: 0;
+    padding: 0;
 
     list-style: none;
-
-    gap: 25px;
+    gap: 18px;
 }
 
 nav ul li {
@@ -166,20 +203,25 @@ nav ul li {
 
 nav a {
     font-family: var(--font-heading);
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
 
     position: relative;
-
-    padding: 8px 12px;
-
-    transition: all 0.3s ease;
+    padding: 10px 16px;
+    transition: all 0.25s ease;
     text-decoration: none;
+    color: #0c2340;
+    border-radius: 999px;
+}
 
-    color: var(--header-text);
-    border-radius: 8px;
+nav a:hover,
+nav a.active,
+.nav-links li a:hover,
+.nav-links li a.active {
+    color: #003d82;
+    background-color: rgba(0, 92, 184, 0.10);
 }
 
 nav a:hover,
