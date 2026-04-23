@@ -47,7 +47,7 @@
 
 .admin-page .nav-links {
     gap: 18px;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 .admin-page .nav-links li a {

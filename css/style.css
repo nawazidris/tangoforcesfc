@@ -120,6 +120,26 @@ header {
     gap: 24px;
 }
 
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.header-logo,
+.hero-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.hero-logo {
+    width: 42px;
+    height: 42px;
+    vertical-align: middle;
+}
+
 .brand {
     display: inline-flex;
     align-items: center;
