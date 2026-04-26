@@ -199,27 +199,37 @@
     "status": "completed",
     "competition": "League",
     "events": [
-      { "type": "goal", "team": "home", "player": "Kimmich", "minute": 67 }
+      { "type": "goal", "team": "home", "player": "Kimmich",      "minute": 67}
+
+
+  
     ]
   },
   {
     "id": 13,
-    "homeTeam": "Prison FC",
-    "awayTeam": "Tango FC",
+    "homeTeam": "Tango FC",
+    "awayTeam": "Prison FC",
     "date": "2026-04-25",
     "time": "15:00",
-    "venue": "Vic High Stadium",
-    "status": "upcoming",
+    "venue": "Shakashe Stadium",
+    "status": "completed",
     "competition": "League",
-    "events": []
+    "events": [
+{ "type": "goal", "team": "home", "player": "Edrice", "minute": 22},
+
+{ "type": "goal", "team": "home", "player": "Edrice", "minute": 30 },
+
+  { "type": "goal", "team": "home", "player": "Tan Tan", "minute": 41 }
+  
+]
   },
   {
     "id": 14,
-    "homeTeam": "Tango FC",
-    "awayTeam": "Morefire FC",
+    "homeTeam": "Morefire FC",
+    "awayTeam": "Tango FC",
     "date": "2026-05-02",
     "time": "15:00",
-    "venue": "Shakashe Stadium",
+    "venue": "Pecos Arena Stadium",
     "status": "upcoming",
     "competition": "League",
     "events": []
