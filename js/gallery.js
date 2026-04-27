@@ -12,11 +12,11 @@ const galleryPhotos = [
     { id: 309, src: 'images/new10.jpeg', title: 'New Season', sub: 'newseason' },
     { id: 310, src: 'images/new11.jpeg', title: 'New Season', sub: 'newseason' },
     { id: 311, src: 'images/new12.jpeg', title: 'Prison Game', sub: 'newseason' },
-    { id: 312, src: 'images/new3.jpeg', title: 'Prison Game', sub: 'newseason' },
+    { id: 312, src: 'images/new13.jpeg', title: 'Prison Game', sub: 'newseason' },
     { id: 313, src: 'images/new14.jpeg', title: 'Prison Game', sub: 'newseason' },
     { id: 314, src: 'images/new15.jpeg', title: 'Prison Game', sub: 'newseason' },
-    { id: 315, src: 'images/new16.jpeg', title: 'Prison Game', sub: 'newseason' },
-    { id: 316, src: 'images/new17.jpeg', title: 'Prison Game', sub: 'newseason' },
+    { id: 315, src: 'images/new16.jpeg', title: '10 yeclub', sub: 'newseason' },
+    { id: 316, src: 'images/new17.jpeg', title: 'Celebrations', sub: 'newseason' },
 
 
 
