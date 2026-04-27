@@ -11,6 +11,14 @@ const galleryPhotos = [
     { id: 308, src: 'images/new9.jpeg', title: 'New Season', sub: 'newseason' },
     { id: 309, src: 'images/new10.jpeg', title: 'New Season', sub: 'newseason' },
     { id: 310, src: 'images/new11.jpeg', title: 'New Season', sub: 'newseason' },
+    { id: 311, src: 'images/new12.jpeg', title: 'Prison Game', sub: 'newseason' },
+    { id: 312, src: 'images/new3.jpeg', title: 'Prison Game', sub: 'newseason' },
+    { id: 313, src: 'images/new14.jpeg', title: 'Prison Game', sub: 'newseason' },
+    { id: 314, src: 'images/new15.jpeg', title: 'Prison Game', sub: 'newseason' },
+    { id: 315, src: 'images/new16.jpeg', title: 'Prison Game', sub: 'newseason' },
+    { id: 316, src: 'images/new17.jpeg', title: 'Prison Game', sub: 'newseason' },
+
+
 
     // Matchday Pictures
     { id: 1, src: 'images/tango1.jpg', title: 'Match Victory', sub: 'matchday' },

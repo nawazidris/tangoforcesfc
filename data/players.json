@@ -4,8 +4,8 @@
         "name": "Edrice",
         "position": "Forward",
         "stats": {
-            "gamesPlayed": 3,
-            "goals": 1,
+            "gamesPlayed": 5,
+            "goals": 3,
             "assists": 0
         }
     },
@@ -14,8 +14,8 @@
         "name": "Tan Tan",
         "position": "Midfielder",
         "stats": {
-            "gamesPlayed": 4,
-            "goals": 1,
+            "gamesPlayed": 6,
+            "goals": 2,
             "assists": 1
         }
     },
@@ -32,13 +32,11 @@
     },
     {
         "id": 4,
-        "name": "Rashy",
-        "position": "Goalkeeper",
+        "name": "Kimmich",
+        "position": "Midfielder",
         "stats": {
-            "gamesPlayed": 2,
-            "goalsAgainst": 1,
-             "cleanSheets": 1,
-            "saves": 5
+            "goals": 1,
+            "assists": 0
         }
     }
 ]
