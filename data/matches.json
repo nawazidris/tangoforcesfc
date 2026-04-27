@@ -209,6 +209,8 @@
     "id": 13,
     "homeTeam": "Tango FC",
     "awayTeam": "Prison FC",
+     "homeScore": 3,
+    "awayScore": 2,
     "date": "2026-04-25",
     "time": "15:00",
     "venue": "Shakashe Stadium",
