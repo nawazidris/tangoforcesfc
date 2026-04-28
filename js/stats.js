@@ -28,13 +28,8 @@ const renderStatsTable = (players) => {
         row.innerHTML = `
             <td>${player.name || 'Unknown'}</td>
             <td>${player.position || '-'}</td>
-            <td>${player.team || '-'}</td>
-            <td>${stats.gamesPlayed ?? '-'}</td>
             <td>${stats.goals ?? '-'}</td>
             <td>${stats.assists ?? '-'}</td>
-            <td>${stats.cleanSheets ?? '-'}</td>
-            <td>${stats.goalsAgainst ?? '-'}</td>
-            <td>${stats.saves ?? '-'}</td>
         `;
         statsBody.appendChild(row);
     });
