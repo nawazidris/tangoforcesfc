@@ -240,18 +240,62 @@ function handleStandingsUpload(event){
     if(!file) return;
 
     const reader = new FileReader();
-    reader.onload = () => {
+    reader.onload = async () => {
         const text = reader.result;
-        const parsed = parseStandingText(text);
-        if(parsed){
+        let parsed = null;
+
+        if (file.type.includes('json') || file.name.toLowerCase().endsWith('.json')) {
+            try {
+                parsed = JSON.parse(text);
+            } catch (error) {
+                parsed = null;
+            }
+        } else {
+            parsed = parseStandingText(text);
+        }
+
+        if (parsed && parsed.headers && parsed.rows) {
             localStorage.setItem('leagueStandingsJson', JSON.stringify(parsed));
             renderStandingsPreview(parsed);
-            alert('Standings uploaded and saved for the stats page.');
+            await saveUpdatedLogJson(parsed);
+            alert('Standings uploaded and saved for the public page. A log.json save was attempted.');
         } else {
-            alert('Unable to parse the standings log. Please use a plain table format.');
+            alert('Unable to parse the standings log. Please use a plain table or JSON format.');
         }
     };
     reader.readAsText(file);
+}
+
+async function saveUpdatedLogJson(parsed) {
+    const content = JSON.stringify(parsed, null, 2);
+
+    if (window.showSaveFilePicker) {
+        try {
+            const handle = await window.showSaveFilePicker({
+                suggestedName: 'log.json',
+                types: [{
+                    description: 'JSON file',
+                    accept: { 'application/json': ['.json'] }
+                }]
+            });
+            const writable = await handle.createWritable();
+            await writable.write(content);
+            await writable.close();
+            return;
+        } catch (error) {
+            console.warn('Save file picker cancelled or unavailable:', error);
+        }
+    }
+
+    const blob = new Blob([content], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = 'log.json';
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+    URL.revokeObjectURL(url);
 }
 
 function parseStandingText(text){

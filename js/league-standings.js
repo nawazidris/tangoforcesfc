@@ -2,35 +2,64 @@ document.addEventListener('DOMContentLoaded', () => {
     loadLeagueStandings();
 });
 
-function loadLeagueStandings() {
+async function loadLeagueStandings() {
     const container = document.getElementById('standingsTableContainer');
     const noData = document.getElementById('standingsNoData');
 
     if (!container || !noData) return;
 
-    const raw = localStorage.getItem('leagueStandingsJson');
-    if (!raw) {
+    let parsed = null;
+    const localRaw = localStorage.getItem('leagueStandingsJson');
+
+    if (localRaw) {
+        parsed = safeParseLeagueJson(localRaw);
+        if (!parsed) {
+            console.warn('Invalid local standings JSON, falling back to log.json');
+        }
+    }
+
+    if (!parsed) {
+        parsed = await loadStandingsFromLogJson();
+    }
+
+    if (!parsed || !parsed.headers || !parsed.rows || !parsed.rows.length) {
         container.innerHTML = '';
         noData.style.display = 'block';
+        noData.textContent = 'No league standings have been uploaded yet.';
         return;
     }
 
+    noData.style.display = 'none';
+    renderLeagueTable(parsed, container);
+}
+
+function safeParseLeagueJson(raw) {
     try {
-        const parsed = JSON.parse(raw);
-        if (!parsed || !parsed.headers || !parsed.rows || !parsed.rows.length) {
-            container.innerHTML = '';
-            noData.textContent = 'The uploaded standings file did not contain valid rows.';
-            noData.style.display = 'block';
-            return;
+        return JSON.parse(raw);
+    } catch (error) {
+        console.error('League standings parse error:', error);
+        return null;
+    }
+}
+
+async function loadStandingsFromLogJson() {
+    try {
+        const response = await fetch('data/log.json');
+        if (!response.ok) {
+            console.warn('Could not fetch data/log.json:', response.statusText);
+            return null;
         }
 
-        noData.style.display = 'none';
-        renderLeagueTable(parsed, container);
+        const json = await response.json();
+        if (!json || !json.headers || !json.rows) {
+            console.warn('data/log.json does not contain valid standings structure');
+            return null;
+        }
+
+        return json;
     } catch (error) {
-        container.innerHTML = '';
-        noData.textContent = 'Unable to read league standings. Please re-upload from the admin page.';
-        noData.style.display = 'block';
-        console.error('League standings parse error:', error);
+        console.warn('Failed to load data/log.json:', error);
+        return null;
     }
 }
 
