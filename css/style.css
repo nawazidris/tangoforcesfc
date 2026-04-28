@@ -952,6 +952,65 @@ to {
     .player-front-content h3 {
         font-size: 18px;
     }
+
+    /* Hero Section Mobile */
+    .hero {
+        margin: 15px 0;
+        padding: 40px 20px;
+        border-radius: 12px;
+    }
+
+    .hero-content h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .hero-badge {
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+
+    .hero-content h2 {
+        font-size: 24px;
+    }
+
+    .hero-content p {
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    .hero-stats {
+        gap: 12px;
+        margin-bottom: 15px;
+    }
+
+    .hero-stats .stat-item {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .hero-stats .stat-number {
+        font-size: 18px;
+    }
+
+    .hero-stats .stat-label {
+        font-size: 11px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .hero-actions a {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+
+    .hero-logo {
+        height: 30px;
+        width: 30px;
+    }
 }
 
 .player-face-id {
