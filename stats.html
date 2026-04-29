@@ -90,7 +90,33 @@
                     <strong id="summaryPoints">-</strong>
                 </div>
             </div>
-            <p class="summary-note">Summary values are derived from the latest league standings log for Tango FC.</p>
+            
+            <div class="team-metrics-grid">
+                <div class="team-metric-card">
+                    <span class="metric-label">Goals per Match</span>
+                    <strong id="summaryGoalsPerMatch">-</strong>
+                </div>
+                <div class="team-metric-card">
+                    <span class="metric-label">Points per Match</span>
+                    <strong id="summaryPointsPerGame">-</strong>
+                </div>
+                <div class="team-metric-card">
+                    <span class="metric-label">Win Percentage</span>
+                    <strong id="summaryWinPct">-</strong>
+                </div>
+                <div class="team-metric-card">
+                    <span class="metric-label">Recent Form</span>
+                    <div class="form-badges" id="summaryForm">-</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="form-panel">
+            <h2>Recent Season Form</h2>
+            <div class="form-panel-content">
+                <div class="form-summary-text">Current season form across the latest matches since the Tango FC 3-2 Safeguard season opener.</div>
+                <div class="recent-form-list" id="recentFormMatches"></div>
+            </div>
         </section>
 
         <section class="top-scorers">
@@ -114,6 +140,7 @@
                             <th>Appearances</th>
                             <th>Goals</th>
                             <th>Assists</th>
+                            <th>Clean Sheets</th>
                         </tr>
                     </thead>
                     <tbody>

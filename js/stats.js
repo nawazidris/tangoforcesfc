@@ -2,16 +2,22 @@ let statsPlayers = [];
 
 const fetchPlayerStats = async () => {
     try {
-        const response = await fetch('data/players.json');
-        const data = await response.json();
+        const [playersResponse, seasonMatches] = await Promise.all([
+            fetch('data/players.json'),
+            loadSeasonMatches()
+        ]);
+
+        const data = await playersResponse.json();
         statsPlayers = data;
         const leagueSummary = await getLeagueSummary();
+
         updateStatsSummary(data, leagueSummary);
         populateFilterOptions(data);
         displayTopScorers(data);
         renderGoalsAssistsChart(data);
         renderStatsTable(data);
         applyLeagueSummaryUI(leagueSummary);
+        applySeasonMetricsUI(leagueSummary, seasonMatches);
     } catch (error) {
         console.error('Error fetching player stats:', error);
     }
@@ -32,6 +38,7 @@ const renderStatsTable = (players) => {
             <td>${stats.gamesPlayed ?? '-'}</td>
             <td>${stats.goals ?? '-'}</td>
             <td>${stats.assists ?? '-'}</td>
+            <td>${stats.cleanSheets ?? '-'}</td>
         `;
         statsBody.appendChild(row);
     });
@@ -201,6 +208,95 @@ const applyLeagueSummaryUI = (summary) => {
     document.getElementById('summaryDraws').textContent = summary.draws;
     document.getElementById('summaryLosses').textContent = summary.losses;
     document.getElementById('summaryPoints').textContent = summary.points;
+};
+
+const applySeasonMetricsUI = (summary, seasonMatches) => {
+    const goalsPerMatch = summary?.matchesPlayed ? (summary.goalsFor / summary.matchesPlayed).toFixed(2) : '-';
+    const pointsPerGame = summary?.matchesPlayed ? (summary.points / summary.matchesPlayed).toFixed(2) : '-';
+    const winPct = summary?.matchesPlayed ? ((summary.wins / summary.matchesPlayed) * 100).toFixed(0) + '%' : '-';
+    const formBadges = seasonMatches.slice(-5).map(match => {
+        const result = getTangoMatchResult(match);
+        return `<span class="form-badge form-badge-${result.toLowerCase()}">${result}</span>`;
+    }).join('');
+
+    document.getElementById('summaryGoalsPerMatch').textContent = goalsPerMatch;
+    document.getElementById('summaryPointsPerGame').textContent = pointsPerGame;
+    document.getElementById('summaryWinPct').textContent = winPct;
+    document.getElementById('summaryForm').innerHTML = formBadges || '<span class="form-empty">No form data</span>';
+    renderRecentFormMatches(seasonMatches.slice(-5));
+};
+
+const getTangoMatchResult = (match) => {
+    const tangoIsHome = match.homeTeam === 'Tango FC';
+    const tangoGoals = tangoIsHome ? match.homeScore : match.awayScore;
+    const opponentGoals = tangoIsHome ? match.awayScore : match.homeScore;
+
+    if (tangoGoals > opponentGoals) return 'W';
+    if (tangoGoals < opponentGoals) return 'L';
+    return 'D';
+};
+
+const renderRecentFormMatches = (recentMatches) => {
+    const container = document.getElementById('recentFormMatches');
+    if (!container) return;
+
+    if (!recentMatches || !recentMatches.length) {
+        container.innerHTML = '<p class="form-empty">No season matches available yet.</p>';
+        return;
+    }
+
+    container.innerHTML = recentMatches.map(match => {
+        const tangoIsHome = match.homeTeam === 'Tango FC';
+        const opponent = tangoIsHome ? match.awayTeam : match.homeTeam;
+        const score = tangoIsHome ? `${match.homeScore}-${match.awayScore}` : `${match.awayScore}-${match.homeScore}`;
+        const result = getTangoMatchResult(match);
+        const resultClass = result === 'W' ? 'form-win' : result === 'D' ? 'form-draw' : 'form-loss';
+        return `
+            <div class="recent-match-card ${resultClass}">
+                <div class="recent-match-result">${result}</div>
+                <div class="recent-match-detail">
+                    <span class="recent-match-teams">Tango FC vs ${opponent}</span>
+                    <span class="recent-match-score">${score}</span>
+                    <span class="recent-match-date">${match.date}</span>
+                </div>
+            </div>
+        `;
+    }).join('');
+};
+
+const loadSeasonMatches = async () => {
+    try {
+        const response = await fetch('data/matches.json');
+        if (!response.ok) return [];
+
+        const matches = await response.json();
+        const tangoMatches = matches
+            .filter(match => match.status === 'completed' && isTangoMatch(match))
+            .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        const seasonStart = getSeasonStartDate(tangoMatches);
+        if (!seasonStart) return tangoMatches;
+
+        return tangoMatches.filter(match => new Date(match.date) >= seasonStart);
+    } catch (error) {
+        console.warn('Failed to load season matches:', error);
+        return [];
+    }
+};
+
+const isTangoMatch = (match) => {
+    return match.homeTeam === 'Tango FC' || match.awayTeam === 'Tango FC';
+};
+
+const getSeasonStartDate = (matches) => {
+    const opener = matches.find(match => {
+        const opponent = match.homeTeam === 'Tango FC' ? match.awayTeam : match.homeTeam;
+        const isSafeguard = opponent.toLowerCase().includes('safeguard');
+        const tangoScore = match.homeTeam === 'Tango FC' ? match.homeScore : match.awayScore;
+        const oppScore = match.homeTeam === 'Tango FC' ? match.awayScore : match.homeScore;
+        return isSafeguard && tangoScore === 3 && oppScore === 2;
+    });
+    return opener ? new Date(opener.date) : null;
 };
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -5590,6 +5590,155 @@ RESPONSIVE
     font-size: 0.95rem;
 }
 
+.team-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.team-metric-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 45, 90, 0.12);
+    border-radius: 18px;
+    padding: 18px;
+    text-align: center;
+}
+
+.team-metric-card .metric-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: rgba(11, 23, 36, 0.72);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.team-metric-card strong {
+    font-size: 1.8rem;
+    color: #0b3d91;
+}
+
+.form-badges {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.form-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(11, 61, 145, 0.85);
+}
+
+.form-badge-w {
+    background: #1e7e34;
+}
+
+.form-badge-d {
+    background: #f0ad4e;
+}
+
+.form-badge-l {
+    background: #c82333;
+}
+
+.form-empty {
+    color: rgba(11, 23, 36, 0.65);
+    font-weight: 600;
+}
+
+.form-panel {
+    margin-bottom: 30px;
+    padding: 22px 24px;
+    border-radius: 20px;
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 45, 90, 0.12);
+}
+
+.form-panel h2 {
+    margin-bottom: 18px;
+}
+
+.form-panel-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+.form-summary-text {
+    color: rgba(11, 23, 36, 0.75);
+}
+
+.recent-form-list {
+    display: grid;
+    gap: 12px;
+}
+
+.recent-match-card {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 16px;
+    align-items: center;
+    padding: 16px;
+    border-radius: 16px;
+    background: rgba(0, 45, 90, 0.03);
+    border: 1px solid rgba(0, 45, 90, 0.08);
+}
+
+.recent-match-result {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    font-weight: 700;
+    color: #fff;
+}
+
+.form-win .recent-match-result {
+    background: #1e7e34;
+}
+
+.form-draw .recent-match-result {
+    background: #f0ad4e;
+}
+
+.form-loss .recent-match-result {
+    background: #c82333;
+}
+
+.recent-match-detail {
+    display: grid;
+    gap: 6px;
+}
+
+.recent-match-teams,
+.recent-match-score,
+.recent-match-date {
+    display: block;
+}
+
+.recent-match-teams {
+    font-weight: 700;
+}
+
+.recent-match-score {
+    color: #0b3d91;
+}
+
+.recent-match-date {
+    color: rgba(11, 23, 36, 0.62);
+}
+
 .stats-controls {
     margin-bottom: 24px;
 }
