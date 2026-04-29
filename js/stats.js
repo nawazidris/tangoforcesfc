@@ -5,12 +5,13 @@ const fetchPlayerStats = async () => {
         const response = await fetch('data/players.json');
         const data = await response.json();
         statsPlayers = data;
-        updateStatsSummary(data);
+        const leagueSummary = await getLeagueSummary();
+        updateStatsSummary(data, leagueSummary);
         populateFilterOptions(data);
         displayTopScorers(data);
         renderGoalsAssistsChart(data);
         renderStatsTable(data);
-        loadLeagueStandings();
+        applyLeagueSummaryUI(leagueSummary);
     } catch (error) {
         console.error('Error fetching player stats:', error);
     }
@@ -35,12 +36,11 @@ const renderStatsTable = (players) => {
     });
 };
 
-const updateStatsSummary = (players) => {
-    const leagueSummary = getLeagueSummary();
+const updateStatsSummary = (players, leagueSummary) => {
     const totalGoals = players.reduce((sum, player) => sum + (player.stats?.goals || 0), 0);
     const totalGoalsAgainst = players.reduce((sum, player) => sum + (player.stats?.goalsAgainst || 0), 0);
     const totalMatches = leagueSummary?.matchesPlayed ?? players.reduce((sum, player) => sum + (player.stats?.gamesPlayed || 0), 0);
-    const goalDiff = (leagueSummary?.goalDifference ?? (totalGoals - totalGoalsAgainst));
+    const goalDiff = leagueSummary?.goalDifference ?? (leagueSummary ? leagueSummary.goalsFor - leagueSummary.goalsAgainst : totalGoals - totalGoalsAgainst);
 
     document.getElementById('summaryMatches').textContent = totalMatches;
     document.getElementById('summaryGoalsFor').textContent = leagueSummary?.goalsFor ?? totalGoals;
@@ -48,34 +48,43 @@ const updateStatsSummary = (players) => {
     document.getElementById('summaryGoalDiff').textContent = goalDiff;
 };
 
-const getLeagueSummary = () => {
+const parseLeagueStandings = (parsed) => {
+    if (!parsed || !parsed.headers || !parsed.rows || !parsed.rows.length) return null;
+    const tangoRow = parsed.rows.find(row => row.some(cell => String(cell).toLowerCase().includes('tango fc')));
+    if (!tangoRow || tangoRow.length < 10) return null;
+
+    const [position, ...teamAndStats] = tangoRow;
+    const stats = teamAndStats.slice(-8);
+    const goalsFor = Number(stats[4]) || 0;
+    const goalsAgainst = Number(stats[5]) || 0;
+    const matchesPlayed = Number(stats[0]) || 0;
+    const goalDifference = Number(stats[6]) || goalsFor - goalsAgainst;
+
+    return {
+        position: Number(position) || null,
+        matchesPlayed,
+        goalsFor,
+        goalsAgainst,
+        goalDifference,
+        points: Number(stats[7]) || 0
+    };
+};
+
+const getLeagueSummary = async () => {
     try {
         const raw = localStorage.getItem('leagueStandingsJson');
-        if (!raw) return null;
+        if (raw) {
+            const parsed = JSON.parse(raw);
+            const leagueSummary = parseLeagueStandings(parsed);
+            if (leagueSummary) return leagueSummary;
+        }
 
-        const parsed = JSON.parse(raw);
-        if (!parsed || !parsed.headers || !parsed.rows || !parsed.rows.length) return null;
-
-        const tangoRow = parsed.rows.find(row => row.some(cell => String(cell).toLowerCase().includes('tango fc')));
-        if (!tangoRow || tangoRow.length < 10) return null;
-
-        const [position, ...teamAndStats] = tangoRow;
-        const stats = teamAndStats.slice(-8);
-        const goalsFor = Number(stats[4]) || 0;
-        const goalsAgainst = Number(stats[5]) || 0;
-        const matchesPlayed = Number(stats[0]) || 0;
-        const goalDifference = Number(stats[6]) || goalsFor - goalsAgainst;
-
-        return {
-            position: Number(position) || null,
-            matchesPlayed,
-            goalsFor,
-            goalsAgainst,
-            goalDifference,
-            points: Number(stats[7]) || 0
-        };
+        const response = await fetch('data/log.json');
+        if (!response.ok) return null;
+        const json = await response.json();
+        return parseLeagueStandings(json);
     } catch (error) {
-        console.warn('League summary parse failed:', error);
+        console.warn('League summary load failed:', error);
         return null;
     }
 };
@@ -177,14 +186,12 @@ const renderGoalsAssistsChart = (players) => {
     `;
 };
 
-const loadLeagueStandings = () => {
-    const summary = getLeagueSummary();
-    if (summary) {
-        document.getElementById('summaryMatches').textContent = summary.matchesPlayed;
-        document.getElementById('summaryGoalsFor').textContent = summary.goalsFor;
-        document.getElementById('summaryGoalsAgainst').textContent = summary.goalsAgainst;
-        document.getElementById('summaryGoalDiff').textContent = summary.goalDifference;
-    }
+const applyLeagueSummaryUI = (summary) => {
+    if (!summary) return;
+    document.getElementById('summaryMatches').textContent = summary.matchesPlayed;
+    document.getElementById('summaryGoalsFor').textContent = summary.goalsFor;
+    document.getElementById('summaryGoalsAgainst').textContent = summary.goalsAgainst;
+    document.getElementById('summaryGoalDiff').textContent = summary.goalDifference;
 };
 
 document.addEventListener('DOMContentLoaded', () => {
