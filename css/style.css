@@ -5525,11 +5525,8 @@ RESPONSIVE
 .badge-icon {
     width: 64px;
     height: 64px;
-    display: grid;
-    place-items: center;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.18);
-    font-size: 1.75rem;
+    object-fit: cover;
     margin-bottom: 10px;
 }
 
