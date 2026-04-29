@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Player Stats</title>
+    <title>Tango FC Stats</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -17,40 +17,83 @@
         <nav>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-            <li><a href="technical-team.html">Technical Team</a></li>
-            <li><a href="roster.html">Roster</a></li>
-            <li><a href="matches.html">Matches</a></li>
-            <li><a href="stats.html">Stats</a></li>
-            <li><a href="league-standings.html">Standings</a></li>
-            <li><a href="history.html">History</a></li>
-            <li><a href="videos.html">Videos</a></li>
-            <li><a href="gallery.html" class="active">Gallery</a></li>
+                <li><a href="technical-team.html">Technical Team</a></li>
+                <li><a href="roster.html">Roster</a></li>
+                <li><a href="matches.html">Matches</a></li>
+                <li><a href="stats.html" class="active">Stats</a></li>
+                <li><a href="league-standings.html">Standings</a></li>
+                <li><a href="history.html">History</a></li>
+                <li><a href="videos.html">Videos</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <section class="stats-overview">
-            <div class="stats-summary-cards">
-                <div class="summary-card">
-                    <span class="summary-label">Matches Played</span>
-                    <strong id="summaryMatches">0</strong>
-                </div>
-                <div class="summary-card">
-                    <span class="summary-label">Goals Scored</span>
-                    <strong id="summaryGoalsFor">0</strong>
-                </div>
-                <div class="summary-card">
-                    <span class="summary-label">Goals Conceded</span>
-                    <strong id="summaryGoalsAgainst">0</strong>
-                </div>
-                <div class="summary-card">
-                    <span class="summary-label">Goal Difference</span>
-                    <strong id="summaryGoalDiff">0</strong>
+        <section class="stats-hero">
+            <div class="hero-copy">
+                <span class="hero-tag">Official Season Report</span>
+                <h2>Tango FC Performance Dashboard</h2>
+                <p>Football statistics powered by league standings and player metrics for the current campaign.</p>
+            </div>
+            <div class="hero-badge">
+                <div class="badge-icon">⚽</div>
+                <div class="badge-copy">
+                    <span>Club</span>
+                    <strong>Tango FC</strong>
                 </div>
             </div>
         </section>
 
-                <section class="top-scorers">
+        <section class="stats-overview">
+            <div class="stats-summary-cards">
+                <div class="summary-card">
+                    <span class="summary-icon">📅</span>
+                    <span class="summary-label">Matches Played</span>
+                    <strong id="summaryMatches">0</strong>
+                </div>
+                <div class="summary-card">
+                    <span class="summary-icon">⚽</span>
+                    <span class="summary-label">Goals Scored</span>
+                    <strong id="summaryGoalsFor">0</strong>
+                </div>
+                <div class="summary-card">
+                    <span class="summary-icon">🧤</span>
+                    <span class="summary-label">Goals Conceded</span>
+                    <strong id="summaryGoalsAgainst">0</strong>
+                </div>
+                <div class="summary-card">
+                    <span class="summary-icon">📈</span>
+                    <span class="summary-label">Goal Difference</span>
+                    <strong id="summaryGoalDiff">0</strong>
+                </div>
+            </div>
+
+            <div class="league-summary-cards">
+                <div class="league-summary-card">
+                    <span class="summary-label">League Position</span>
+                    <strong id="summaryPosition">-</strong>
+                </div>
+                <div class="league-summary-card">
+                    <span class="summary-label">Wins</span>
+                    <strong id="summaryWins">-</strong>
+                </div>
+                <div class="league-summary-card">
+                    <span class="summary-label">Draws</span>
+                    <strong id="summaryDraws">-</strong>
+                </div>
+                <div class="league-summary-card">
+                    <span class="summary-label">Losses</span>
+                    <strong id="summaryLosses">-</strong>
+                </div>
+                <div class="league-summary-card">
+                    <span class="summary-label">Points</span>
+                    <strong id="summaryPoints">-</strong>
+                </div>
+            </div>
+            <p class="summary-note">Summary values are derived from the latest league standings log for Tango FC.</p>
+        </section>
+
+        <section class="top-scorers">
             <h2>Top Scorers</h2>
             <div class="top-scorers-cards" id="topScorersContainer"></div>
         </section>
@@ -61,16 +104,17 @@
         </section>
 
         <section id="stats-section">
-            <h2>Statistics Overview</h2>
+            <h2>Player Performance</h2>
             <div class="table-responsive">
                 <table id="stats-table">
                     <thead>
                         <tr>
                             <th>Player Name</th>
                             <th>Position</th>
+                            <th>Appearances</th>
                             <th>Goals</th>
                             <th>Assists</th>
-                                                   </tr>
+                        </tr>
                     </thead>
                     <tbody>
                         <!-- Player stats will be populated here -->

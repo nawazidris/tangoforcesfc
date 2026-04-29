@@ -29,6 +29,7 @@ const renderStatsTable = (players) => {
         row.innerHTML = `
             <td>${player.name || 'Unknown'}</td>
             <td>${player.position || '-'}</td>
+            <td>${stats.gamesPlayed ?? '-'}</td>
             <td>${stats.goals ?? '-'}</td>
             <td>${stats.assists ?? '-'}</td>
         `;
@@ -63,6 +64,9 @@ const parseLeagueStandings = (parsed) => {
     return {
         position: Number(position) || null,
         matchesPlayed,
+        wins: Number(stats[1]) || 0,
+        draws: Number(stats[2]) || 0,
+        losses: Number(stats[3]) || 0,
         goalsFor,
         goalsAgainst,
         goalDifference,
@@ -192,6 +196,11 @@ const applyLeagueSummaryUI = (summary) => {
     document.getElementById('summaryGoalsFor').textContent = summary.goalsFor;
     document.getElementById('summaryGoalsAgainst').textContent = summary.goalsAgainst;
     document.getElementById('summaryGoalDiff').textContent = summary.goalDifference;
+    document.getElementById('summaryPosition').textContent = summary.position ?? '-';
+    document.getElementById('summaryWins').textContent = summary.wins;
+    document.getElementById('summaryDraws').textContent = summary.draws;
+    document.getElementById('summaryLosses').textContent = summary.losses;
+    document.getElementById('summaryPoints').textContent = summary.points;
 };
 
 document.addEventListener('DOMContentLoaded', () => {
