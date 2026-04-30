@@ -40,13 +40,12 @@
 }
 
 .hero-badge span {
-    display: inline-block;
-    margin-bottom: 18px;
-    padding: 10px 18px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.12);
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 6px 12px;
     color: white;
-    font-weight: 700;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #007aff, #5856d6);
 }
 
 .hero-actions {
