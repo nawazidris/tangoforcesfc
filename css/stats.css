@@ -1,3 +1,66 @@
 /* Stats page styles */
 
-/* Page-specific styles can be added here. */
+/* Page-specific styles for stats.html */
+.stats-hero .hero-copy h2,
+.stats-hero .hero-copy p,
+.stats-hero .hero-copy .hero-tag {
+    color: #ffffff;
+}
+
+.stats-hero .hero-copy {
+    max-width: 640px;
+}
+
+.league-summary-cards {
+    justify-content: center;
+    max-width: 320px;
+    margin: 18px auto 0;
+    gap: 8px;
+}
+
+.league-summary-card {
+    padding: 2px 12px;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.league-summary-card strong {
+    font-size: 1.4rem;
+}
+
+.form-panel {
+    max-width: 1080px;
+    margin: 0 auto 30px;
+    padding: 18px 20px;
+}
+
+.form-panel-content {
+    display: grid;
+    gap: 18px;
+}
+
+.form-summary-text {
+    font-size: 0.98rem;
+}
+
+.recent-form-list {
+    gap: 10px;
+}
+
+.recent-match-card {
+    padding: 14px;
+}
+
+.recent-match-detail {
+    gap: 4px;
+}
+
+@media (min-width: 900px) {
+    .form-panel-content {
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: start;
+    }
+}
+

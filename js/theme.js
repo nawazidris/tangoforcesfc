@@ -5,18 +5,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load saved theme or default to light
     const savedTheme = localStorage.getItem('theme') || 'light';
     htmlElement.setAttribute('data-theme', savedTheme);
-    updateThemeButton(savedTheme);
-    
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = htmlElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        
-        htmlElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeButton(newTheme);
-    });
+
+    if (themeToggle) {
+        updateThemeButton(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeButton(newTheme);
+        });
+    }
     
     function updateThemeButton(theme) {
+        if (!themeToggle) return;
         themeToggle.textContent = theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
     }
 
