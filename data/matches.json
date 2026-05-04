@@ -229,6 +229,8 @@
     "id": 14,
     "homeTeam": "Morefire FC",
     "awayTeam": "Tango FC",
+    "homeScore": 1,
+    "awayScore": 3,
     "date": "2026-05-02",
     "time": "15:00",
     "venue": "Pecos Arena Stadium",
