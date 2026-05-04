@@ -234,7 +234,7 @@
     "date": "2026-05-02",
     "time": "15:00",
     "venue": "Pecos Arena Stadium",
-    "status": "upcoming",
+    "status": "completed",
     "competition": "League",
     "events": [
 { "type": "goal", "team": "away", "player": "Gerrygold", "minute": 26},
