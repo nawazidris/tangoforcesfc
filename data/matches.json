@@ -249,12 +249,16 @@
     "id": 15,
     "homeTeam": "LOG FC",
     "awayTeam": "Tango FC",
+"homeScore": 1,
+    "awayScore": 1,
     "date": "2026-05-02",
     "time": "15:00",
     "venue": "Mamutse Stadium",
-    "status": "upcoming",
+    "status": "completed",
     "competition": "League",
-    "events": []
+    "events": [
+{ "type": "goal", "team": "away", "player": "Mahrez", "minute": 80}
+]
   },
   {
     "id": 16,
