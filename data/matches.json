@@ -239,9 +239,9 @@
     "events": [
 { "type": "goal", "team": "away", "player": "Gerrygold", "minute": 26},
 
-{ "type": "goal", "team": "away", "player": "Svari", "minute": 60 },
+{ "type": "goal", "team": "away", "player": "Svari", "assist": "Edrice", "minute": 60 },
 
-  { "type": "goal", "team": "away", "player": "Vincho", "minute": 70}
+  { "type": "goal", "team": "away", "player": "Vincho", "assist": "Edrice", "minute": 70}
 
 ]
   },
