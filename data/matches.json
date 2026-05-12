@@ -257,7 +257,7 @@
     "status": "completed",
     "competition": "League",
     "events": [
-{ "type": "goal", "team": "away", "player": "Mahrez", "minute": 80}
+{ "type": "goal", "team": "away", "player": "Mahrez", "assist": "Edrice", "minute": 80}
 ]
   },
   {
