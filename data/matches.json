@@ -239,9 +239,9 @@
     "events": [
 { "type": "goal", "team": "away", "player": "Gerrygold", "minute": 26},
 
-{ "type": "goal", "team": "away", "player": "Svari", "minute": 60 },
+{ "type": "goal", "team": "away", "player": "Svari", "assist": "Edrice", "minute": 60 },
 
-  { "type": "goal", "team": "away", "player": "Vincho", "minute": 70}
+  { "type": "goal", "team": "away", "player": "Vincho", "assist": "Edrice", "minute": 70}
 
 ]
   },
@@ -249,12 +249,16 @@
     "id": 15,
     "homeTeam": "LOG FC",
     "awayTeam": "Tango FC",
+"homeScore": 1,
+    "awayScore": 1,
     "date": "2026-05-02",
     "time": "15:00",
     "venue": "Mamutse Stadium",
-    "status": "upcoming",
+    "status": "completed",
     "competition": "League",
-    "events": []
+    "events": [
+{ "type": "goal", "team": "away", "player": "Mahrez", "assist": "Edrice", "minute": 80}
+]
   },
   {
     "id": 16,
