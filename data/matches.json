@@ -264,11 +264,17 @@
     "id": 16,
     "homeTeam": "Tango FC",
     "awayTeam": "Thorglott FC",
+    "homeScore": 2,
+    "awayScore": 1,
     "date": "2026-05-09",
     "time": "15:00",
     "venue": "Shakashe Stadium",
-    "status": "upcoming",
+    "status": "completed",
     "competition": "League",
-    "events": []
+    "events": [
+{ "type": "goal", "team": "away", "player": "Edrice", "assist": "Mahrez", "minute": 20}
+
+{ "type": "goal", "team": "away", "player": "Edrice", "minute": 20}
+]
   }
 ]
