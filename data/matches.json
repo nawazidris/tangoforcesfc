@@ -199,17 +199,14 @@
     "status": "completed",
     "competition": "League",
     "events": [
-      { "type": "goal", "team": "home", "player": "Kimmich",      "minute": 67}
-
-
-  
+      { "type": "goal", "team": "home", "player": "Kimmich", "minute": 67}
     ]
   },
   {
     "id": 13,
     "homeTeam": "Tango FC",
     "awayTeam": "Prison FC",
-     "homeScore": 3,
+    "homeScore": 3,
     "awayScore": 2,
     "date": "2026-04-25",
     "time": "15:00",
@@ -217,13 +214,10 @@
     "status": "completed",
     "competition": "League",
     "events": [
-{ "type": "goal", "team": "home", "player": "Edrice", "minute": 22},
-
-{ "type": "goal", "team": "home", "player": "Edrice", "minute": 30 },
-
-  { "type": "goal", "team": "home", "player": "Tan Tan", "minute": 41 }
-  
-]
+      { "type": "goal", "team": "home", "player": "Edrice", "minute": 22},
+      { "type": "goal", "team": "home", "player": "Edrice", "minute": 30 },
+      { "type": "goal", "team": "home", "player": "Tan Tan", "minute": 41 }
+    ]
   },
   {
     "id": 14,
@@ -237,19 +231,16 @@
     "status": "completed",
     "competition": "League",
     "events": [
-{ "type": "goal", "team": "away", "player": "Gerrygold", "minute": 26},
-
-{ "type": "goal", "team": "away", "player": "Svari", "assist": "Edrice", "minute": 60 },
-
-  { "type": "goal", "team": "away", "player": "Vincho", "assist": "Edrice", "minute": 70}
-
-]
+      { "type": "goal", "team": "away", "player": "Gerrygold", "minute": 26},
+      { "type": "goal", "team": "away", "player": "Svari", "assist": "Edrice", "minute": 60 },
+      { "type": "goal", "team": "away", "player": "Vincho", "assist": "Edrice", "minute": 70}
+    ]
   },
   {
     "id": 15,
     "homeTeam": "LOG FC",
     "awayTeam": "Tango FC",
-"homeScore": 1,
+    "homeScore": 1,
     "awayScore": 1,
     "date": "2026-05-02",
     "time": "15:00",
@@ -257,8 +248,8 @@
     "status": "completed",
     "competition": "League",
     "events": [
-{ "type": "goal", "team": "away", "player": "Mahrez", "assist": "Edrice", "minute": 80}
-]
+      { "type": "goal", "team": "away", "player": "Mahrez", "assist": "Edrice", "minute": 80}
+    ]
   },
   {
     "id": 16,
@@ -272,9 +263,8 @@
     "status": "completed",
     "competition": "League",
     "events": [
-{ "type": "goal", "team": "away", "player": "Edrice", "assist": "Mahrez", "minute": 20}
-
-{ "type": "goal", "team": "away", "player": "Edrice", "minute": 20}
-]
+      { "type": "goal", "team": "away", "player": "Edrice", "assist": "Mahrez", "minute": 20},
+      { "type": "goal", "team": "away", "player": "Edrice", "minute": 20}
+    ]
   }
 ]
