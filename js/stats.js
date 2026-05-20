@@ -151,8 +151,7 @@ const displayTopScorers = (players) => {
     if (!container) return;
 
     const topScorers = [...players]
-        .sort((a, b) => (b.stats?.goals || 0) - (a.stats?.goals || 0) || (b.stats?.assists || 0) - (a.stats?.assists || 0))
-        .slice(0, 5);
+        .sort((a, b) => (b.stats?.goals || 0) - (a.stats?.goals || 0) || (b.stats?.assists || 0) - (a.stats?.assists || 0));
 
     if (topScorers.length === 0) {
         container.innerHTML = '<p>No player stats available.</p>';

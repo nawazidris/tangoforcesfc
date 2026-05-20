@@ -4,9 +4,9 @@
         "name": "Edrice",
         "position": "Forward",
         "stats": {
-            "gamesPlayed": 5,
-            "goals": 3,
-            "assists": 0
+            "gamesPlayed": 7,
+            "goals": 5,
+            "assists": 3
         }
     },
     {
@@ -35,6 +35,57 @@
         "name": "Kimmich",
         "position": "Midfielder",
         "stats": {
+            "gamesPlayed": 4,
+            "goals": 1,
+            "assists": 0
+        }
+    },
+    {
+        "id": 5,
+        "name": "Vincho",
+        "position": "Forward",
+        "stats": {
+            "gamesPlayed": 4,
+            "goals": 1,
+            "assists": 0
+        }
+    },
+    {
+        "id": 6,
+        "name": "Gerrygold",
+        "position": "Defender",
+        "stats": {
+            "gamesPlayed": 7,
+            "goals": 1,
+            "assists": 0
+        }
+    },
+    {
+        "id": 7,
+        "name": "Mahrez",
+        "position": "Forward",
+        "stats": {
+            "gamesPlayed": 6,
+            "goals": 1,
+            "assists": 1
+        }
+        },
+    {
+        "id": 8,
+        "name": "Dos",
+        "position": "Midfielder",
+        "stats": {
+            "gamesPlayed": 8,
+            "goals": 1,
+            "assists": 3
+        }
+    },
+    {
+        "id": 9,
+        "name": "Svari",
+        "position": "Forward",
+        "stats": {
+            "gamesPlayed": 2,
             "goals": 1,
             "assists": 0
         }
