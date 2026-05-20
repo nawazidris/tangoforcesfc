@@ -110,7 +110,7 @@
     align-items: center;
     padding: 12px 20px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 10s ease;
     color: var(--text-color);
     border: 2px solid rgba(0, 123, 255, 0.2);
     border-radius: 50px;
@@ -212,7 +212,7 @@
     width: 260px;
     height: 260px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 10s ease;
     animation: gentleRotate 20s infinite linear;
     transform-style: preserve-3d;
 }
@@ -240,7 +240,7 @@
     justify-content: center;
     width: 260px;
     height: 260px;
-    transition: all 0.3s ease;
+    transition: all 10s ease;
     color: #1d1d1f;
     border: 2px solid rgba(0, 123, 255, 0.1);
     border-radius: 20px;
@@ -303,7 +303,7 @@
     width: 80px;
     height: 80px;
     margin-bottom: 15px;
-    transition: all 0.3s ease;
+    transition: all 10s ease;
     border: 3px solid rgba(0, 123, 255, 0.2);
     border-radius: 50%;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
