@@ -78,27 +78,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const technicalContainer = document.getElementById('technicalTeam');
     
     if (technicalContainer) {
-        // Build hierarchy: CEO on top, next 3 in middle row, rest in bottom row
+        // Build hierarchy for responsive display: 1 card, then 2 cards, then 1 card, then 2 cards, then 2 cards
         const ceo = technicalTeam.find(m => m.role.toLowerCase() === 'ceo') || technicalTeam[0];
         const others = technicalTeam.filter(m => m !== ceo);
-        const middle = others.slice(0, 3);
-        const bottom = others.slice(3);
+        const rowCounts = [2, 1, 2, 2];
 
-        const topRow = document.createElement('div');
-        topRow.className = 'technical-row top';
-        if (ceo) topRow.appendChild(createTechnicalCard(ceo));
+        const appendRow = (members, name) => {
+            if (!members.length) return;
+            const row = document.createElement('div');
+            row.className = `technical-row ${name}`;
+            members.forEach(member => row.appendChild(createTechnicalCard(member)));
+            technicalContainer.appendChild(row);
+        };
 
-        const middleRow = document.createElement('div');
-        middleRow.className = 'technical-row middle';
-        middle.forEach(member => middleRow.appendChild(createTechnicalCard(member)));
+        if (ceo) {
+            appendRow([ceo], 'top');
+        }
 
-        const bottomRow = document.createElement('div');
-        bottomRow.className = 'technical-row bottom';
-        bottom.forEach(member => bottomRow.appendChild(createTechnicalCard(member)));
+        let offset = 0;
+        rowCounts.forEach((count, index) => {
+            const members = others.slice(offset, offset + count);
+            offset += members.length;
+            appendRow(members, `row-${index + 2}`);
+        });
 
-        technicalContainer.appendChild(topRow);
-        technicalContainer.appendChild(middleRow);
-        technicalContainer.appendChild(bottomRow);
+        if (offset < others.length) {
+            appendRow(others.slice(offset), 'row-extra');
+        }
     }
 });
 

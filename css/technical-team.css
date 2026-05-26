@@ -1,5 +1,6 @@
 @import url("style.css");
 
+.technical-team,
 .technical-grid {
     display: flex;
     align-items: center;
@@ -29,6 +30,29 @@
     border-radius: 12px;
     background-color: var(--card-bg);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+@media (max-width: 900px) {
+    .technical-row.row-2 .technical-card,
+    .technical-row.row-4 .technical-card,
+    .technical-row.row-5 .technical-card,
+    .technical-row.row-extra .technical-card {
+        width: calc(50% - 18px);
+        max-width: 320px;
+    }
+
+    .technical-row.top .technical-card,
+    .technical-row.row-3 .technical-card {
+        width: 72%;
+        max-width: 420px;
+    }
+}
+
+@media (max-width: 640px) {
+    .technical-card {
+        width: 90%;
+        max-width: 360px;
+    }
 }
 
 .technical-card .technical-card-inner {
