@@ -271,15 +271,15 @@
     "id": 17,
     "homeTeam": "Tango FC",
     "awayTeam": "Careful Driving Academy",
-    "homeScore": null,
-    "awayScore": null,
+    "homeScore": 1,
+    "awayScore": 2,
     "date": "2026-05-23",
     "time": "15:00",
     "venue": "Shakashe Stadium",
-    "status": "upcoming",
+    "status": "completed",
     "competition": "League",
     "events": [
-      
+      { "type": "goal", "team": "home", "player": "Vincho", "minute": 75}
     ]
   },
   {
