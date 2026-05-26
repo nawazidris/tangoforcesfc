@@ -279,7 +279,7 @@
     "status": "completed",
     "competition": "League",
     "events": [
-      { "type": "goal", "team": "home", "player": "Vincho", "assist": "Mahrez ", "minute": 75}
+      { "type": "goal", "team": "home", "player": "Vincho", "assist": "Edrice", "minute": 75}
     ]
   },
   {
