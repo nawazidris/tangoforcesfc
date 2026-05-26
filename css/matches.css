@@ -89,6 +89,26 @@
 .mobile-header .match-date {
     text-align: center;
     justify-self: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.mobile-header .match-date.win {
+    background: #16a34a;
+}
+
+.mobile-header .match-date.draw {
+    background: #f59e0b;
+}
+
+.mobile-header .match-date.lose {
+    background: #dc2626;
+}
+
+.mobile-header .match-date.upcoming {
+    background: #2563eb;
 }
 
 .mobile-main {

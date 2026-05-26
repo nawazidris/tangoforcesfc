@@ -24,7 +24,7 @@
         "name": "Tsano",
         "position": "Defender",
         "stats": {
-            "gamesPlayed": 4,
+            "gamesPlayed": 6,
             "goals": 1,
             "cleanSheets": 1,
             "assists": 0
@@ -35,7 +35,7 @@
         "name": "Kimmich",
         "position": "Midfielder",
         "stats": {
-            "gamesPlayed": 4,
+            "gamesPlayed": 6,
             "goals": 1,
             "assists": 0
         }
@@ -45,8 +45,8 @@
         "name": "Vincho",
         "position": "Forward",
         "stats": {
-            "gamesPlayed": 4,
-            "goals": 1,
+            "gamesPlayed": 6,
+            "goals": 2,
             "assists": 0
         }
     },

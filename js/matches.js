@@ -122,19 +122,19 @@ const displayMatches = (matches, filter='all') => {
         const matchDate = new Date(match.date).toLocaleDateString(undefined, {
             day: 'numeric', month: 'short', year: 'numeric'
         });
+        const resultClass = getMatchResultClass(match);
 
         const matchCard = document.createElement('div');
-        matchCard.className = `match-card ${isCompleted ? 'completed' : 'upcoming'}`;
+        matchCard.className = `mobile-card ${isCompleted ? 'completed' : 'upcoming'}`;
 
         const homeEventsText = renderEventsText(match, 'home');
         const awayEventsText = renderEventsText(match, 'away');
         const hasEvents = homeEventsText || awayEventsText;
 
-        matchCard.className = `mobile-card ${isCompleted ? 'completed' : 'upcoming'}`;
         matchCard.innerHTML = `
             <div class="mobile-header">
                 <span>🏆 ${match.competition || 'League'}</span>
-                <span class="match-date">${matchDate}</span>
+                <span class="match-date ${resultClass}">${matchDate}</span>
                 <span>🏟️ ${match.venue ? match.venue.substring(0, 24) : 'TBA'}</span>
             </div>
             <div class="mobile-main">
@@ -152,6 +152,38 @@ const displayMatches = (matches, filter='all') => {
 
         container.appendChild(matchCard);
     });
+};
+
+const getMatchResultClass = (match) => {
+    if (match.status !== 'completed') {
+        return 'upcoming';
+    }
+
+    const homeScore = Number(match.homeScore);
+    const awayScore = Number(match.awayScore);
+    if (Number.isNaN(homeScore) || Number.isNaN(awayScore)) {
+        return 'upcoming';
+    }
+
+    const tangoHome = match.homeTeam.toLowerCase().includes('tango');
+    const tangoAway = match.awayTeam.toLowerCase().includes('tango');
+    const diff = homeScore - awayScore;
+
+    if (tangoHome) {
+        if (diff > 0) return 'win';
+        if (diff === 0) return 'draw';
+        return 'lose';
+    }
+
+    if (tangoAway) {
+        if (diff < 0) return 'win';
+        if (diff === 0) return 'draw';
+        return 'lose';
+    }
+
+    if (diff > 0) return 'win';
+    if (diff === 0) return 'draw';
+    return 'lose';
 };
 
 /* ================= RENDER EVENTS ================= */
